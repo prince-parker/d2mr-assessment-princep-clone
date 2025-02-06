@@ -6,29 +6,29 @@ This is a centralized directory for D2MR mini-project assessment materials. The 
 
 Working with this repository will help you practice using git and GitHub, which are explicit learning objectives for the course!
 
-Dr. Dowling owns the main repository, and you will create a fork of this repository to complete your mini-projects. This will create a copy of the repository in your GitHub account that you control and can modify without affecting the main repository or being visible to other students.
+Dr. Dowling owns the main repository, and you will create a clone of this repository to complete your mini-projects. This will create a copy of the repository in your GitHub account that you control and can modify without affecting the main repository or being visible to other students.
 
 # Using this repo and completing assessments {#using-repo}
  
 ## Setup instructions {#setup}
 
-1. Create a fork of this repository. 
-    1. Click the "Fork" button in the top right corner of this page (assuming you are viewing this on GitHub)
-    2. Rename the fork by appending your CNetID: `d2mr-assessment-yourcnetid` (e.g. `d2mr-assessment-ndowling`). 
-    3. Add Dr. Dowling and your section TA as collaborators to your forked repository.
-2. Create an R project in RStudio and clone your forked repository to your local machine. The course website has a full guide on how to do this, but the basic steps are:
-    1. In RStudio, go to File -> New Project -> Version Control -> Git
-    2. Enter the URL of your forked repository (e.g. `https://github.com/nrdowling/d2mr-assessment-ndowling.git`) and click "Create Project"
-    3. Because you are using a forked repository, you can pull from both your remote version of the fork or from the main "upstream" repository, but then push only to your fork, confident that you're leaving the main (public) repository untouched.
-3. Periodically -- at minimum before you begin a new project -- pull changes from the main repository to your forked repository to ensure you have the most up-to-date version of the assessment materials. There are [instructions for doing this in RStudio below](#pullupstream) (it's not quite as simple as syncing with your own fork or repos).
+~~Fork the repository.~~ Nope! Not doing that anymore. We're going to mimic forking with a clone. If you see any reference to your "forked" repo here or on the course website, please email Dr. Dowling so we can correct it.
+
+View the full guide for how to set up your clone [here](https://nrdowling.com/d2mr/resources/guides/origin-upstream-repos.html). The guide has instructions for setting up a clone from scratch or from migrating from a fork if you already have one set up.
+
+Briefly, you'll need to first set up your clone to assign both an "origin" (the remote GitHub repository for the clone that you own) and an "upstream" (the remote GitHub repository for the class repo that Dr. Dowling owns). You only need to do this once.
+
+## In-class materials
+
+Code demos and data we use in class or supplement the lectures are added to the `00_in-class-materials` directory. These materials are not part of the mini-project assessments, but they are here for your reference and practice.
 
 ## Completing mini-projects {#completing-projects}
 
-Mini-projects on the menu have a corresponding directory in this repository. Each directory contains (or will contain) either a README.md file with general instructions for approaching the project *or* a Quarto notebook (e.g., cleaning-level-1.qmd) that will guide you through completing the more structured projects.
+Mini-projects on the menu have a corresponding directory in this repository. Each directory contains either a README.md file with general instructions for approaching the project *or* a Quarto notebook (e.g., `cleaning-level-1.qmd`) that will guide you through completing the more structured projects.
 
-Before submitting, you'll need to add a copy of the [assessment.md](assessment.md) file (found here in this top-level directory) to the project directory and complete it. This file will be used to assess your work.
+Before submitting, you'll need to add a copy of the [assessment.md](assessment.md) file (found here in this top-level directory) to the project directory and complete it. This file will be used to assess your work. Mini-project instructions will be published throughout the quarter, but you can complete projects before the materials are added.
 
-### Project types
+## Project types
 
 Mini-projects will mostly fall into one of the following categories: guided exercises, open-ended projects, or off-the-menu projects. The [menu overview](#menu-overview) below discusses these in more detail, but here's a quick summary of the mechanics for completing and submitting them:
 
@@ -40,9 +40,9 @@ These projects will have a Quarto notebook that will guide you through the proje
 
 These projects will have a README.md file that will provide a general description of the project and some guidance on how to approach it. Provided it is sensible to do so, you will put your work in that same directory, in whatever form it takes.
 
-In some cases it's won't make sense (or even be possible) to complete the project in the directory of your centralized assessment repo. For example, mini-projects that require some kind of "publication" (like a website or Quarto APA manuscript) will need to exist in their own dedicated repositories; they can't run as sub-directories of this one. 
+In some cases it won't make sense (or even be possible) to complete the project in the directory of your assessment repo. For example, mini-projects that require some kind of "publication" (like a website or Quarto APA manuscript) will need to exist in their own dedicated repositories; they can't run as sub-directories of this one. Mini-projects intended to show off GitHub skills are nearly always going to need a separate repo.
 
-In those cases, you should still add and complete an [assessment.md](assessment.md) file in the associated project directory (here in this centralized repo), which will include any necessary information about how to access your work. 
+In those cases, you should still add and complete an `assessment.md` file in the associated project directory (here in this centralized repo), which will include any necessary information about how to access your work. 
 
 ### Off-the-menu projects {#otm-projects}
 
@@ -63,60 +63,17 @@ Submit to any one of your 10 mini-project assignments on Canvas (whichever the n
     1. If you completed the project in a separate repository, your [assessment.md](assessment.md) file in the subdirectory should explain how to access your work.
 3. Any additional info you'd like your grader to know
 
-Your grader will access the directory you've linked to, review your work, and provide feedback in the [assessment.md](assessment.md) file. Once the assessment is complete, your grader will push the file back to your repository, and your Canvas assignment submission will be marked "complete." 
+Your grader will access the directory you've linked to, review your work, and provide feedback in the [assessment.md](assessment.md) file. Once the assessment is complete, your grader will push the file back to your repository, and your Canvas assignment submission will be marked "complete." (Note: if a TA graded your work, Dr. Dowling will review and finalize grades before marking the assignment complete.)
 
 
 ### Pulling from the main (upstream) repository {#pullupstream}
 
-You should periodically pull changes from the main repository to your forked repository to ensure you have the most up-to-date version of the assessment materials. Unfortunately RStudio doesn't have a nice easy button to click for this, so you'll need to do it from the terminal pane in RStudio.
+You should periodically pull changes from the upstream repository (the one owned by Dr. Dowling) to your cloned repository to ensure you have the most up-to-date version of the assessment materials. Unfortunately RStudio doesn't have a nice easy button to click for this, so you'll need to do it from the terminal pane in RStudio.
 
-Before the first time you pull from main, you need to tell git where the main repository is. You only need to do this once. In the terminal pane (not the R console) in RStudio, run the following command:
+Once you have set up your origin and upstream repos, you'll pull and push changes to *your* repo using the RStudio interface (the "pull" and "push" buttons in the Git pane). You'll pull from (and never push to) the upstream repo using the terminal command `git pull upstream main`. 
+T
+he [guide for using your cloned repo repo](https://nrdowling.com/d2mr/resources/guides/origin-upstream-repos.html) walks through both the one-time setup process and this regular workflow process step by step.
 
-```bash
-git remote add upstream https://github.com/nrdowling/d2mr-assessment.git
-```
-
-Now you can pull changes from the main repository by running:
-
-```bash
-git pull upstream main
-```
-
-You may get the following message:
-
-```
-hint: You have divergent branches and need to specify how to reconcile them.
-hint: You can do so by running one of the following commands sometime before
-hint: your next pull:
-hint: 
-hint:   git config pull.rebase false  # merge
-hint:   git config pull.rebase true   # rebase
-hint:   git config pull.ff only       # fast-forward only
-hint: 
-hint: You can replace "git config" with "git config --global" to set a default
-hint: preference for all repositories. You can also pass --rebase, --no-rebase,
-hint: or --ff-only on the command line to override the configured default per
-hint: invocation.
-```
-
-If you get this message and you understand all those options, you can make up your mind about what to do next. If this is jibberish to you, just run the following command:
-
-```bash
-git config pull.rebase false
-```
-
-Now try the `git pull upstream main` again. This time it should work, but you'll get pulled into a text editor to write a commit message. You have 2 options:
-
-1. Just close the text editor (it's probably vim) by typing `:q` and hitting enter. This is quick and dirty and not ideal, but since you know you'll never need to merge your fork back to main, it's fine in this context.
-2. Write a commit message. This is the "right" way to do it, but it's a bit more complicated. If you try to just start typing, you won't see anything happen. That's because you're in "command mode" in vim. If you want to do this:
-    1. Hit 'i' to enter 'i'nsert mode.
-    2. Type your commit message.
-    3. Hit `esc` to exit insert mode.
-    4. Type `:wq` and hit enter to save and close the text editor.
-
-Granted, both these assume your machine is using vim (or similar) as a text editor. If that doesn't work, your machine is probably using something other than vim. On PCs it's probably nano. You can try `ctrl+x` to exit, and then `y` to save changes and `enter` to confirm. Still not working? Bust out your troubleshooting workflow. Google is your friend.
-
-Have you hit an impassable wall with pulling from the upstream repo? It's ok. This isn't a major learning objective for the class. You can also do this outside of RStudio with apps designed for GitHub integration, like GitHub Desktop. I'll leave it to you to figure out how to do that.
 
 # Mini-project menu overview {#menu-overview}
 
@@ -136,7 +93,8 @@ This is the structure of this repository. Second-level directories group project
 
 Materials for mini-projects (either a simple readme with general instructions or guided content with a .qmd) will be added to their respective subdirectories as we progress through the quarter, but you may complete projects before the materials are added. 
 
-Projects may be added or revised throughout the quarter, so be sure to keep you fork up-to-date with the main repository.
+Projects may be added or revised throughout the quarter, so be sure to keep your clone up-to-date with the main repository. There's also a very good chance that not all projects will have published instructions, especially the off-the-syllabus projects and the `unassessed_misc` projects. Materials will be added in those kinds of "extra" projects as I get a better sense of students' interests and abilities.
+
 
 **Tags:**
 
@@ -151,10 +109,10 @@ Projects may be added or revised throughout the quarter, so be sure to keep you 
     2. (GE) Level 2
     3. (2+) Un-clean some data & swap to clean
 2. Data wrangling
-    - ~~(GE, DEMO) Walkthrough~~ *(will add if needed)
+    - ~~(GE, DEMO) Walkthrough~~ \*(will add if needed)
     1. (GE) Level 1
     2. (GE) Level 2
-    3. (2+) Ravage some poor datasets & swap to wrangle
+    3. (2+) Wrangle some data & swap to recreate
     4. (OtS) Access, read in, and wrangle nested or non-tabular data (e.g., JSON, XML)
 3.  Data visualization & presentation
     - (GE, DEMO) Walkthrough
@@ -163,15 +121,15 @@ Projects may be added or revised throughout the quarter, so be sure to keep you 
     3. Create a custom ggplot2 theme
     4. (2+) Make plots (w/ some minimum requirements) & swap to recreate
     5. Create beautiful tables with packages like `kableExtra`, `flextable`, `stargazer` , `gt`, or `xtable` ([there are lots!](https://towardsdatascience.com/top-7-packages-for-making-beautiful-tables-in-r-7683d054e541))
-    6. Present the same data in multiple ways (e.g., bar chart, line chart, table)
-    7. (OtS) Create a plot with non-ggplot2 packages
+    6. (OtS) Create a plot with non-ggplot2 packages
 4. Data analysis
+    - Note: Although projects 1 and 2 will include "guided exercises," these are much less guided that the cleaning, wrangling, and visualization GEs. I encourage you to approach either of these in your own way, with or without the structure.
     1. (GE) Descriptive statistics
     2. (GE) Hypothesis testing
     3. (OtS) Higher-level statistics
 5. Data communication
     1. Transpose a paper into Quarto markdown
-    2. Write a memo or brief report based on a previous assignment
+    2. Create a simple .qmd with basic elements
     3. Create a demo .qmd or .Rmd for one or more class topics
     4. (OtS) Recreate your Quarto report with papaja or RMarkdown
     5. (OtS) Use Quarto to publish something other than a document (e.g., website, presentation, dashboard)
