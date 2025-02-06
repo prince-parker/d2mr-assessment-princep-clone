@@ -145,7 +145,7 @@ Projects may be added or revised throughout the quarter, so be sure to keep your
     1. Set up a skeleton repo to create APA quarto manuscripts
     2. (2+) create and maintain a repo as collaborators and use cloning, forking, merging etc
     3. (OtS) Create a GitHub pages website
-    4. (OtS) Host a package through a GitHub repo
+    ~~4. (OtS) Host a package through a GitHub repo~~ (oops, this was a duplicate of 6.5 above)
 8. Unassessed Learning Objectives & Miscellaneous
     1.  Create and document a style guide and apply it to a script or notebook
     2.  Create a debugging journal
