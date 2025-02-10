@@ -1,0 +1,1177 @@
+---
+title: "Introduction to Data Visualization with ggplot2: Walkthrough/Demo Part 2"
+format: html
+editor_options: # Comment out the line you don't want
+  #chunk_output_type: inline
+  chunk_output_type: console
+---
+
+```{r}
+
+#| label: setup
+
+# Set seed for reproducibility
+set.seed(1234)
+
+# Load tidyverse packages, including ggplot2
+library(tidyverse)
+
+# Load papaja for APA plot themes
+library(papaja)
+
+# Load packages for color palettes
+library(ggsci)
+library(RColorBrewer)
+library(viridis)
+
+
+```
+
+
+# Part 2: Customizing plots: Themes, scales, and more
+
+
+## Building on the Grammar of Graphics
+
+In Part 1, we covered the essential components of any ggplot visualization:
+- Data layer: The dataset being visualized
+- Aesthetics layer: Mapping data to visual properties
+- Geometries layer: The shapes used to represent the data
+
+In Part 2, we'll cover the additional layers that allow for more sophisticated and customized visualizations:
+
+1. Scales: Control how data values map to visual properties
+2. Facets: Split your plot into multiple panels
+3. Themes: Customize non-data elements
+4. Coordinates: Modify the coordinate system (briefly)
+5. Statistics: Transform data for visualization (briefly)
+
+Coordinate and statistics layers are more advanced, and covering them in detail is beyond the scope of the class. I've included simple examples of each to give you a sense of what they do, but you'll need to consult the ggplot2 documentation for more information.
+
+#### Dataset: diamonds
+
+Part 1 (mostly) used the `iris` dataset for examples. As a small dataset, it was good for showing the basics. 
+
+In Part 2, we'll switch to the `diamonds` dataset, which can showcase more complex customization. It's also unnecessarily huge, with `r nrow(diamonds)` rows, so we'll take a random sample of 1000 rows to make it more manageable.
+
+```{r}
+
+#| label: make-diamonds-1000
+
+# Select a random sample of 1000 rows from the diamonds dataset
+diamonds1000 <- diamonds %>% 
+  sample_n(1000)
+
+```
+
+
+### Scales Layer
+
+Scales control how data values are mapped to visual properties in your plot. Every aesthetic (color, size, shape, etc.) has an associated scale that can be modified. Scales apply to both axes and legends (they are both just aes mappings!), can be applied separately to each aesthetic, and can be customized in a variety of ways.
+ 
+The general pattern for scale functions is `scale_<aesthetic>_<type>()`, where:
+
+- <aesthetic> is what visual property you're controlling (color, fill, size, etc.)
+- <type> is how you want to handle the data (continuous, discrete, manual, etc.)
+
+It's usually more important to focus on the "type" part of the function. That's where the biggest differences between functions are. In other words, `scale_color_manual()` and `scale_fill_manual()` are very similar, but `scale_color_manual()` and `scale_color_continuous()` are very different.
+
+Remember that many aesthetics work with both continuous and discrete data, which means you need to be pay attention to the data type of the variable mapped to it in the context of your specific dataframe and intended plot.
+
+#### A quick note on color schemes
+
+As of ggplot2 version 3.4.0, the default color schemes have changed. The default color scheme for discrete variables is now based on the `viridis` package. This means that if you don't specify a color scale, ggplot will use the viridis color scheme by default. This is a good thing, as viridis is a colorblind-friendly, perceptually uniform color scheme that works well for most plots.
+
+However, that means if you call some functions without specifying a color scale, you might get different results than you expect. In the first example chunk below, you'll see the version that doesn't directly call scale layers uses the current default viridis colors. The second example does explicitly call them, resulting in ggplot reverting to using the old default color scheme (a kinda rainbow thing in this case). 
+
+In practice, you'll want to take more control over your colors anyway. But you'll want to be aware that when I say two things are "identical" but then they clearly aren't, it doesn't have to do with the code being demonstrated. It's just a quirk of how ggplot2 is currently handling color schemes.
+
+#### Back to scales
+
+**Before we talk scale specifics, two things you need to know about what's happening in the background:**
+
+1. *Labels:* You're usually going to use `labs()` to change the axis and legend labels, but technically the `labs()` function isn't a "layer" the same way scales, facets, and themes are. It's a function that modifies the plot object, not a separate layer that gets added to the plot. When you use `labs()` to modify the labels/titles of axes and legends, you're basically using a helper/shortcut for modifying scale layers that already exist (whether you manually added them or not). That means what you're specifying with `labs()` is a direct alternative to the `name` argument in the scale functions:
+
+```{r}
+
+#| label: scales-labs
+
+# These are identical:
+# ***EXCEPT:*** The color schemes are different. This is a result of how the current version of ggplot2 handles default color schemes. See above ^^
+
+# Using labs() to modify axis and legend labels
+ggplot(diamonds1000, aes(x = carat, y = price, color = cut)) +
+  geom_point() +
+  labs(
+    x = "Carat Weight", 
+    y = "Price (USD)", 
+    color = "Cut Quality"
+  )
+
+# The same thing using scale functions
+ggplot(diamonds1000, aes(x = carat, y = price, color = cut)) +
+  geom_point() +
+  scale_x_continuous(name = "Carat Weight") +
+  scale_y_continuous(name = "Price (USD)") +
+  scale_color_discrete(name = "Cut Quality")
+
+
+```
+
+2. *Defaults:* ggplot has default scales for each aesthetic, so you don't always need to specify them. If you don't specify a scale, ggplot will use the default scale for that aesthetic. The defaults are usually fine, but you'll want to specify scales when you need to customize them.
+
+```{r}
+
+#| label: scales-defaults
+
+# These are identical:
+
+# Using the default scales
+ggplot(diamonds1000, aes(x = carat, y = price, color = cut)) +
+  geom_point()
+
+# The same thing specifying the default scales
+ggplot(diamonds1000, aes(x = carat, y = price, color = cut)) +
+  geom_point() +
+  scale_x_continuous() +
+  scale_y_continuous() +
+  scale_color_discrete()
+
+
+```
+
+It's rare that you'll see scales named with the scale layer (instead of `labs()`), and maybe even rarer to see the default scales specified if they don't need to take any arguments for customization. Still, know that the scale layers always exist and are controlling everything about how your data is mapped to visual properties, including the accompanying text.
+
+
+#### Continuous scales
+
+Continuous scales work with numeric data. Common functions include:
+
+- `scale_x_continuous()` and `scale_y_continuous()` for axis positions
+- `scale_color_continuous()` and `scale_fill_continuous()` for colors
+- `scale_size_continuous()` for size mappings
+
+You can replace x/y, color, fill, and size with any aesthetic using continuous data in your plot.
+
+**Core arguments** -- those that work with nearly all continuous scales -- include range control and transformations.
+
+*Range control:*
+
+This is the main thing you'll want to customize with continuous scales. The range of a scale is the minimum and maximum values of the scale. You can set the range of a scale with the `limits` argument. This is useful for zooming in on a specific part of the data or ensuring that multiple plots have the same scale.
+
+- `limits` set the minimum and maximum values of the scale
+- `breaks` set the tick marks on the scale
+- `labels` set the text of the tick marks
+
+```{r}
+
+#| label: scales-continuous-range
+
+# Set the limits of the x-axis
+ggplot(diamonds1000, aes(x = carat, y = price)) +
+  geom_point() +
+  scale_x_continuous(limits = c(0, 3)) # Set the x-axis limits
+
+# Set the breaks of the x-axis
+## the `breaks` argument is used to set the tick marks on the scale
+## it uses `seq()` to create a sequence of values, 
+## arguments are min, max, and step (space between ticks)
+ggplot(diamonds1000, aes(x = carat, y = price)) +
+  geom_point() +
+  scale_x_continuous(breaks = seq(0, 5, 0.5))
+
+# Set the number of breaks
+## Instead of specifying where the breaks should be, 
+## you can specify how many breaks you want
+ggplot(diamonds1000, aes(x = carat, y = price)) +
+  geom_point() +
+  scale_x_continuous(n.breaks = 4)
+
+# Set the number of x-axis tick marks
+## ^^ notice that it's the number of intervals, not the number of ticks
+## so usually n.breaks = # of ticks - 1
+## BUT it won't break up the axis with decimals, so it's not always exact
+
+
+# Set the breaks and labels of the x-axis
+ggplot(diamonds1000, aes(x = carat, y = price)) +
+  geom_point() +
+  scale_x_continuous(breaks = seq(0, 3, 0.5), 
+                    labels = c("Zero", "Half", "One", "One.5", "Two", "Two.5", "Three"))
+
+# Setting the range of the color scale w/ all 3 arguments
+ggplot(diamonds1000, aes(x = carat, y = price, color = depth)) +
+  geom_point() +
+  scale_color_continuous(limits = c(55, 65), 
+                        breaks = seq(55, 65, 2), 
+                        labels = c("55%", "57%", "59%", "61%", "63%", "65%"))
+
+
+```
+
+*Transformations:*
+
+These probably aren't arguments you need to focus on at this point, but you'll want to know they exist to look up if and when you find yourself in a position to need them.
+
+You can use "transforms" to modify the data before it's mapped to the visual property. Common transforms include:
+
+- `trans = "log10"` for log transformations
+- `trans = "sqrt"` for square root transformations
+- `trans = "reverse"` for reversing the axis
+
+You can also use the function version of these instead of specifying them as arguments. These are basically "wrappers" for the `scale_*_continuous()` functions that have the `trans` argument set to a specific value already.
+
+- `scale_y_reverse()` for reversing the y-axis
+- `scale_x_log10()` for log transforming the x-axis
+- `scale_y_sqrt()` for square root transforming the y-axis
+
+Some simple examples of how these transforms work:
+
+```{r}
+
+#| label: scales-transforms
+
+# Log transformation
+ggplot(diamonds1000, aes(x = carat, y = price)) +
+  geom_point() +
+  scale_y_continuous(trans = "log10") # Log transform the y-axis
+
+# Square root transformation  
+ggplot(diamonds1000, aes(x = carat, y = price)) +
+  geom_point() +
+  scale_y_continuous(trans = "sqrt") # Square root transform the y-axis
+
+# Reverse transformation
+ggplot(diamonds1000, aes(x = carat, y = price)) +
+  geom_point() +
+  scale_y_reverse() # Reverse the y-axis using the function version
+
+# Not just for axes! For any continuous variable
+ggplot(diamonds1000, aes(x = carat, y = price, alpha = depth)) +
+  geom_point() +
+  scale_alpha_continuous(trans = "log10") # Log transform the alpha aesthetic
+
+# Transforms applied to multiple continue aesthetics
+ggplot(diamonds1000, aes(x = carat, y = price, size = depth)) +
+  geom_point(alpha=.2) + # setting points to fixed 20% opacity just so we can see the size differences better
+  scale_y_log10() +
+  scale_size_continuous(trans = "reverse") +
+  scale_x_sqrt()
+
+
+```
+
+**Other arguments** -- those that are specific to certain continuous scales -- include:
+
+*Color scales:*
+
+- `low` and `high` set the colors at the minimum and maximum values
+- `na.value` sets the color for missing values
+
+```{r}
+
+#| label: scales-continuous-color
+
+
+# Set the low and high colors of a 2-color gradient scale
+ggplot(diamonds1000, aes(x = carat, y = price, color = depth)) +
+  geom_point() +
+  scale_color_continuous(low = "blue", high = "red") # Set the low and high colors
+
+# Transform the diamonds dataset to include NA values in the depth variable for demonstration
+diamonds1000 %>%
+  mutate(depth = if_else(carat < 1, NA, depth)) %>%
+  ggplot(aes(x = carat, y = price, color = depth)) +
+  geom_point() +
+  scale_color_continuous(na.value = "red") # Set the color for missing values
+
+```
+
+You can do other very cool color stuff with continuous scales, like using color gradients, color palettes, and color brewer palettes using related functions from other packages. The most commonly used packages for this are [viridis](https://ggplot2.tidyverse.org/reference/scale_viridis.html) (which ggplot2 now uses a version of by default) and [`RColorBrewer`](https://www.renenyffenegger.ch/notes/development/languages/R/packages/RColorBrewer/index). 
+
+```{r}
+
+#| label: scales-continuous-color-palettes
+
+# The viridis package include the continuous palettes: viridis, magma, plasma, inferno and variations
+ggplot(diamonds1000, aes(x = carat, y = price, color = depth)) +
+  geom_point() +
+  scale_color_viridis_c() # Use a color gradient, just regular viridis by default
+
+ggplot(diamonds1000, aes(x = carat, y = price, color = depth)) +
+  geom_point() +
+  scale_color_viridis_c(option = "magma") # Use a different color gradient
+
+# Using RColorBrewer
+ggplot(diamonds1000, aes(x = carat, y = price, color = depth)) +
+  geom_point() +
+  scale_color_distiller(palette = "Greens") # Use a color palette
+
+
+
+```
+
+
+*Scale modifications:*
+
+You can also modify the scales themselves with the `guide` argument. The big one to remember here is how to hide the legend entirely.
+
+- `guide = "colorbar"` for a color bar legend
+- `guide = "legend"` for a legend
+- `guide = "none"` to remove the legend
+
+```{r}
+
+#| label: scales-continuous-guide
+
+# Using the guide argument to modify the scale
+ggplot(diamonds1000, aes(x = carat, y = price, color = carat)) +
+  geom_point() +
+  scale_color_continuous(guide = "colorbar") # Use a color bar legend
+
+ggplot(diamonds1000, aes(x = carat, y = price, color = carat)) +
+  geom_point() +
+  scale_color_continuous(guide = "legend") # Use a legend
+
+ggplot(diamonds1000, aes(x = carat, y = price, color = carat)) +
+  geom_point() +
+  scale_color_continuous(guide = "none") # Remove the legend
+
+
+```
+
+#### Discrete scales
+
+Discrete scales work with categorical (factor) data. Common functions include:
+
+- `scale_x_discrete()` and `scale_y_discrete()` for axis positions
+- `scale_color_discrete()` and `scale_fill_discrete()` for colors
+- `scale_shape_discrete()` for shapes
+- `scale_linetype_discrete()` for line types
+
+You can replace x/y, color, fill, shape, and linetype with any aesthetic using discrete data in your plot.
+
+The core arguments to know for discrete scales are `labels`, `name`, `limits`, and `breaks`. These operate similarly to their continuous counterparts, but since they use discrete data some of the arguments accept different kinds of values.
+
+- `labels` set the text of the tick marks
+- `name` sets the title of the legend
+- `limits` sets the order of the categories
+- `breaks` sets which values appear on the axis or in the legend
+
+
+```{r}
+
+#| label: scales-discrete-core
+
+# Setting the labels & name of the x-axis
+ggplot(diamonds1000, aes(x = cut, y = price)) +
+  geom_boxplot() +
+  scale_x_discrete(
+    labels = c("Fair" = "Poor", "Good" = "Okay", "Very Good" = "Nice", 
+               "Premium" = "Excellent", "Ideal" = "Perfect"), 
+    name = "Diamond Cut Quality")
+
+# Setting the limits of the x-axis
+ggplot(diamonds1000, aes(x = cut, y = price)) +
+  geom_boxplot() +
+  # Change the order
+  scale_x_discrete(limits = c("Ideal", "Premium", "Very Good", "Good", "Fair"))
+
+# Setting the breaks of the x-axis
+ggplot(diamonds1000, aes(x = cut, y = price)) +
+  geom_boxplot() +
+  scale_x_discrete(breaks = c("Ideal", "Good")) # other categories plotted but labels don't appear
+
+# Not just for axes, works for legends too
+ggplot(diamonds1000, aes(x = carat, y = price, color = cut)) +
+  geom_point() +
+  scale_color_discrete(
+    labels = c("Fair" = "Poor", "Good" = "Okay", "Very Good" = "Nice", 
+               "Premium" = "Excellent", "Ideal" = "Perfect"),
+    name = "Cut Quality")
+
+
+```
+
+
+*Color scales:*
+
+- `palette` or `type` sets the color palette (depending on the function)
+- `na.value` sets the color for missing values
+
+Like with continuous scales, you can specify colors with the ggplot discrete scale functions, but you can also use color palettes from other packages. The most commonly used packages for this are (again) `viridis` and `RColorBrewer`, but my personal favorite package is `ggsci`, which includes themes from journals, universities, and TV shows.
+
+```{r}
+
+#| label: scales-discrete-color
+
+# Vector of colors
+ggplot(diamonds1000, aes(x = cut, y = price, color = cut, fill = cut)) +
+  geom_boxplot() +
+  scale_color_discrete(type = c("purple", "black", "cyan", "burlywood", "darkgreen")) + # Use a vector of colors
+  scale_fill_discrete(type = c("#4f5abb", "#dda6b1", "#09435c", "#f7f7f7", "#ff7f00" )) # different scales can have different color vectors
+
+# Using a color palette
+# This uses other packages to go with ggplot2, including RColorBrewer and viridis like with continuous scales
+ggplot(diamonds1000, aes(x = cut, y = price, color = cut, fill = cut)) +
+  geom_boxplot() +
+  scale_color_brewer(palette = "Set1") + # Use a color palette
+  scale_fill_viridis_d() # Use a different color palette
+
+# Using a color palette from ggsci
+#library(ggsci)
+# UChicago!
+ggplot(diamonds1000, aes(x = cut, y = price, color = cut, fill = cut)) +
+  geom_boxplot() +
+  scale_color_uchicago() + # Use a color palette
+  scale_fill_uchicago(palette = "dark") # many have dark and light versions
+
+# My personal fav is futurama
+ggplot(diamonds1000, aes(x = cut, y = price, fill = cut)) +
+  geom_boxplot() +
+  scale_fill_futurama(palette = "planetexpress") # this one doesn't have variations
+
+```
+
+
+*Scale modifications:*
+
+- `guide` sets the type of legend 
+- `drop` removes unused levels
+- `direction` sets the order of the levels (like reverse)
+
+```{r}
+
+#| label: scales-discrete-guide
+
+# Using the guide argument to modify the scale
+# For discrete scales, you can't use a color bar, just legend or none
+ggplot(diamonds1000, aes(x = cut, y = price, color = cut)) +
+  geom_boxplot() +
+  scale_color_discrete(guide = "legend") # Use a legend -- this is the default though
+
+ggplot(diamonds1000, aes(x = cut, y = price, color = cut)) +
+  geom_boxplot() +
+  scale_color_discrete(guide = "none") # Remove the legend -- this is really the only one you'll need
+
+# Using drop to remove unused levels
+# Transform the diamonds dataset to include NA values for demonstration
+diamonds1000 %>%
+  mutate(price = if_else(cut == "Very Good", NA_real_, price)) %>%
+  ggplot(aes(x = cut, y = price, color = cut)) +
+  geom_boxplot() +
+  scale_color_discrete(drop = TRUE) # Remove unused levels -- it's still on the x-axis, because this is just the color scale
+
+#compare to
+diamonds1000 %>%
+  mutate(price = if_else(cut == "Very Good", NA_real_, price)) %>%
+  ggplot(aes(x = cut, y = price, color = cut)) +
+  geom_boxplot() +
+  scale_color_discrete(drop = FALSE) # Keep unused levels (default)
+
+# Use direction to reverse the order of the level colors
+ggplot(diamonds1000, aes(x = cut, y = price, color = cut)) +
+  geom_boxplot() +
+  scale_color_discrete(direction = -1) # Reverse the order of the levels
+
+# Compare to
+ggplot(diamonds1000, aes(x = cut, y = price, color = cut)) +
+  geom_boxplot() +
+  scale_color_discrete(direction = 1) # Keep the order of the levels (default)
+
+```
+
+
+*Manual scales:*
+
+Manual scales are used to manually set the colors, shapes, or sizes of the data. They're useful when you want to specify the visual properties of the data yourself. Basically they can replace `scale_\*_discrete()`, so they work very similarly, just giving you the option to handle just the specific things you want to get granular about.
+
+```{r}
+
+#| label: scales-manual
+
+# Manual discrete scale
+
+ggplot(diamonds1000, aes(x = carat, y = price, color = cut)) +
+  geom_point() +
+  scale_color_manual(values = c("Fair" = "red", "Good" = "blue", "Very Good" = "green", "Premium" = "purple", "Ideal" = "orange"))
+
+
+```
+
+#### Combining scales
+
+You can combine scales in a single plot, but you need to be careful about how you do it. The main thing to remember is that you can't have two scales for the same aesthetic in a single plot. If you try to add a second scale for an aesthetic that already has a scale, ggplot will use the newest scale and ignore the old one (because layers).
+
+Here's an example of how to combine scales in a single plot:
+
+```{r}
+
+#| label: scales-combine
+
+# Combining scales in a single plot
+
+
+ggplot(diamonds1000, aes(x = carat, y = price, color = cut, size = depth)) +
+  geom_point() +
+  scale_color_brewer(palette = "Set2") +
+  scale_size_continuous(range = c(1, 8)) +
+  scale_x_continuous(breaks = seq(0, 3, 0.5)) +
+  scale_y_continuous(limits = c(0, 20000))
+
+
+# Swapping price and depth so we can see the size scale better
+ggplot(diamonds1000, aes(x = carat, y = depth, color = cut, size = price)) +
+  geom_point() +
+  scale_color_viridis_d() +
+  scale_size_continuous(range = c(1, 8)) +
+  scale_x_continuous(breaks = seq(0, 3, 0.5)) +
+  scale_y_continuous(limits = c(50, 70))
+
+
+```
+
+### Facets Layer
+
+Facets create small multiples of your plot based on categorical (factor) variables. Like grouping aesthetics, facets are data-dependent. The same way `fill` will break your data apart into discrete groups of data points based on the mapped variable, `facet_wrap` and `facet_grid` will break your plot into discrete panels based on the mapped variable.
+
+Facets are particularly useful when splitting across groups based on more than 2 variables, where using many colors or shapes would be confusing. They're also useful when you want to compare different groups side-by-side. Typical use cases:
+
+- You want to compare patterns across groups
+- You have too many groups to effectively use color, shape, linetype, etc aesthetics
+- You want to examine the same relationship across different subsets of your data
+- You need to maintain the same basic plot structure but show different aspects of the data
+
+Since facets are essentially an alternative to grouping aesthetics, you'll usually want to play around a bit with different combinations of each to figure out a plot that best conveys the message you want to send.
+
+The main functions for facets are:
+
+- `facet_wrap()` for 1 variable (more common)
+- `facet_grid()` for 1 or 2 variables
+
+The main arguments for facets are:
+
+- `nrow` and `ncol` to control the number of rows and columns
+- `scales` to control whether scales are free or fixed
+
+
+#### facet_wrap
+
+`facet_wrap()` creates a grid of plots based on a single variable. It's useful when you have a single categorical variable you want to split your plot by. 
+
+The first argument specifies the variable to facet by, in the syntax `~variable`.
+
+```{r}
+
+#| label: facet-wrap
+
+# Basic facet_wrap
+ggplot(diamonds1000, aes(x = carat, y = price, color = cut)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  facet_wrap(~cut)
+
+# Control number of rows or columns
+ggplot(diamonds1000, aes(x = carat, y = price, color = cut)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  facet_wrap(~cut, nrow = 3) # force all panels into 3 rows
+
+ggplot(diamonds1000, aes(x = carat, y = price, color = cut)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  facet_wrap(~cut, ncol = 1) # force all panels into one column
+
+# Control scales across panels
+ggplot(diamonds1000, aes(x = carat, y = price, color = cut)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  facet_wrap(~cut, scales = "free") # each panel has its own scales on both axes
+
+# Can also set free scales for just x or y
+ggplot(diamonds1000, aes(x = carat, y = price, color = cut)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  facet_wrap(~cut, scales = "free_x") # only x-axis scales are free
+
+```
+
+#### facet_grid
+
+`facet_grid()` creates a grid of plots based on two variables. It's useful when you have two categorical variables you want to split your plot by. This gives you a lot of control over how your plots are arranged, but it can be a bit more complex to set up and it gets unweildy pretty quickly if you have more than two variables.
+
+The first argument specifies the variables to facet by, in the syntax `rows ~ columns`.
+
+```{r}
+
+#| label: facet-grid
+
+
+# Basic facet_grid
+ggplot(diamonds1000, aes(x = carat, y = price)) +
+  geom_point() +
+  facet_grid(cut ~ clarity) # cut in rows, clarity in columns
+
+# Specify only rows or columns with a dot (.)
+ggplot(diamonds1000, aes(x = carat, y = price)) +
+  geom_point() +
+  facet_grid(. ~ cut) # only columns; this is the equivalent of facet_wrap(~cut)
+
+# You can actually use more than two variables but it's super confusing. Don't recommend.
+ggplot(diamonds1000, aes(x = carat, y = price)) +
+  geom_point() +
+  facet_grid(cut ~ clarity ~ color) # cut in rows, clarity in columns, color in panels
+
+# Reduce that to just a limit number of level in each variable so 
+# we can see anything at all
+diamonds1000 %>% 
+  filter(cut %in% c("Ideal", "Premium"), clarity %in% c("SI1", "SI2"), color %in% c("D", "E")) %>%
+ggplot(aes(x = carat, y = price)) +
+  geom_point() +
+  facet_grid(cut ~ clarity ~ color)
+# Still hard to read, but you get the idea
+
+
+```
+
+
+#### Labeller argument
+
+For aesthetics, you can use elements in the themes and scales layers to control the text that appears on the plot. Facets operate similarly to grouping aesthetics, but they are a different kind of layer, so they have their own way of controlling the text that appears on the panels.
+
+With either `facet_wrap()` or `facet_grid()`, you can use the `labeller` argument to control the text that appears on the panels. 
+
+
+```{r}
+
+#| label: facet-labeller
+
+# Change panel text with labeller for facet_wrap
+ggplot(diamonds1000, aes(x = carat, y = price)) +
+  geom_point() +
+  facet_wrap(~cut,
+    labeller = labeller(cut = c(
+      Fair = "Poor Quality",
+      Good = "Good Quality",
+      "Very Good" = "Very Good Quality",
+      Premium = "Premium Quality",
+      Ideal = "Ideal Quality"
+    )))
+
+# Change panel text with labeller for facet_grid
+ggplot(diamonds1000, aes(x = carat, y = price)) +
+  geom_point() +
+  facet_grid(cut ~ clarity,
+    labeller = labeller(
+      cut = c(
+        Fair = "Poor",
+        Good = "Good",
+        "Very Good" = "V.Good",
+        Premium = "Prem",
+        Ideal = "Ideal"
+      ),
+      # I cannot find any documentatino on what the levels of clarify actually mean. So iffy-ness it is...
+      clarity = c(
+           "I1" = "Iffy 1",
+           "SI2" = "Slightly Iffy 2",
+           "SI1" = "Slightly Iffy 1",
+           "VS2" = "Very Slightly Iffy 2",
+           "VS1" = "Very Slightly Iffy 1",
+           "VVS2" = "Very Very Slightly Iffy 2",
+           "VVS1" = "Very Very Slightly Iffy 1",
+           "IF" = "Internally Flawless"
+      )
+    ))
+
+
+
+```
+
+
+### Themes Layer
+
+Theme layers control all visual elements of your plot that aren't mapped to data. This includes things like the background color, grid lines, axis labels, and legend position, and a *lot* more. There are literally hundreds theme elements you can modify, so you can really go crazy here if you want to.
+
+We won't talk about all 200+, but we'll cover the most common ones you'll want to use. 
+
+The most commonly used theme functions actually don't modify any specific element at all; they set the overall look and feel of the plot by setting several (or many) elements at once. The theme layers built into ggplot2 that you'll see commonly are:
+
+- `theme_minimal()`: A minimalistic theme with no grid lines
+- `theme_classic()`: A classic theme with grid lines
+- `theme_bw()`: A black and white theme with no color
+- `theme_dark()`: A dark theme with dark background and light text
+- `theme_light()`: A light theme with light background and dark text
+- `theme_void()`: A blank theme with no elements at all
+
+
+```{r}
+
+#| label: themes-overall
+
+# Basic plot with default theme
+base_plot <- ggplot(diamonds1000, aes(x = carat, y = price, color = cut)) +
+  geom_point()
+
+# Built-in themes
+base_plot + labs(title = "no theme")
+base_plot + theme_minimal() + labs(title = "theme_minimal")  # Clean, minimal theme
+base_plot + theme_classic() + labs(title = "theme_classic")  # No grid lines
+base_plot + theme_bw() + labs(title = "theme_bw")       # Black and white
+base_plot + theme_dark() + labs(title = "theme_dark")   # Dark background
+base_plot + theme_light() + labs(title = "theme_light") # Light background
+base_plot + theme_void() + labs(title = "theme_void")   # No elements at all
+
+```
+
+The `papaja` package (**P**reparing **APA** **J**ournal **A**rticles) has a theme to style your plots in APA format: `papaja::theme_apa()`. It's a great shortcut for making your plots look professional and publication-ready, but if you use it you need to keep two things in mind.
+
+1) It's not perfect. You still need to check that your plots actually meet APA format.
+2) The `papaja` package is actually a whole suite of tools for creating APA-style documents that is really an alternative to using Quarto and the apaquarto extension. In theory, there's no reason why you can't use just the theme function integrated with Quarto, but you have to be prepared for solving potential conflicts.
+
+```{r}
+
+#| label: themes-apa
+
+# APA theme, very similar to theme_classic
+base_plot + papaja::theme_apa() + labs(title="theme_apa")
+
+
+```
+
+#### Modifying individual elements
+
+You can also modify individual elements of the plot with the `element_*` functions. These functions are used to modify specific elements of the plot, like the background color, grid lines, axis labels, and legend position.
+
+The most commonly used `element_*` functions are:
+
+- `element_blank()`: Remove an element
+- `element_rect()`: Add a rectangle
+- `element_line()`: Add a line
+- `element_text()`: Add text
+
+Any time you want to customize something on the plot, you'll name the element you want to modify as the argument of the theme function, then use the `element_*` function to modify it.
+
+Every element you can modify is a specific type of element, so you'll need to know which `element_*` function to use to modify it. An important exception to how this works is the `element_blank()` function, which can be used to remove *any* element from the plot.
+
+```{r}
+
+#| label: themes-elements
+
+base_plot +
+  theme(
+    # Text elements
+    axis.title = element_text(size = 14, face = "bold"),
+    axis.text = element_text(size = 12, angle = 45),
+    plot.title = element_text(hjust = 0.5, size = 16),
+    
+    # Panel elements
+    panel.grid.major = element_line(color = "gray80"),
+    panel.grid.minor = element_blank(), # grid lines are element_line, but we can remove with element_blank()
+    panel.background = element_rect(fill = "white"),
+    
+    # Legend elements
+    legend.position = "bottom",
+    legend.title = element_text(face = "bold"),
+    legend.background = element_rect(fill = "lightgray")
+  )
+
+
+```
+
+
+#### Text elements
+
+Text elements control the text on the plot. You can modify the size, color, font, and angle of the text. The most commonly used text elements are:
+
+- `axis.title`: Axis titles
+- `axis.text`: Axis labels
+- `plot.title`: Plot title
+- `strip.text`: Facet labels
+- `legend.title`: Legend title
+- `legend.text`: Legend labels
+
+Some have counterparts for specific elements, like `axis.title.x` and `axis.title.y` to modify just one axis title or the other, while `axis.title` modifies both at once.
+
+
+```{r}
+
+#| label: themes-text
+
+base_plot +
+  theme(
+    # Modify all text elements at once
+    text = element_text(size = 12, color = "blue", face = "bold"),
+    # Or target specific elements
+    axis.title = element_text(size = 14, face = "bold"),
+    axis.text = element_text(size = 12, angle = 45),
+    plot.title = element_text(hjust = 0.5, size = 16),
+    strip.text = element_text(size = 12, face = "bold"),
+    legend.title = element_text(face = "bold"),
+    legend.text = element_text(size = 10)
+  )
+
+```
+
+For reference, here are all the ways you can modify text elements:
+
+```{r}
+#| eval: false
+#| include: false
+
+#| label: themes-all-text-args
+
+# All text arguments
+
+element_text(
+  family = NULL,  # Font family
+  face = NULL,  # Font face (plain, bold, italic, bold.italic)
+  color = NULL,  # Text color
+  size = NULL,  # Text size
+  hjust = NULL,  # Horizontal justification (0 = left, 0.5 = center, 1 = right)
+  vjust = NULL,  # Vertical justification (0 = bottom, 0.5 = center, 1 = top)
+  angle = NULL,  # Text angle (degrees)
+  lineheight = NULL,  # Line height (multiple of text size)
+  margin = margin(),  # Text margin
+  debug = NULL  # Debugging
+)
+
+```
+
+
+#### Line elements
+
+Line elements control the lines on the plot, modifying things like the color, size, and type of the lines. The most commonly used line elements are:
+
+- `axis.line`: Axis lines
+- `axis.ticks`: Axis tick marks
+- `panel.grid.major`: Major grid lines
+- `panel.grid.minor`: Minor grid lines
+
+```{r}
+
+#| label: themes-lines
+
+base_plot +
+  theme(
+    # Modify all line elements at once
+    line = element_line(color = "red", linewidth = 0.5, linetype = "dashed"),
+    # Or target specific elements
+    axis.line = element_line(color = "blue", size = 1),
+    axis.ticks = element_line(color = "green", size = 0.5),
+    panel.grid.major = element_line(color = "gray80", size = 0.5),
+    panel.grid.minor = element_blank()  # Remove minor grid lines
+  )
+
+```
+
+For reference, here are all the ways you can modify line elements:
+
+```{r}
+#| eval: false
+#| include: false
+
+#| label: themes-all-line-args
+
+# All line arguments
+element_line(
+  colour = NULL,
+  linewidth = NULL, # used to be "size", now deprecated 
+  linetype = NULL,
+  lineend = NULL,
+  color = NULL,
+  arrow = NULL,
+  inherit.blank = FALSE,
+  size = deprecated()
+)
+
+```
+
+#### Rectangle elements
+
+Rectangle elements control the rectangles on the plot, modifying things like the fill color, outline color, and size of the rectangles. The most commonly used rectangle elements are:
+
+- `panel.background`: Background of the plot
+- `panel.border`: Border of the plot (why this is a rectangle element and not a line, I don't know)
+- `legend.background`: Background of the legend
+- `legend.box.background`: Border of the legend
+- `strip.background`: Background of the facet labels
+
+```{r}
+
+#| label: themes-rectangles
+
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point() +
+  theme(
+    panel.ontop = FALSE,
+    plot.background = element_blank(),
+    panel.background = element_rect(fill = "white"),
+    panel.border = element_rect(color = "black", linewidth = 0.5, fill = NA),
+    legend.background = element_rect(fill = "lightgray"),
+    legend.box.background = element_rect(color = "black", linewidth = 0.5),
+    strip.background = element_rect(fill = "lightgray")
+  )
+
+
+```
+
+For reference, here are all the ways you can modify rectangle elements:
+
+```{r}
+
+#| eval: false
+#| include: false
+
+#| label: themes-all-rectangle-args
+
+# All rectangle arguments
+element_rect(
+  fill = NULL,  # Fill color
+  colour = NULL,  # Border color
+  linewidth = NULL,  # Border size, was "size"
+  linetype = NULL,  # Border line type
+  color = NULL,  # Border color
+  inherit.blank = FALSE
+)
+
+
+```
+
+
+#### Creating your own themes
+
+You can create your own themes by combining elements from the `element_*` functions. This is a great way to create a consistent look and feel across all your plots.
+
+```{r}
+
+#| label: themes-custom
+
+# Create a custom theme
+
+theme_d2mr <- theme(
+  text = element_text(size = 12, color = "#001219", face = "bold"),
+  axis.title = element_text(size = 14, face = "bold"),
+  axis.text = element_text(size = 12, angle = 45, color = "#186681"),
+  plot.title = element_text(hjust = 0.5, size = 16),
+  panel.grid.major = element_line(color = "gray80"),
+  panel.grid.minor = element_blank(),
+  panel.background = element_rect(fill = "#faf8f5"),
+  legend.position = "bottom",
+  legend.title = element_text(face = "bold.italic", size = 14, color = "#7ecce7"),
+  legend.text = element_text(color = "#faf8f5", size = 12, face = "italic"),
+  legend.background = element_rect(fill = "#8c2226")
+)
+
+
+# Make a custom color palette for discrete scales
+
+d2mr_palette <- c("#8c2226", "#7ecce7", "#186681", "#001219", "#d8d6d3")
+
+
+```
+
+The new theme works a little differently from things like `theme_minimal()` or `theme_classic()`, because those defined functions, while our custom theme is an object. So to apply it to a plot, you need to use the `+` operator to add it to the plot. The custom palette is applied to a scales layer. (If `base_plot` already had a defined scale layer, this would override it.)
+
+```{r}
+
+#| label: themes-custom-plot
+
+# apply both the theme and the palette to a plot
+
+base_plot + 
+  theme_d2mr +
+  scale_color_manual(values = d2mr_palette)
+  
+```
+
+
+
+
+### Coordinates Layer (Brief)
+
+The coordinates layer controls how the position aesthetics (x and y) are interpreted and displayed on the plot. While most plots use the default Cartesian coordinate system, other systems can be useful for specific visualizations:
+
+```{r}
+
+#| label: coordinates
+
+
+# Common coordinate functions
+ggplot(diamonds1000, aes(x = cut, y = price)) +
+  geom_boxplot() +
+  coord_flip() # Useful for long labels or many categories
+
+ggplot(diamonds1000, aes(x = cut)) +
+  geom_bar() +
+  coord_polar() # Creates circular plots, good for cyclical data, can make pie charts
+
+ggplot(diamonds1000, aes(x = depth, y = table)) + # no i do not know what "table" means
+  geom_point() +
+  coord_fixed(ratio = 1) # Forces equal scaling, can be important for some spatial data
+
+
+# Common coordinate functions
+ggplot(iris, aes(x = Species, y = Sepal.Length)) +
+  geom_boxplot() +
+  coord_flip()  # Useful for long labels or many categories
+
+ggplot(iris, aes(x = Species)) +
+  geom_bar() +
+  coord_polar()  # Creates circular plots, good for cyclical data, can make pie charts
+
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +
+  geom_point() +
+  coord_fixed(ratio = 1)  # Forces equal scaling, can be important for some spatial data
+
+```
+
+You'll want to learn more about coord layers on your own when:
+
+- You're working with spatial data or maps
+- You need to create pie charts or some other specialized non-grid-based plots
+- You're working with a lot of categories or long labels that need a lot of space
+- You need to force equal scaling on the axes
+
+
+
+### Statistics Layer (Brief)
+
+Statistics layers perform statistical transformations on your data before plotting. Many geoms have default statistics (e.g., geom_bar() counts by default, geom_smooth() fits models). 
+
+Often, though definitely not always, it's easier to do these transformations before plotting with dplyr or another data manipulation package. But sometimes it's easier to do it in the plot itself, especially if you're just exploring the data and don't want to create a new dataframe for every plot you make.
+
+```{r}
+
+#| label: statistics
+
+
+# Common statistical transformations
+ggplot(diamonds1000, aes(x = price)) +
+  stat_density() # Kernel density estimation
+
+# Compare to the density geom, which draws a line without area
+ggplot(diamonds1000, aes(x = price)) +
+  geom_density() # Kernel density estimation
+
+ggplot(diamonds1000, aes(x = cut, y = price, color=cut)) +
+  stat_summary(
+    fun.data = mean_se # Mean and standard error
+  )
+
+# The mean_se stat layer can be useful layered on top of other geoms
+ggplot(diamonds1000, aes(x = cut, y = price, color=cut)) +
+  geom_point() +
+  stat_summary(
+    fun.data = mean_se # Mean and standard error
+  )
+
+# ...well...in theory at least
+
+ggplot(diamonds1000, aes(x = cut, y = price, color=cut)) +
+  geom_violin() +
+  geom_point(size = .3, alpha = .1) +
+  stat_summary(
+    fun.data = mean_se # Mean and standard error
+  )
+
+
+```
+
+You'll want to learn more about stat layers on your own when:
+
+- You need to perform a statistical transformation on your data before plotting
+- You want to layer a statistical transformation on top of another geom
+- You need to fit a model to your data before plotting
+- You need to perform a statistical test on your data before plotting
+
+
+
+
+### Putting It All Together
+
+Let's create a complex visualization using multiple layers. 
+
+
+
+```{r}
+
+#| label: all-together
+
+
+# Create a complex visualization combining multiple layers
+ggplot(diamonds1000, 
+       aes(x = carat, 
+           y = price, 
+           color = cut,
+           linetype = cut)) +
+  # Add points with some transparency
+  geom_point(alpha = 0.3, size = .8) +
+  
+  # Add smoothed regression lines
+  geom_smooth(method = "lm", 
+             se = FALSE, 
+             linewidth = .5) +
+  
+  # Facet by clarity
+  # If you know what these actually stand for please tell me
+  facet_wrap(~clarity, scales = "free",
+             labeller = labeller(clarity = c(
+               "I1" = "Iffy 1",
+               "SI2" = "Slightly Iffy 2",
+               "SI1" = "Slightly Iffy 1",
+               "VS2" = "Very Slightly Iffy 2",
+               "VS1" = "Very Slightly Iffy 1",
+               "VVS2" = "Very Very Slightly Iffy 2",
+               "VVS1" = "Very Very Slightly Iffy 1",
+               "IF" = "Internally Flawless"
+             ))) +
+  
+  # Customize scales
+  scale_y_continuous(labels = scales::dollar_format(),
+                    breaks = seq(0, 20000, by = 5000)) +
+  scale_x_continuous(breaks = seq(0, 5, by = 1)) +
+  scale_color_manual(values = d2mr_palette) + # use our previously defined palette
+  scale_linetype_manual(values = c("solid", "dashed", "dotted", "dashed", "solid")) + # set linetypes with a vector, overriding the default
+  
+  # Add labels
+  labs(title = "Diamond Price vs. Carat by Clarity and Cut",
+       subtitle = "Showing relationship between size and price across quality metrics",
+       x = "Carat (weight)",
+       y = "Price (USD)",
+       color = "Cut Quality",
+       linetype = "Cut Quality", # we need to set this the same for both so we don't have 2 legends
+       caption = "Data: diamonds dataset from ggplot2") +
+  
+  # Customize theme elements
+  theme_d2mr +
+  theme(
+    # Text elements
+    plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 12, color = "grey40"),
+    axis.title = element_text(size = 10, face = "bold"),
+    axis.text = element_text(size = 8),
+    
+    # Panel elements
+    panel.grid.minor = element_blank(),
+    panel.grid.major = element_line(color = "grey90"),
+    panel.spacing = unit(1, "lines"),
+    
+    # Facet elements
+    strip.text = element_text(size = 10, face = "bold"),
+    strip.background = element_rect(fill = "grey95"),
+    
+    # Legend elements
+    legend.position = "bottom",
+    legend.title = element_text(face = "bold"),
+    legend.background = element_rect(fill = "grey20", color = "grey90"),
+    
+    # Overall plot elements
+    plot.background = element_rect(fill = "white", color = NA),
+    plot.margin = margin(20, 20, 5, 5)
+  )
+
+
+
+```
+
+
