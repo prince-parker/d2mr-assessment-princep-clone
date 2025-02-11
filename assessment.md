@@ -368,10 +368,10 @@ Below each learning objective is a list of general expectations for meeting that
 
     1. Uses inline R functions to render at least 3 unique data-dependent text outputs (e.g., performs rounding, calculates means, subtracts one list length from another, etc. -- inline rather than in a code chunk)
 
-    -   [ ] Objective attempt
-    -   [ ] Unique objective attempt
-    -   [ ] Objective met
-    -   Grader comments:
+        -   [ ] Objective attempt
+        -   [ ] Unique objective attempt
+        -   [ ] Objective met
+        -   Grader comments:
 
 30. Use `knitr` and quarto to produce an APA7 formatted 1-click PDF manuscript
 
@@ -387,7 +387,7 @@ Below each learning objective is a list of general expectations for meeting that
 
 ## Unassessed Objectives & Off-the-Syllabus Skills
 
-You may earn points toward the 20 additional objectives-based points by demonstrating any of the following skills, or by demonstrating "off-the-syllabus"" skills related to the course but not directly covered in class. These cannot count toward demonstration of 20 unique objectives.
+You may earn points toward the 20 additional objectives-based points by demonstrating any of the following skills, or by demonstrating "off-the-syllabus" skills related to the course but not directly covered in class. These cannot count toward demonstration of 20 unique objectives.
 
 ## Unassessed learning objectives
 
@@ -468,7 +468,7 @@ Thoughtful reflections may earn engagement points.
 -   Final approved engagement points (up to 10):
 -   Total points (up to 50):
 
-Engagement points are awarded for going above and beyond the expectations of the project and are not guaranteed on any given submission.. Demonstrating the assessed learning objectives earns you points in those categories, but engagement points are awarded for exceptional effort, creativity, or skill.
+Engagement points are awarded for going above and beyond the expectations of the project and are not guaranteed on any given submission. Demonstrating the assessed learning objectives earns you points in those categories, but engagement points are awarded for exceptional effort, creativity, or skill.
 
 TAs may recommend engagement points provisionally, but the instructor will make the final decision on engagement points.
 
