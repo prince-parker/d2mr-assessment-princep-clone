@@ -1,0 +1,459 @@
+---
+title: "Tables walkthrough (Winter2025)"
+format:
+  html: default
+  pdf:
+    pdf-engine: xelatex
+---
+
+```{r, include = FALSE}
+#| label: setup
+# the upper line serves the same function as chunk title
+# we will need it for cross-reference when the chunk output is a table or figure
+library(tidyverse)
+library(knitr)
+mydata <- as_tibble(mtcars, rownames = "model")
+```
+
+Note: One important difference between R Markdown documents and Quarto documents is that in Quarto chunk options are typically included in special comments at the top of code chunks rather than within the line that begins the chunk. For all potions, check out the [Quarto documentation](https://quarto.org/docs/reference/cells/cells-knitr.html).
+
+```{r, include = FALSE}
+#| label: analysis-preferences
+#| echo: False
+# Seed for random number generation
+set.seed(42)
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+```
+
+## Tables: Basic "Console Style"
+
+We can render tables in R documents in several different forms. To start, you have your basic "console style." This is more or less what you'd see in the console you just ran the table (or called the object) in an R script or directly in the console. See @tbl-avgmpg-consolestyle.
+
+Note: For cross-reference of tables, you need to include a label in the chunk options that starts with `tbl`. Then you can cite in-text using the syntax "\@" + "tbl" + "label name". Adding a label option will enable the numbering of tables, too.
+
+```{r}
+#| label: tbl-avgmpg-consolestyle
+
+mydata %>%
+  group_by(cyl) %>%
+  summarize(
+    mean.mpg = mean(mpg),
+    sd.mpg = sd(mpg),
+    n.models = n()
+  )
+```
+
+## Tables: knitr and kable()
+
+The `knitr` package contains the `kable()` function. Passing a dataframe into this function will produce a formatted table that's already pretty nice looking without needing additional modification. You don't need to do anything more than pipe the df to `kable()` to get this formatted table, but we can add optional arguments like `caption`.
+
+```{r}
+#| label: tbl-avgmpg-kablestyle
+
+mydata %>%
+  group_by(cyl) %>%
+  summarize(
+    mean.mpg = mean(mpg),
+    sd.mpg = sd(mpg),
+    n.models = n()
+  ) %>%
+  knitr::kable(caption = "mpg stats by number of cylinders")
+```
+
+When you run the code chunk in R Studio, it is clearly different from the console version, but it's not exactly beautiful. However, that output that appears beneath your code chunk isn't the same as what you'll see when you actually render it. Some wrapper functions rely on LaTeX formatting that can't render in R Studio. When you run the chunk in your R notebook, you'll just see a blank box. The APA formatted table will render in your Word or PDF document. Note that not all wrapper functions will have this "blank box problem." Other wrappers will not only not show up in R Studio, but will only render in either Word *or* PDF format.
+
+Back to `kable`, there is nearly unlimited customization you can employ, especially if you use the [`kableExtra`](https://haozhu233.github.io/kableExtra/) package (which is exactly what it sounds like). Here are a handful of modifications I think you're most likely to want to know about:
+
+1.  Add a caption
+2.  Change column names
+3.  Specify column alignment
+4.  Format columns
+5.  Style table size and position
+6.  Make row- and column-specific tweaks
+7.  Group rows, columns, and cells
+8.  Add table (foot)notes
+
+Many of the examples below are taken or adapted from the [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/tables.html).
+
+These tables modify column names and alignment identically but with slightly different syntax and add captions to describe each:
+
+```{r}
+#| label: tbl-column-names-alignment1
+
+kable(iris, # iris is a built-in sample data in package knitr
+      col.names = c("Sepal Length",	"Sepal Width",	"Petal Length",	"Petal Width",	"Species"), 
+      align = c("l", "r", "l", "r", "c"),
+      caption = "Change each column name and text alignments, each with a list of strings.")
+
+```
+
+```{r}
+#| label: tbl-column-names-alignment2
+
+kable(iris, 
+      col.names = gsub("[.]", " ", names(iris)), 
+      align = "lrlrc",
+      caption = "Use 'gsub' function to replace periods with spaces and change text alignments with a single 'shortcut' string.")
+
+
+```
+
+These tables specify format of numeric columns:
+
+```{r}
+#| label: tbl-column-formats1
+
+d <- cbind(
+  X1 = runif(3), 
+  X2 = 10^c(3, 5, 7), 
+  X3 = rnorm(3, 0, 1000))
+
+kable(d, digits = 4,
+      caption = "All numeric data in all columns display at most 4 decimal places")
+
+```
+
+```{r}
+#| label: tbl-column-formats2
+
+kable(d, digits = c(5, 0, 2),
+      caption = "Round columns to 5, 0, and 2 digits (respectively).")
+
+```
+
+```{r}
+#| label: tbl-column-formats3
+
+kable(d, digits = 3, 
+      format.args = list(big.mark = ",", # Use US notation of including a comma (vs period) every three digits
+                         scientific = FALSE),
+      caption = "Round all data to max 3 decimal places and do not use scientific notaiton.")
+
+```
+
+For the second half of the list (5-8), we need the `kableExtra` package. Most things that this package can do will work in both Word and PDF outputs, but Word does not support LaTeX formatting. As a result, the results are pretty iffy. Sticking with PDF output format is recommended. If you need to render to a Word doc, refer to the package documentation for suggestions on how to do so.
+
+This package includes the `kbl()` function, which is *identical* to `kable()`. If you have `kableExtra` loaded you can use either, but the advantage of using `kbl()` is that it will throw an obvious error if you don't have the package loaded, which you might not notice otherwise.
+
+To use styling functions in the `kableExtra` package, you'll create a kable with `kable()` or `kbl()` and pipe (`%>%`) it into the style function. Examples in this section come from the `kableExtra` package [documentation](https://haozhu233.github.io/kableExtra/).
+
+```{r}
+#| label: load-kableExtra
+
+library(kableExtra)
+dt <- mtcars[1:5, 1:6]
+
+```
+
+By default, knitr will place tables wherever it thinks the best place in your document for that table will be. This is often great, but sometimes it's a very bad guesser. It will also guess the size/scale your table should be. You can control these things yourself.
+
+In @tbl-hold-position, the `hold_position` style option "pins" the table where you call it. Most examples from here on will include this argument.
+
+```{r}
+#| label: tbl-hold-position
+
+kbl(dt, 
+    caption = "Table will appear exactly where you call it."
+    ) %>%
+  kable_styling(latex_options = "hold_position")
+
+```
+
+In @tbl-size-scaledown, it shows the use of the `scale_down` option (with `hold_position`) to scale a wide table down to fit on the page. This can be used instead of or in addition to printing the table in landscape page format. See the `kableExtra` docs for how to do that.
+
+```{r}
+#| label: tbl-size-scaledown
+
+kbl(cbind(dt, dt, dt), # create a very wide table
+    caption = "When you have a wide table that will normally go out of the page, and you want to scale down the table to fit the page, you can use the scale down option.") %>%
+  kable_styling(latex_options = c("striped", "scale_down", "hold_position"))
+
+```
+
+You can also scale *up* a table to make a small/narrow table full width with either the `scale_up` option (see @tbl-size-scaleup ) or `full_width` argument (see @tbl-size-fullwidth ).
+
+```{r}
+#| label: tbl-size-scaleup
+
+kbl(cbind(dt),
+    caption = "Use the scale up option to stretch to full page width.") %>%
+  kable_styling(latex_options = c("striped", "scale_up", "hold_position"))
+```
+
+```{r}
+#| label: tbl-size-fullwidth
+
+kbl(dt, 
+    caption = "Stretch a small table to fit the page with the full width option.") %>%
+  kable_styling(full_width = T, latex_options = c("hold_position"))
+
+```
+
+When you have very long tables that would extend over multiple pages, use the `longtable` argument, usually in combination with the `repeat_header` option (@tbl-size-longtable).
+
+```{r}
+#| label: tbl-size-longtable
+
+long_dt <- rbind(mtcars, mtcars) # create a very long table
+kbl(long_dt, 
+    longtable = T, 
+    caption = "Use the 'longtable' argument in the kbl() to intelligently manage very long tables. Use the repeat header LaTeX option ") %>%
+ # add_header_above(c(" ", "Group 1" = 5, "Group 2" = 6)) %>%
+  kable_styling(latex_options = c("repeat_header", "hold_position"))
+```
+
+By default, tables are aligned center on the page, but they can also be aligned left or right. Note that alignment does not apply to full width tables. @tbl-alignleft uses the `position = "left" argument` to align left. Oddly, aligning right in the same way doesn't work as expected. In theory you can "float right" rather than position right, but this can produce errors. It's unlikely you'll need to right align a table though.
+
+```{r}
+#| label: tbl-alignleft
+
+kbl(dt, 
+    caption = "Align your table (not the text, the whole table), 'left' or 'center' (the default) with the position argument.") %>% 
+  kable_styling(position = "left", latex_options = c("hold_position"))
+```
+
+```{r}
+#| label: tbl-floatright
+#| eval: false
+#| include: false
+
+# This mysteriously doesn't work when you knit to pdf (even though that's what it's designed for?) 
+# Thankfully you're unlikely to need to align right, but seems like if you happen
+# to be in a situation where you 1) need to right align and 2) need to knit to pdf
+# you'll need another option
+
+kbl(dt, 
+    caption = "Use float right to right align your table if needed.") %>% 
+  kable_styling(position = "float_right")
+```
+
+You can make style adjustments to the whole table (e.g., font fact, background color, bold/italic) or to specific rows and columns. @tbl-col-specs includes three `column_spec` functions to modify properties in columns 2, 6, and 9.
+
+```{r}
+#| label: tbl-col-specs
+
+mtcars[1:8, 1:8] %>%
+kbl(booktabs = T,
+    caption = "This table uses column specifications to make many visual modifications to individual rows. The final line shows how the same function can modify just one cell in a column in a similar way.") %>%
+  kable_paper(full_width = F) %>%
+  column_spec(2, color = spec_color(mtcars$mpg[1:8]),
+             link = "https://haozhu233.github.io/kableExtra") %>%
+  column_spec(6, color = "white",
+             background = spec_color(mtcars$drat[1:8], end = 0.7),
+             popover = paste("am:", mtcars$am[1:8])) %>%
+#  The c(rep(XX,7), XX) bit here is basically saying
+#  in this column (9) treat the first 7 columns one way and then the rest (the last)
+#  this other way. e.g., strikeout should be FALSE for the 1st seven rows but TRUE
+#  for the rest, color should be BLACK for 1-7 but RED for the rest
+  column_spec(9, strikeout = c(rep(F, 7), T), bold = c(rep(F, 7), T),
+             color = c(rep("black", 7), "red"))
+
+```
+
+@tbl-row-specs includes two `row_spec` functions to modify properties in rows 1 and rows 3-5.
+
+```{r }
+#| label: tbl-row-specs
+
+kbl(dt, booktabs = T,
+    caption = "You can specify styling for rows in the same way.") %>%
+  kable_styling("striped", full_width = F) %>%
+  column_spec(7, border_left = T, bold = T) %>%
+  row_spec(1, strikeout = T) %>%
+  row_spec(3:5, bold = T, color = "white", background = "black")
+
+```
+
+You can "group" rows and columns, basically equivalent to merging cells in a spreadsheet. This is commonly needed for multi-level headers or organizing non-rectangular data (like a lot of model output). @tbl-grouping-addheader uses the `add_header_above()` function to do so.
+
+```{r}
+#| label: tbl-grouping-addheader
+
+kbl(dt, 
+    caption = "Create grouped columns by adding a header.") %>%
+  kable_styling(latex_options = c("striped", "hold_position")) %>% 
+  # The syntax within the list is "name of group header = [number of columns to be grouped under it]. Make sure the total number of columns to group equal the actual number of columns in the table
+  add_header_above(c(" " = 1, "Group 1" = 2, "Group 2" = 2, "Group 3" = 2))
+
+```
+
+You can group more than once and format these header rows individually. Use the total number of rows to specify how many columns to group, not the number of rows in the grouped row below it (@tbl-grouping-multiple).
+
+```{r}
+#| label: tbl-grouping-multiple
+
+kbl(dt, 
+    caption = "Group multiple times and format these header rows individually.") %>%
+  kable_styling(latex_options = c("striped", "hold_position")) %>% 
+  # If you don't specify how many columns to group for that group name, it assumes =1
+  add_header_above(c(" ", "Group 1" = 2, "Group 2" = 2, "Group 3" = 2)) %>%
+  add_header_above(c(" ", "Group 4" = 4, "Group 5" = 2)) %>%
+  add_header_above(c(" ", "Group 6" = 6), bold = T, italic = T)
+
+```
+
+Grouping rows is a little different. @tbl-grouping-packrows uses the `pack_rows()` function to effectively add "header rows" throughout the table.
+
+```{r}
+#| label: tbl-grouping-packrows
+
+kbl(mtcars[1:10, 1:6], 
+    caption = "Group rows using packing.") %>%
+  kable_styling(latex_options = c("striped", "hold_position")) %>% 
+  # syntax here is ("group label", [int of first row to include in group][int of last row to include])
+  pack_rows("Group 1", 4, 7) %>%
+  pack_rows("Group 2", 8, 10)
+
+collapse_rows_dt <- data.frame(C1 = c(rep("a", 10), rep("b", 5)),
+                               C2 = c(rep("c", 7), rep("d", 3), rep("c", 2), rep("d", 3)),
+                               C3 = 1:15,
+                               C4 = sample(c(0,1), 15, replace = TRUE))
+
+```
+
+Alternatively, use `collapse_rows()` in @tbl-grouping-collapse for more of a "merge cells" effect.
+
+```{r}
+#| label: tbl-grouping-collapse
+
+collapse_rows_dt <- data.frame(C1 = c(rep("a", 10), rep("b", 5)),
+                               C2 = c(rep("c", 7), rep("d", 3), rep("c", 2), rep("d", 3)),
+                               C3 = 1:15,
+                               C4 = sample(c(0,1), 15, replace = TRUE))
+
+# You will only see the "collapse" happen when you knit
+# not when you run the chunk
+kbl(collapse_rows_dt, booktabs = T, align = "c",
+    caption = "Collapse rows for more of a 'merge cells' effect.") %>%
+  column_spec(1, bold=T) %>%
+  collapse_rows(columns = 1:2,
+                latex_hline = "major",
+                row_group_label_position = "first")
+```
+
+Finally, you can add notes or footnotes below your table with the `footnote()` function. @tbl-footnotes includes the 'general' argument for an unlabeled note and 'number', 'alphabet', and 'symbol' for footnotes with ordered labels.
+
+```{r}
+#| label: tbl-footnotes
+
+kbl(dt, align = "c",
+    caption = "Add unordered (general) and ordered footnotes.") %>%
+  kable_styling(full_width = F) %>%
+  footnote(general = "Here is a general comments of the table. ",
+           number = c("Footnote 1; ", "Footnote 2; "),
+           alphabet = c("Footnote A; ", "Footnote B; "),
+           symbol = c("Footnote Symbol 1; ", "Footnote Symbol 2")
+)
+```
+
+There is **so much more** you can do with kables! I am personally a huge fan of kables and the kableExtra package because it works beautifully with papaja, but you can also explore other packages for making beautiful tables:
+
+-   [flextable](https://davidgohel.github.io/flextable/)
+-   [gt table](https://gt.rstudio.com/)
+-   [xtable](http://xtable.r-forge.r-project.org/)
+-   [stargazer](https://cran.r-project.org/web/packages/stargazer/index.html)
+    -   This one is designed to simplify tables for regression output
+
+## Table: flextable
+
+```{r}
+#| label: load-flextable
+library(flextable)
+```
+
+```{r}
+#| label: tbl-mytable
+#| tbl-cap: My Table
+#| ft.align: left
+#| apa-note: A note below table
+
+tibble(Letters = c("A", "B", "C"), 
+       Numbers = 1:3) %>% 
+  flextable() %>% 
+  theme_apa() 
+```
+
+## Table: papaja and apa_table()
+
+Alternatively, **in .rmd files**, we can use "wrapper" functions that add in a collection of tweaks for us, like the `apa_table()` function in `papaja`, which will knit the table in APA formatting.
+
+```{r setup for stargazer, include = FALSE}
+# install.packages("stargazer")
+# reference: https://cran.r-project.org/web/packages/stargazer/index.html
+library(stargazer)
+```
+
+## Table: stargazer
+
+```{r}
+#| label: stargazer-table
+#| eval: false
+#| include: false
+# export a table of descriptive statistics
+stargazer(iris, type = "text")
+
+# export a table of raw data
+stargazer(iris[1:10,], type = "text", summary = FALSE)
+
+```
+
+```{r}
+#| label: regression-results
+#| echo: true
+
+# build up two regression models
+mod_1 <- lm(Sepal.Length ~ Sepal.Width, data = iris)
+
+mod_2 <- lm(Sepal.Length ~ Sepal.Width + Species, data = iris)
+
+# export a table with the results of these two regression models
+stargazer(mod_1, mod_2,type = "text")
+
+# you can customize the table by renaming variables, adding title, omitting some statistic, adding confidence interval etc.
+stargazer(mod_1, mod_2,
+           # add title to the table
+           title = "Regression model results",
+           # rename dependent variable
+           dep.var.labels = "The length of sepal",
+           # rename independent variable
+           covariate.labels = c("The width of sepal", "Versicolor", "Virginica"),
+           # "n" refers to the number of observations, "f" refers to the F stastic
+           omit.stat = c("n","f"),
+           # add confidence interval and set the level to 0.95
+           ci = TRUE, ci.level = 0.95,
+           # keep only two digits
+           digits = 2,
+           #display in plain text (rather than LaTeX)
+           type = "text")
+
+```
+
+```{r}
+#| label: regression-results-pdf
+#| results: asis
+
+stargazer(mod_1, mod_2,
+          # add title to the table
+          title = "Regression model results",
+          # View documentation to see journal styles available
+          #style = "asr",
+          # rename dependent variable
+          dep.var.labels = "The length of sepal",
+          # rename independent variable
+          covariate.labels = c("The width of sepal", "Versicolor", "Virginica"),
+          # "n" refers to the number of observations, "f" refers to the F stastic
+          omit.stat = c("n","f"),
+          # add confidence interval and set the level to 0.95
+          ci = TRUE, ci.level = 0.95,
+          # keep only two digits
+          digits = 2)
+```
+
+
+```{r}
+#| label: regression-results-html
+
+# save the output in html format
+stargazer(mod_1, type = "html", out = "models.htm")
+
+```
