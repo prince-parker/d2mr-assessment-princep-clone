@@ -4,6 +4,7 @@ format:
   html: default
   pdf:
     pdf-engine: xelatex
+editor: visual
 ---
 
 ```{r, include = FALSE}
@@ -448,7 +449,6 @@ stargazer(mod_1, mod_2,
           # keep only two digits
           digits = 2)
 ```
-
 
 ```{r}
 #| label: regression-results-html

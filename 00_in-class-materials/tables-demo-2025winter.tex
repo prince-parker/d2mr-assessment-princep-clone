@@ -1,0 +1,1918 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\usepackage{fontspec}
+\usepackage{multicol}
+\usepackage{hhline}
+\newlength\Oldarrayrulewidth
+\newlength\Oldtabcolsep
+\usepackage{hyperref}
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Tables walkthrough (Winter2025)},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Tables walkthrough (Winter2025)}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+Note: One important difference between R Markdown documents and Quarto
+documents is that in Quarto chunk options are typically included in
+special comments at the top of code chunks rather than within the line
+that begins the chunk. For all potions, check out the
+\href{https://quarto.org/docs/reference/cells/cells-knitr.html}{Quarto
+documentation}.
+
+\subsection{Tables: Basic ``Console
+Style''}\label{tables-basic-console-style}
+
+We can render tables in R documents in several different forms. To
+start, you have your basic ``console style.'' This is more or less what
+you'd see in the console you just ran the table (or called the object)
+in an R script or directly in the console. See
+Table~\ref{tbl-avgmpg-consolestyle}.
+
+Note: For cross-reference of tables, you need to include a label in the
+chunk options that starts with \texttt{tbl}. Then you can cite in-text
+using the syntax ``@'' + ``tbl'' + ``label name''. Adding a label option
+will enable the numbering of tables, too.
+
+\begin{table}
+
+\caption{\label{tbl-avgmpg-consolestyle}}
+
+\centering{
+
+\captionsetup{labelsep=none}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mydata }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(cyl) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarize}\NormalTok{(}
+    \AttributeTok{mean.mpg =} \FunctionTok{mean}\NormalTok{(mpg),}
+    \AttributeTok{sd.mpg =} \FunctionTok{sd}\NormalTok{(mpg),}
+    \AttributeTok{n.models =} \FunctionTok{n}\NormalTok{()}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 3 x 4
+    cyl mean.mpg sd.mpg n.models
+  <dbl>    <dbl>  <dbl>    <int>
+1     4     26.7   4.51       11
+2     6     19.7   1.45        7
+3     8     15.1   2.56       14
+\end{verbatim}
+
+}
+
+\end{table}%
+
+\subsection{Tables: knitr and kable()}\label{tables-knitr-and-kable}
+
+The \texttt{knitr} package contains the \texttt{kable()} function.
+Passing a dataframe into this function will produce a formatted table
+that's already pretty nice looking without needing additional
+modification. You don't need to do anything more than pipe the df to
+\texttt{kable()} to get this formatted table, but we can add optional
+arguments like \texttt{caption}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mydata }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(cyl) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarize}\NormalTok{(}
+    \AttributeTok{mean.mpg =} \FunctionTok{mean}\NormalTok{(mpg),}
+    \AttributeTok{sd.mpg =} \FunctionTok{sd}\NormalTok{(mpg),}
+    \AttributeTok{n.models =} \FunctionTok{n}\NormalTok{()}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}\AttributeTok{caption =} \StringTok{"mpg stats by number of cylinders"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}rrrr@{}}
+
+\caption{\label{tbl-avgmpg-kablestyle}mpg stats by number of cylinders}
+
+\tabularnewline
+
+\toprule\noalign{}
+cyl & mean.mpg & sd.mpg & n.models \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+4 & 26.66364 & 4.509828 & 11 \\
+6 & 19.74286 & 1.453567 & 7 \\
+8 & 15.10000 & 2.560048 & 14 \\
+
+\end{longtable}
+
+When you run the code chunk in R Studio, it is clearly different from
+the console version, but it's not exactly beautiful. However, that
+output that appears beneath your code chunk isn't the same as what
+you'll see when you actually render it. Some wrapper functions rely on
+LaTeX formatting that can't render in R Studio. When you run the chunk
+in your R notebook, you'll just see a blank box. The APA formatted table
+will render in your Word or PDF document. Note that not all wrapper
+functions will have this ``blank box problem.'' Other wrappers will not
+only not show up in R Studio, but will only render in either Word
+\emph{or} PDF format.
+
+Back to \texttt{kable}, there is nearly unlimited customization you can
+employ, especially if you use the
+\href{https://haozhu233.github.io/kableExtra/}{\texttt{kableExtra}}
+package (which is exactly what it sounds like). Here are a handful of
+modifications I think you're most likely to want to know about:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Add a caption
+\item
+  Change column names
+\item
+  Specify column alignment
+\item
+  Format columns
+\item
+  Style table size and position
+\item
+  Make row- and column-specific tweaks
+\item
+  Group rows, columns, and cells
+\item
+  Add table (foot)notes
+\end{enumerate}
+
+Many of the examples below are taken or adapted from the
+\href{https://bookdown.org/yihui/rmarkdown-cookbook/tables.html}{R
+Markdown Cookbook}.
+
+These tables modify column names and alignment identically but with
+slightly different syntax and add captions to describe each:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{kable}\NormalTok{(iris, }\CommentTok{\# iris is a built{-}in sample data in package knitr}
+      \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Sepal Length"}\NormalTok{, }\StringTok{"Sepal Width"}\NormalTok{,  }\StringTok{"Petal Length"}\NormalTok{, }\StringTok{"Petal Width"}\NormalTok{,  }\StringTok{"Species"}\NormalTok{), }
+      \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"l"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"c"}\NormalTok{),}
+      \AttributeTok{caption =} \StringTok{"Change each column name and text alignments, each with a list of strings."}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrlrc@{}}
+
+\caption{\label{tbl-column-names-alignment1}Change each column name and
+text alignments, each with a list of strings.}
+
+\tabularnewline
+
+\toprule\noalign{}
+Sepal Length & Sepal Width & Petal Length & Petal Width & Species \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+5.1 & 3.5 & 1.4 & 0.2 & setosa \\
+4.9 & 3.0 & 1.4 & 0.2 & setosa \\
+4.7 & 3.2 & 1.3 & 0.2 & setosa \\
+4.6 & 3.1 & 1.5 & 0.2 & setosa \\
+5.0 & 3.6 & 1.4 & 0.2 & setosa \\
+5.4 & 3.9 & 1.7 & 0.4 & setosa \\
+4.6 & 3.4 & 1.4 & 0.3 & setosa \\
+5.0 & 3.4 & 1.5 & 0.2 & setosa \\
+4.4 & 2.9 & 1.4 & 0.2 & setosa \\
+4.9 & 3.1 & 1.5 & 0.1 & setosa \\
+5.4 & 3.7 & 1.5 & 0.2 & setosa \\
+4.8 & 3.4 & 1.6 & 0.2 & setosa \\
+4.8 & 3.0 & 1.4 & 0.1 & setosa \\
+4.3 & 3.0 & 1.1 & 0.1 & setosa \\
+5.8 & 4.0 & 1.2 & 0.2 & setosa \\
+5.7 & 4.4 & 1.5 & 0.4 & setosa \\
+5.4 & 3.9 & 1.3 & 0.4 & setosa \\
+5.1 & 3.5 & 1.4 & 0.3 & setosa \\
+5.7 & 3.8 & 1.7 & 0.3 & setosa \\
+5.1 & 3.8 & 1.5 & 0.3 & setosa \\
+5.4 & 3.4 & 1.7 & 0.2 & setosa \\
+5.1 & 3.7 & 1.5 & 0.4 & setosa \\
+4.6 & 3.6 & 1.0 & 0.2 & setosa \\
+5.1 & 3.3 & 1.7 & 0.5 & setosa \\
+4.8 & 3.4 & 1.9 & 0.2 & setosa \\
+5.0 & 3.0 & 1.6 & 0.2 & setosa \\
+5.0 & 3.4 & 1.6 & 0.4 & setosa \\
+5.2 & 3.5 & 1.5 & 0.2 & setosa \\
+5.2 & 3.4 & 1.4 & 0.2 & setosa \\
+4.7 & 3.2 & 1.6 & 0.2 & setosa \\
+4.8 & 3.1 & 1.6 & 0.2 & setosa \\
+5.4 & 3.4 & 1.5 & 0.4 & setosa \\
+5.2 & 4.1 & 1.5 & 0.1 & setosa \\
+5.5 & 4.2 & 1.4 & 0.2 & setosa \\
+4.9 & 3.1 & 1.5 & 0.2 & setosa \\
+5.0 & 3.2 & 1.2 & 0.2 & setosa \\
+5.5 & 3.5 & 1.3 & 0.2 & setosa \\
+4.9 & 3.6 & 1.4 & 0.1 & setosa \\
+4.4 & 3.0 & 1.3 & 0.2 & setosa \\
+5.1 & 3.4 & 1.5 & 0.2 & setosa \\
+5.0 & 3.5 & 1.3 & 0.3 & setosa \\
+4.5 & 2.3 & 1.3 & 0.3 & setosa \\
+4.4 & 3.2 & 1.3 & 0.2 & setosa \\
+5.0 & 3.5 & 1.6 & 0.6 & setosa \\
+5.1 & 3.8 & 1.9 & 0.4 & setosa \\
+4.8 & 3.0 & 1.4 & 0.3 & setosa \\
+5.1 & 3.8 & 1.6 & 0.2 & setosa \\
+4.6 & 3.2 & 1.4 & 0.2 & setosa \\
+5.3 & 3.7 & 1.5 & 0.2 & setosa \\
+5.0 & 3.3 & 1.4 & 0.2 & setosa \\
+7.0 & 3.2 & 4.7 & 1.4 & versicolor \\
+6.4 & 3.2 & 4.5 & 1.5 & versicolor \\
+6.9 & 3.1 & 4.9 & 1.5 & versicolor \\
+5.5 & 2.3 & 4.0 & 1.3 & versicolor \\
+6.5 & 2.8 & 4.6 & 1.5 & versicolor \\
+5.7 & 2.8 & 4.5 & 1.3 & versicolor \\
+6.3 & 3.3 & 4.7 & 1.6 & versicolor \\
+4.9 & 2.4 & 3.3 & 1.0 & versicolor \\
+6.6 & 2.9 & 4.6 & 1.3 & versicolor \\
+5.2 & 2.7 & 3.9 & 1.4 & versicolor \\
+5.0 & 2.0 & 3.5 & 1.0 & versicolor \\
+5.9 & 3.0 & 4.2 & 1.5 & versicolor \\
+6.0 & 2.2 & 4.0 & 1.0 & versicolor \\
+6.1 & 2.9 & 4.7 & 1.4 & versicolor \\
+5.6 & 2.9 & 3.6 & 1.3 & versicolor \\
+6.7 & 3.1 & 4.4 & 1.4 & versicolor \\
+5.6 & 3.0 & 4.5 & 1.5 & versicolor \\
+5.8 & 2.7 & 4.1 & 1.0 & versicolor \\
+6.2 & 2.2 & 4.5 & 1.5 & versicolor \\
+5.6 & 2.5 & 3.9 & 1.1 & versicolor \\
+5.9 & 3.2 & 4.8 & 1.8 & versicolor \\
+6.1 & 2.8 & 4.0 & 1.3 & versicolor \\
+6.3 & 2.5 & 4.9 & 1.5 & versicolor \\
+6.1 & 2.8 & 4.7 & 1.2 & versicolor \\
+6.4 & 2.9 & 4.3 & 1.3 & versicolor \\
+6.6 & 3.0 & 4.4 & 1.4 & versicolor \\
+6.8 & 2.8 & 4.8 & 1.4 & versicolor \\
+6.7 & 3.0 & 5.0 & 1.7 & versicolor \\
+6.0 & 2.9 & 4.5 & 1.5 & versicolor \\
+5.7 & 2.6 & 3.5 & 1.0 & versicolor \\
+5.5 & 2.4 & 3.8 & 1.1 & versicolor \\
+5.5 & 2.4 & 3.7 & 1.0 & versicolor \\
+5.8 & 2.7 & 3.9 & 1.2 & versicolor \\
+6.0 & 2.7 & 5.1 & 1.6 & versicolor \\
+5.4 & 3.0 & 4.5 & 1.5 & versicolor \\
+6.0 & 3.4 & 4.5 & 1.6 & versicolor \\
+6.7 & 3.1 & 4.7 & 1.5 & versicolor \\
+6.3 & 2.3 & 4.4 & 1.3 & versicolor \\
+5.6 & 3.0 & 4.1 & 1.3 & versicolor \\
+5.5 & 2.5 & 4.0 & 1.3 & versicolor \\
+5.5 & 2.6 & 4.4 & 1.2 & versicolor \\
+6.1 & 3.0 & 4.6 & 1.4 & versicolor \\
+5.8 & 2.6 & 4.0 & 1.2 & versicolor \\
+5.0 & 2.3 & 3.3 & 1.0 & versicolor \\
+5.6 & 2.7 & 4.2 & 1.3 & versicolor \\
+5.7 & 3.0 & 4.2 & 1.2 & versicolor \\
+5.7 & 2.9 & 4.2 & 1.3 & versicolor \\
+6.2 & 2.9 & 4.3 & 1.3 & versicolor \\
+5.1 & 2.5 & 3.0 & 1.1 & versicolor \\
+5.7 & 2.8 & 4.1 & 1.3 & versicolor \\
+6.3 & 3.3 & 6.0 & 2.5 & virginica \\
+5.8 & 2.7 & 5.1 & 1.9 & virginica \\
+7.1 & 3.0 & 5.9 & 2.1 & virginica \\
+6.3 & 2.9 & 5.6 & 1.8 & virginica \\
+6.5 & 3.0 & 5.8 & 2.2 & virginica \\
+7.6 & 3.0 & 6.6 & 2.1 & virginica \\
+4.9 & 2.5 & 4.5 & 1.7 & virginica \\
+7.3 & 2.9 & 6.3 & 1.8 & virginica \\
+6.7 & 2.5 & 5.8 & 1.8 & virginica \\
+7.2 & 3.6 & 6.1 & 2.5 & virginica \\
+6.5 & 3.2 & 5.1 & 2.0 & virginica \\
+6.4 & 2.7 & 5.3 & 1.9 & virginica \\
+6.8 & 3.0 & 5.5 & 2.1 & virginica \\
+5.7 & 2.5 & 5.0 & 2.0 & virginica \\
+5.8 & 2.8 & 5.1 & 2.4 & virginica \\
+6.4 & 3.2 & 5.3 & 2.3 & virginica \\
+6.5 & 3.0 & 5.5 & 1.8 & virginica \\
+7.7 & 3.8 & 6.7 & 2.2 & virginica \\
+7.7 & 2.6 & 6.9 & 2.3 & virginica \\
+6.0 & 2.2 & 5.0 & 1.5 & virginica \\
+6.9 & 3.2 & 5.7 & 2.3 & virginica \\
+5.6 & 2.8 & 4.9 & 2.0 & virginica \\
+7.7 & 2.8 & 6.7 & 2.0 & virginica \\
+6.3 & 2.7 & 4.9 & 1.8 & virginica \\
+6.7 & 3.3 & 5.7 & 2.1 & virginica \\
+7.2 & 3.2 & 6.0 & 1.8 & virginica \\
+6.2 & 2.8 & 4.8 & 1.8 & virginica \\
+6.1 & 3.0 & 4.9 & 1.8 & virginica \\
+6.4 & 2.8 & 5.6 & 2.1 & virginica \\
+7.2 & 3.0 & 5.8 & 1.6 & virginica \\
+7.4 & 2.8 & 6.1 & 1.9 & virginica \\
+7.9 & 3.8 & 6.4 & 2.0 & virginica \\
+6.4 & 2.8 & 5.6 & 2.2 & virginica \\
+6.3 & 2.8 & 5.1 & 1.5 & virginica \\
+6.1 & 2.6 & 5.6 & 1.4 & virginica \\
+7.7 & 3.0 & 6.1 & 2.3 & virginica \\
+6.3 & 3.4 & 5.6 & 2.4 & virginica \\
+6.4 & 3.1 & 5.5 & 1.8 & virginica \\
+6.0 & 3.0 & 4.8 & 1.8 & virginica \\
+6.9 & 3.1 & 5.4 & 2.1 & virginica \\
+6.7 & 3.1 & 5.6 & 2.4 & virginica \\
+6.9 & 3.1 & 5.1 & 2.3 & virginica \\
+5.8 & 2.7 & 5.1 & 1.9 & virginica \\
+6.8 & 3.2 & 5.9 & 2.3 & virginica \\
+6.7 & 3.3 & 5.7 & 2.5 & virginica \\
+6.7 & 3.0 & 5.2 & 2.3 & virginica \\
+6.3 & 2.5 & 5.0 & 1.9 & virginica \\
+6.5 & 3.0 & 5.2 & 2.0 & virginica \\
+6.2 & 3.4 & 5.4 & 2.3 & virginica \\
+5.9 & 3.0 & 5.1 & 1.8 & virginica \\
+
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{kable}\NormalTok{(iris, }
+      \AttributeTok{col.names =} \FunctionTok{gsub}\NormalTok{(}\StringTok{"[.]"}\NormalTok{, }\StringTok{" "}\NormalTok{, }\FunctionTok{names}\NormalTok{(iris)), }
+      \AttributeTok{align =} \StringTok{"lrlrc"}\NormalTok{,}
+      \AttributeTok{caption =} \StringTok{"Use \textquotesingle{}gsub\textquotesingle{} function to replace periods with spaces and change text alignments with a single \textquotesingle{}shortcut\textquotesingle{} string."}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrlrc@{}}
+
+\caption{\label{tbl-column-names-alignment2}Use `gsub' function to
+replace periods with spaces and change text alignments with a single
+`shortcut' string.}
+
+\tabularnewline
+
+\toprule\noalign{}
+Sepal Length & Sepal Width & Petal Length & Petal Width & Species \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+5.1 & 3.5 & 1.4 & 0.2 & setosa \\
+4.9 & 3.0 & 1.4 & 0.2 & setosa \\
+4.7 & 3.2 & 1.3 & 0.2 & setosa \\
+4.6 & 3.1 & 1.5 & 0.2 & setosa \\
+5.0 & 3.6 & 1.4 & 0.2 & setosa \\
+5.4 & 3.9 & 1.7 & 0.4 & setosa \\
+4.6 & 3.4 & 1.4 & 0.3 & setosa \\
+5.0 & 3.4 & 1.5 & 0.2 & setosa \\
+4.4 & 2.9 & 1.4 & 0.2 & setosa \\
+4.9 & 3.1 & 1.5 & 0.1 & setosa \\
+5.4 & 3.7 & 1.5 & 0.2 & setosa \\
+4.8 & 3.4 & 1.6 & 0.2 & setosa \\
+4.8 & 3.0 & 1.4 & 0.1 & setosa \\
+4.3 & 3.0 & 1.1 & 0.1 & setosa \\
+5.8 & 4.0 & 1.2 & 0.2 & setosa \\
+5.7 & 4.4 & 1.5 & 0.4 & setosa \\
+5.4 & 3.9 & 1.3 & 0.4 & setosa \\
+5.1 & 3.5 & 1.4 & 0.3 & setosa \\
+5.7 & 3.8 & 1.7 & 0.3 & setosa \\
+5.1 & 3.8 & 1.5 & 0.3 & setosa \\
+5.4 & 3.4 & 1.7 & 0.2 & setosa \\
+5.1 & 3.7 & 1.5 & 0.4 & setosa \\
+4.6 & 3.6 & 1.0 & 0.2 & setosa \\
+5.1 & 3.3 & 1.7 & 0.5 & setosa \\
+4.8 & 3.4 & 1.9 & 0.2 & setosa \\
+5.0 & 3.0 & 1.6 & 0.2 & setosa \\
+5.0 & 3.4 & 1.6 & 0.4 & setosa \\
+5.2 & 3.5 & 1.5 & 0.2 & setosa \\
+5.2 & 3.4 & 1.4 & 0.2 & setosa \\
+4.7 & 3.2 & 1.6 & 0.2 & setosa \\
+4.8 & 3.1 & 1.6 & 0.2 & setosa \\
+5.4 & 3.4 & 1.5 & 0.4 & setosa \\
+5.2 & 4.1 & 1.5 & 0.1 & setosa \\
+5.5 & 4.2 & 1.4 & 0.2 & setosa \\
+4.9 & 3.1 & 1.5 & 0.2 & setosa \\
+5.0 & 3.2 & 1.2 & 0.2 & setosa \\
+5.5 & 3.5 & 1.3 & 0.2 & setosa \\
+4.9 & 3.6 & 1.4 & 0.1 & setosa \\
+4.4 & 3.0 & 1.3 & 0.2 & setosa \\
+5.1 & 3.4 & 1.5 & 0.2 & setosa \\
+5.0 & 3.5 & 1.3 & 0.3 & setosa \\
+4.5 & 2.3 & 1.3 & 0.3 & setosa \\
+4.4 & 3.2 & 1.3 & 0.2 & setosa \\
+5.0 & 3.5 & 1.6 & 0.6 & setosa \\
+5.1 & 3.8 & 1.9 & 0.4 & setosa \\
+4.8 & 3.0 & 1.4 & 0.3 & setosa \\
+5.1 & 3.8 & 1.6 & 0.2 & setosa \\
+4.6 & 3.2 & 1.4 & 0.2 & setosa \\
+5.3 & 3.7 & 1.5 & 0.2 & setosa \\
+5.0 & 3.3 & 1.4 & 0.2 & setosa \\
+7.0 & 3.2 & 4.7 & 1.4 & versicolor \\
+6.4 & 3.2 & 4.5 & 1.5 & versicolor \\
+6.9 & 3.1 & 4.9 & 1.5 & versicolor \\
+5.5 & 2.3 & 4.0 & 1.3 & versicolor \\
+6.5 & 2.8 & 4.6 & 1.5 & versicolor \\
+5.7 & 2.8 & 4.5 & 1.3 & versicolor \\
+6.3 & 3.3 & 4.7 & 1.6 & versicolor \\
+4.9 & 2.4 & 3.3 & 1.0 & versicolor \\
+6.6 & 2.9 & 4.6 & 1.3 & versicolor \\
+5.2 & 2.7 & 3.9 & 1.4 & versicolor \\
+5.0 & 2.0 & 3.5 & 1.0 & versicolor \\
+5.9 & 3.0 & 4.2 & 1.5 & versicolor \\
+6.0 & 2.2 & 4.0 & 1.0 & versicolor \\
+6.1 & 2.9 & 4.7 & 1.4 & versicolor \\
+5.6 & 2.9 & 3.6 & 1.3 & versicolor \\
+6.7 & 3.1 & 4.4 & 1.4 & versicolor \\
+5.6 & 3.0 & 4.5 & 1.5 & versicolor \\
+5.8 & 2.7 & 4.1 & 1.0 & versicolor \\
+6.2 & 2.2 & 4.5 & 1.5 & versicolor \\
+5.6 & 2.5 & 3.9 & 1.1 & versicolor \\
+5.9 & 3.2 & 4.8 & 1.8 & versicolor \\
+6.1 & 2.8 & 4.0 & 1.3 & versicolor \\
+6.3 & 2.5 & 4.9 & 1.5 & versicolor \\
+6.1 & 2.8 & 4.7 & 1.2 & versicolor \\
+6.4 & 2.9 & 4.3 & 1.3 & versicolor \\
+6.6 & 3.0 & 4.4 & 1.4 & versicolor \\
+6.8 & 2.8 & 4.8 & 1.4 & versicolor \\
+6.7 & 3.0 & 5.0 & 1.7 & versicolor \\
+6.0 & 2.9 & 4.5 & 1.5 & versicolor \\
+5.7 & 2.6 & 3.5 & 1.0 & versicolor \\
+5.5 & 2.4 & 3.8 & 1.1 & versicolor \\
+5.5 & 2.4 & 3.7 & 1.0 & versicolor \\
+5.8 & 2.7 & 3.9 & 1.2 & versicolor \\
+6.0 & 2.7 & 5.1 & 1.6 & versicolor \\
+5.4 & 3.0 & 4.5 & 1.5 & versicolor \\
+6.0 & 3.4 & 4.5 & 1.6 & versicolor \\
+6.7 & 3.1 & 4.7 & 1.5 & versicolor \\
+6.3 & 2.3 & 4.4 & 1.3 & versicolor \\
+5.6 & 3.0 & 4.1 & 1.3 & versicolor \\
+5.5 & 2.5 & 4.0 & 1.3 & versicolor \\
+5.5 & 2.6 & 4.4 & 1.2 & versicolor \\
+6.1 & 3.0 & 4.6 & 1.4 & versicolor \\
+5.8 & 2.6 & 4.0 & 1.2 & versicolor \\
+5.0 & 2.3 & 3.3 & 1.0 & versicolor \\
+5.6 & 2.7 & 4.2 & 1.3 & versicolor \\
+5.7 & 3.0 & 4.2 & 1.2 & versicolor \\
+5.7 & 2.9 & 4.2 & 1.3 & versicolor \\
+6.2 & 2.9 & 4.3 & 1.3 & versicolor \\
+5.1 & 2.5 & 3.0 & 1.1 & versicolor \\
+5.7 & 2.8 & 4.1 & 1.3 & versicolor \\
+6.3 & 3.3 & 6.0 & 2.5 & virginica \\
+5.8 & 2.7 & 5.1 & 1.9 & virginica \\
+7.1 & 3.0 & 5.9 & 2.1 & virginica \\
+6.3 & 2.9 & 5.6 & 1.8 & virginica \\
+6.5 & 3.0 & 5.8 & 2.2 & virginica \\
+7.6 & 3.0 & 6.6 & 2.1 & virginica \\
+4.9 & 2.5 & 4.5 & 1.7 & virginica \\
+7.3 & 2.9 & 6.3 & 1.8 & virginica \\
+6.7 & 2.5 & 5.8 & 1.8 & virginica \\
+7.2 & 3.6 & 6.1 & 2.5 & virginica \\
+6.5 & 3.2 & 5.1 & 2.0 & virginica \\
+6.4 & 2.7 & 5.3 & 1.9 & virginica \\
+6.8 & 3.0 & 5.5 & 2.1 & virginica \\
+5.7 & 2.5 & 5.0 & 2.0 & virginica \\
+5.8 & 2.8 & 5.1 & 2.4 & virginica \\
+6.4 & 3.2 & 5.3 & 2.3 & virginica \\
+6.5 & 3.0 & 5.5 & 1.8 & virginica \\
+7.7 & 3.8 & 6.7 & 2.2 & virginica \\
+7.7 & 2.6 & 6.9 & 2.3 & virginica \\
+6.0 & 2.2 & 5.0 & 1.5 & virginica \\
+6.9 & 3.2 & 5.7 & 2.3 & virginica \\
+5.6 & 2.8 & 4.9 & 2.0 & virginica \\
+7.7 & 2.8 & 6.7 & 2.0 & virginica \\
+6.3 & 2.7 & 4.9 & 1.8 & virginica \\
+6.7 & 3.3 & 5.7 & 2.1 & virginica \\
+7.2 & 3.2 & 6.0 & 1.8 & virginica \\
+6.2 & 2.8 & 4.8 & 1.8 & virginica \\
+6.1 & 3.0 & 4.9 & 1.8 & virginica \\
+6.4 & 2.8 & 5.6 & 2.1 & virginica \\
+7.2 & 3.0 & 5.8 & 1.6 & virginica \\
+7.4 & 2.8 & 6.1 & 1.9 & virginica \\
+7.9 & 3.8 & 6.4 & 2.0 & virginica \\
+6.4 & 2.8 & 5.6 & 2.2 & virginica \\
+6.3 & 2.8 & 5.1 & 1.5 & virginica \\
+6.1 & 2.6 & 5.6 & 1.4 & virginica \\
+7.7 & 3.0 & 6.1 & 2.3 & virginica \\
+6.3 & 3.4 & 5.6 & 2.4 & virginica \\
+6.4 & 3.1 & 5.5 & 1.8 & virginica \\
+6.0 & 3.0 & 4.8 & 1.8 & virginica \\
+6.9 & 3.1 & 5.4 & 2.1 & virginica \\
+6.7 & 3.1 & 5.6 & 2.4 & virginica \\
+6.9 & 3.1 & 5.1 & 2.3 & virginica \\
+5.8 & 2.7 & 5.1 & 1.9 & virginica \\
+6.8 & 3.2 & 5.9 & 2.3 & virginica \\
+6.7 & 3.3 & 5.7 & 2.5 & virginica \\
+6.7 & 3.0 & 5.2 & 2.3 & virginica \\
+6.3 & 2.5 & 5.0 & 1.9 & virginica \\
+6.5 & 3.0 & 5.2 & 2.0 & virginica \\
+6.2 & 3.4 & 5.4 & 2.3 & virginica \\
+5.9 & 3.0 & 5.1 & 1.8 & virginica \\
+
+\end{longtable}
+
+These tables specify format of numeric columns:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(}
+  \AttributeTok{X1 =} \FunctionTok{runif}\NormalTok{(}\DecValTok{3}\NormalTok{), }
+  \AttributeTok{X2 =} \DecValTok{10}\SpecialCharTok{\^{}}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{7}\NormalTok{), }
+  \AttributeTok{X3 =} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1000}\NormalTok{))}
+
+\FunctionTok{kable}\NormalTok{(d, }\AttributeTok{digits =} \DecValTok{4}\NormalTok{,}
+      \AttributeTok{caption =} \StringTok{"All numeric data in all columns display at most 4 decimal places"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}rrr@{}}
+
+\caption{\label{tbl-column-formats1}All numeric data in all columns
+display at most 4 decimal places}
+
+\tabularnewline
+
+\toprule\noalign{}
+X1 & X2 & X3 \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0.9148 & 1e+03 & 955.9356 \\
+0.9371 & 1e+05 & 47.8847 \\
+0.2861 & 1e+07 & -1104.5994 \\
+
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{kable}\NormalTok{(d, }\AttributeTok{digits =} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{),}
+      \AttributeTok{caption =} \StringTok{"Round columns to 5, 0, and 2 digits (respectively)."}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}rrr@{}}
+
+\caption{\label{tbl-column-formats2}Round columns to 5, 0, and 2 digits
+(respectively).}
+
+\tabularnewline
+
+\toprule\noalign{}
+X1 & X2 & X3 \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0.91481 & 1e+03 & 955.94 \\
+0.93708 & 1e+05 & 47.88 \\
+0.28614 & 1e+07 & -1104.60 \\
+
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{kable}\NormalTok{(d, }\AttributeTok{digits =} \DecValTok{3}\NormalTok{, }
+      \AttributeTok{format.args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{big.mark =} \StringTok{","}\NormalTok{, }\CommentTok{\# Use US notation of including a comma (vs period) every three digits}
+                         \AttributeTok{scientific =} \ConstantTok{FALSE}\NormalTok{),}
+      \AttributeTok{caption =} \StringTok{"Round all data to max 3 decimal places and do not use scientific notaiton."}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}rrr@{}}
+
+\caption{\label{tbl-column-formats3}Round all data to max 3 decimal
+places and do not use scientific notaiton.}
+
+\tabularnewline
+
+\toprule\noalign{}
+X1 & X2 & X3 \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0.915 & 1,000 & 955.936 \\
+0.937 & 100,000 & 47.885 \\
+0.286 & 10,000,000 & -1,104.599 \\
+
+\end{longtable}
+
+For the second half of the list (5-8), we need the \texttt{kableExtra}
+package. Most things that this package can do will work in both Word and
+PDF outputs, but Word does not support LaTeX formatting. As a result,
+the results are pretty iffy. Sticking with PDF output format is
+recommended. If you need to render to a Word doc, refer to the package
+documentation for suggestions on how to do so.
+
+This package includes the \texttt{kbl()} function, which is
+\emph{identical} to \texttt{kable()}. If you have \texttt{kableExtra}
+loaded you can use either, but the advantage of using \texttt{kbl()} is
+that it will throw an obvious error if you don't have the package
+loaded, which you might not notice otherwise.
+
+To use styling functions in the \texttt{kableExtra} package, you'll
+create a kable with \texttt{kable()} or \texttt{kbl()} and pipe
+(\texttt{\%\textgreater{}\%}) it into the style function. Examples in
+this section come from the \texttt{kableExtra} package
+\href{https://haozhu233.github.io/kableExtra/}{documentation}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(kableExtra)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Attaching package: 'kableExtra'
+\end{verbatim}
+
+\begin{verbatim}
+The following object is masked from 'package:dplyr':
+
+    group_rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dt }\OtherTok{\textless{}{-}}\NormalTok{ mtcars[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+By default, knitr will place tables wherever it thinks the best place in
+your document for that table will be. This is often great, but sometimes
+it's a very bad guesser. It will also guess the size/scale your table
+should be. You can control these things yourself.
+
+In Table~\ref{tbl-hold-position}, the \texttt{hold\_position} style
+option ``pins'' the table where you call it. Most examples from here on
+will include this argument.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{kbl}\NormalTok{(dt, }
+    \AttributeTok{caption =} \StringTok{"Table will appear exactly where you call it."}
+\NormalTok{    ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \StringTok{"hold\_position"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tbl-hold-position}}
+
+\centering{
+
+\captionsetup{labelsep=none}
+
+[!h]
+\centering
+\caption{\label{tab:tbl-hold-position}Table will appear exactly where you call it.}
+\centering
+\begin{tabular}[t]{l|r|r|r|r|r|r}
+\hline
+  & mpg & cyl & disp & hp & drat & wt\\
+\hline
+Mazda RX4 & 21.0 & 6 & 160 & 110 & 3.90 & 2.620\\
+\hline
+Mazda RX4 Wag & 21.0 & 6 & 160 & 110 & 3.90 & 2.875\\
+\hline
+Datsun 710 & 22.8 & 4 & 108 & 93 & 3.85 & 2.320\\
+\hline
+Hornet 4 Drive & 21.4 & 6 & 258 & 110 & 3.08 & 3.215\\
+\hline
+Hornet Sportabout & 18.7 & 8 & 360 & 175 & 3.15 & 3.440\\
+\hline
+\end{tabular}
+
+}
+
+\end{table}%
+
+In Table~\ref{tbl-size-scaledown}, it shows the use of the
+\texttt{scale\_down} option (with \texttt{hold\_position}) to scale a
+wide table down to fit on the page. This can be used instead of or in
+addition to printing the table in landscape page format. See the
+\texttt{kableExtra} docs for how to do that.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{kbl}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(dt, dt, dt), }\CommentTok{\# create a very wide table}
+    \AttributeTok{caption =} \StringTok{"When you have a wide table that will normally go out of the page, and you want to scale down the table to fit the page, you can use the scale down option."}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\StringTok{"scale\_down"}\NormalTok{, }\StringTok{"hold\_position"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tbl-size-scaledown}}
+
+\centering{
+
+\captionsetup{labelsep=none}
+
+[!h]
+\centering
+\caption{\label{tab:tbl-size-scaledown}When you have a wide table that will normally go out of the page, and you want to scale down the table to fit the page, you can use the scale down option.}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{l|r|r|r|r|r|r|r|r|r|r|r|r|r|r|r|r|r|r}
+\hline
+  & mpg & cyl & disp & hp & drat & wt & mpg & cyl & disp & hp & drat & wt & mpg & cyl & disp & hp & drat & wt\\
+\hline
+\cellcolor{gray!10}{Mazda RX4} & \cellcolor{gray!10}{21.0} & \cellcolor{gray!10}{6} & \cellcolor{gray!10}{160} & \cellcolor{gray!10}{110} & \cellcolor{gray!10}{3.90} & \cellcolor{gray!10}{2.620} & \cellcolor{gray!10}{21.0} & \cellcolor{gray!10}{6} & \cellcolor{gray!10}{160} & \cellcolor{gray!10}{110} & \cellcolor{gray!10}{3.90} & \cellcolor{gray!10}{2.620} & \cellcolor{gray!10}{21.0} & \cellcolor{gray!10}{6} & \cellcolor{gray!10}{160} & \cellcolor{gray!10}{110} & \cellcolor{gray!10}{3.90} & \cellcolor{gray!10}{2.620}\\
+\hline
+Mazda RX4 Wag & 21.0 & 6 & 160 & 110 & 3.90 & 2.875 & 21.0 & 6 & 160 & 110 & 3.90 & 2.875 & 21.0 & 6 & 160 & 110 & 3.90 & 2.875\\
+\hline
+\cellcolor{gray!10}{Datsun 710} & \cellcolor{gray!10}{22.8} & \cellcolor{gray!10}{4} & \cellcolor{gray!10}{108} & \cellcolor{gray!10}{93} & \cellcolor{gray!10}{3.85} & \cellcolor{gray!10}{2.320} & \cellcolor{gray!10}{22.8} & \cellcolor{gray!10}{4} & \cellcolor{gray!10}{108} & \cellcolor{gray!10}{93} & \cellcolor{gray!10}{3.85} & \cellcolor{gray!10}{2.320} & \cellcolor{gray!10}{22.8} & \cellcolor{gray!10}{4} & \cellcolor{gray!10}{108} & \cellcolor{gray!10}{93} & \cellcolor{gray!10}{3.85} & \cellcolor{gray!10}{2.320}\\
+\hline
+Hornet 4 Drive & 21.4 & 6 & 258 & 110 & 3.08 & 3.215 & 21.4 & 6 & 258 & 110 & 3.08 & 3.215 & 21.4 & 6 & 258 & 110 & 3.08 & 3.215\\
+\hline
+\cellcolor{gray!10}{Hornet Sportabout} & \cellcolor{gray!10}{18.7} & \cellcolor{gray!10}{8} & \cellcolor{gray!10}{360} & \cellcolor{gray!10}{175} & \cellcolor{gray!10}{3.15} & \cellcolor{gray!10}{3.440} & \cellcolor{gray!10}{18.7} & \cellcolor{gray!10}{8} & \cellcolor{gray!10}{360} & \cellcolor{gray!10}{175} & \cellcolor{gray!10}{3.15} & \cellcolor{gray!10}{3.440} & \cellcolor{gray!10}{18.7} & \cellcolor{gray!10}{8} & \cellcolor{gray!10}{360} & \cellcolor{gray!10}{175} & \cellcolor{gray!10}{3.15} & \cellcolor{gray!10}{3.440}\\
+\hline
+\end{tabular}}
+
+}
+
+\end{table}%
+
+You can also scale \emph{up} a table to make a small/narrow table full
+width with either the \texttt{scale\_up} option (see
+Table~\ref{tbl-size-scaleup} ) or \texttt{full\_width} argument (see
+Table~\ref{tbl-size-fullwidth} ).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{kbl}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(dt),}
+    \AttributeTok{caption =} \StringTok{"Use the scale up option to stretch to full page width."}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\StringTok{"scale\_up"}\NormalTok{, }\StringTok{"hold\_position"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tbl-size-scaleup}}
+
+\centering{
+
+\captionsetup{labelsep=none}
+
+[!h]
+\centering
+\caption{\label{tab:tbl-size-scaleup}Use the scale up option to stretch to full page width.}
+\centering
+\resizebox{\ifdim\width<\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{l|r|r|r|r|r|r}
+\hline
+  & mpg & cyl & disp & hp & drat & wt\\
+\hline
+\cellcolor{gray!10}{Mazda RX4} & \cellcolor{gray!10}{21.0} & \cellcolor{gray!10}{6} & \cellcolor{gray!10}{160} & \cellcolor{gray!10}{110} & \cellcolor{gray!10}{3.90} & \cellcolor{gray!10}{2.620}\\
+\hline
+Mazda RX4 Wag & 21.0 & 6 & 160 & 110 & 3.90 & 2.875\\
+\hline
+\cellcolor{gray!10}{Datsun 710} & \cellcolor{gray!10}{22.8} & \cellcolor{gray!10}{4} & \cellcolor{gray!10}{108} & \cellcolor{gray!10}{93} & \cellcolor{gray!10}{3.85} & \cellcolor{gray!10}{2.320}\\
+\hline
+Hornet 4 Drive & 21.4 & 6 & 258 & 110 & 3.08 & 3.215\\
+\hline
+\cellcolor{gray!10}{Hornet Sportabout} & \cellcolor{gray!10}{18.7} & \cellcolor{gray!10}{8} & \cellcolor{gray!10}{360} & \cellcolor{gray!10}{175} & \cellcolor{gray!10}{3.15} & \cellcolor{gray!10}{3.440}\\
+\hline
+\end{tabular}}
+
+}
+
+\end{table}%
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{kbl}\NormalTok{(dt, }
+    \AttributeTok{caption =} \StringTok{"Stretch a small table to fit the page with the full width option."}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{full\_width =}\NormalTok{ T, }\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"hold\_position"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tbl-size-fullwidth}}
+
+\centering{
+
+\captionsetup{labelsep=none}
+
+[!h]
+\centering
+\caption{\label{tab:tbl-size-fullwidth}Stretch a small table to fit the page with the full width option.}
+\centering
+\begin{tabu} to \linewidth {>{\raggedright}X>{\raggedleft}X>{\raggedleft}X>{\raggedleft}X>{\raggedleft}X>{\raggedleft}X>{\raggedleft}X}
+\hline
+  & mpg & cyl & disp & hp & drat & wt\\
+\hline
+Mazda RX4 & 21.0 & 6 & 160 & 110 & 3.90 & 2.620\\
+\hline
+Mazda RX4 Wag & 21.0 & 6 & 160 & 110 & 3.90 & 2.875\\
+\hline
+Datsun 710 & 22.8 & 4 & 108 & 93 & 3.85 & 2.320\\
+\hline
+Hornet 4 Drive & 21.4 & 6 & 258 & 110 & 3.08 & 3.215\\
+\hline
+Hornet Sportabout & 18.7 & 8 & 360 & 175 & 3.15 & 3.440\\
+\hline
+\end{tabu}
+
+}
+
+\end{table}%
+
+When you have very long tables that would extend over multiple pages,
+use the \texttt{longtable} argument, usually in combination with the
+\texttt{repeat\_header} option (Table~\ref{tbl-size-longtable}).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{long\_dt }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(mtcars, mtcars) }\CommentTok{\# create a very long table}
+\FunctionTok{kbl}\NormalTok{(long\_dt, }
+    \AttributeTok{longtable =}\NormalTok{ T, }
+    \AttributeTok{caption =} \StringTok{"Use the \textquotesingle{}longtable\textquotesingle{} argument in the kbl() to intelligently manage very long tables. Use the repeat header LaTeX option "}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+ \CommentTok{\# add\_header\_above(c(" ", "Group 1" = 5, "Group 2" = 6)) \%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"repeat\_header"}\NormalTok{, }\StringTok{"hold\_position"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[t]{l|r|r|r|r|r|r|r|r|r|r|r}
+
+\caption{\label{tbl-size-longtable}Use the `longtable' argument in the
+kbl() to intelligently manage very long tables. Use the repeat header
+LaTeX option}
+
+\tabularnewline
+
+\\
+\hline
+  & mpg & cyl & disp & hp & drat & wt & qsec & vs & am & gear & carb\\
+\hline
+\endfirsthead
+\caption[]{Use the 'longtable' argument in the kbl() to intelligently manage very long tables. Use the repeat header LaTeX option  \textit{(continued)}}\\
+\hline
+  & mpg & cyl & disp & hp & drat & wt & qsec & vs & am & gear & carb\\
+\hline
+\endhead
+Mazda RX4 & 21.0 & 6 & 160.0 & 110 & 3.90 & 2.620 & 16.46 & 0 & 1 & 4 & 4\\
+\hline
+Mazda RX4 Wag & 21.0 & 6 & 160.0 & 110 & 3.90 & 2.875 & 17.02 & 0 & 1 & 4 & 4\\
+\hline
+Datsun 710 & 22.8 & 4 & 108.0 & 93 & 3.85 & 2.320 & 18.61 & 1 & 1 & 4 & 1\\
+\hline
+Hornet 4 Drive & 21.4 & 6 & 258.0 & 110 & 3.08 & 3.215 & 19.44 & 1 & 0 & 3 & 1\\
+\hline
+Hornet Sportabout & 18.7 & 8 & 360.0 & 175 & 3.15 & 3.440 & 17.02 & 0 & 0 & 3 & 2\\
+\hline
+Valiant & 18.1 & 6 & 225.0 & 105 & 2.76 & 3.460 & 20.22 & 1 & 0 & 3 & 1\\
+\hline
+Duster 360 & 14.3 & 8 & 360.0 & 245 & 3.21 & 3.570 & 15.84 & 0 & 0 & 3 & 4\\
+\hline
+Merc 240D & 24.4 & 4 & 146.7 & 62 & 3.69 & 3.190 & 20.00 & 1 & 0 & 4 & 2\\
+\hline
+Merc 230 & 22.8 & 4 & 140.8 & 95 & 3.92 & 3.150 & 22.90 & 1 & 0 & 4 & 2\\
+\hline
+Merc 280 & 19.2 & 6 & 167.6 & 123 & 3.92 & 3.440 & 18.30 & 1 & 0 & 4 & 4\\
+\hline
+Merc 280C & 17.8 & 6 & 167.6 & 123 & 3.92 & 3.440 & 18.90 & 1 & 0 & 4 & 4\\
+\hline
+Merc 450SE & 16.4 & 8 & 275.8 & 180 & 3.07 & 4.070 & 17.40 & 0 & 0 & 3 & 3\\
+\hline
+Merc 450SL & 17.3 & 8 & 275.8 & 180 & 3.07 & 3.730 & 17.60 & 0 & 0 & 3 & 3\\
+\hline
+Merc 450SLC & 15.2 & 8 & 275.8 & 180 & 3.07 & 3.780 & 18.00 & 0 & 0 & 3 & 3\\
+\hline
+Cadillac Fleetwood & 10.4 & 8 & 472.0 & 205 & 2.93 & 5.250 & 17.98 & 0 & 0 & 3 & 4\\
+\hline
+Lincoln Continental & 10.4 & 8 & 460.0 & 215 & 3.00 & 5.424 & 17.82 & 0 & 0 & 3 & 4\\
+\hline
+Chrysler Imperial & 14.7 & 8 & 440.0 & 230 & 3.23 & 5.345 & 17.42 & 0 & 0 & 3 & 4\\
+\hline
+Fiat 128 & 32.4 & 4 & 78.7 & 66 & 4.08 & 2.200 & 19.47 & 1 & 1 & 4 & 1\\
+\hline
+Honda Civic & 30.4 & 4 & 75.7 & 52 & 4.93 & 1.615 & 18.52 & 1 & 1 & 4 & 2\\
+\hline
+Toyota Corolla & 33.9 & 4 & 71.1 & 65 & 4.22 & 1.835 & 19.90 & 1 & 1 & 4 & 1\\
+\hline
+Toyota Corona & 21.5 & 4 & 120.1 & 97 & 3.70 & 2.465 & 20.01 & 1 & 0 & 3 & 1\\
+\hline
+Dodge Challenger & 15.5 & 8 & 318.0 & 150 & 2.76 & 3.520 & 16.87 & 0 & 0 & 3 & 2\\
+\hline
+AMC Javelin & 15.2 & 8 & 304.0 & 150 & 3.15 & 3.435 & 17.30 & 0 & 0 & 3 & 2\\
+\hline
+Camaro Z28 & 13.3 & 8 & 350.0 & 245 & 3.73 & 3.840 & 15.41 & 0 & 0 & 3 & 4\\
+\hline
+Pontiac Firebird & 19.2 & 8 & 400.0 & 175 & 3.08 & 3.845 & 17.05 & 0 & 0 & 3 & 2\\
+\hline
+Fiat X1-9 & 27.3 & 4 & 79.0 & 66 & 4.08 & 1.935 & 18.90 & 1 & 1 & 4 & 1\\
+\hline
+Porsche 914-2 & 26.0 & 4 & 120.3 & 91 & 4.43 & 2.140 & 16.70 & 0 & 1 & 5 & 2\\
+\hline
+Lotus Europa & 30.4 & 4 & 95.1 & 113 & 3.77 & 1.513 & 16.90 & 1 & 1 & 5 & 2\\
+\hline
+Ford Pantera L & 15.8 & 8 & 351.0 & 264 & 4.22 & 3.170 & 14.50 & 0 & 1 & 5 & 4\\
+\hline
+Ferrari Dino & 19.7 & 6 & 145.0 & 175 & 3.62 & 2.770 & 15.50 & 0 & 1 & 5 & 6\\
+\hline
+Maserati Bora & 15.0 & 8 & 301.0 & 335 & 3.54 & 3.570 & 14.60 & 0 & 1 & 5 & 8\\
+\hline
+Volvo 142E & 21.4 & 4 & 121.0 & 109 & 4.11 & 2.780 & 18.60 & 1 & 1 & 4 & 2\\
+\hline
+Mazda RX41 & 21.0 & 6 & 160.0 & 110 & 3.90 & 2.620 & 16.46 & 0 & 1 & 4 & 4\\
+\hline
+Mazda RX4 Wag1 & 21.0 & 6 & 160.0 & 110 & 3.90 & 2.875 & 17.02 & 0 & 1 & 4 & 4\\
+\hline
+Datsun 7101 & 22.8 & 4 & 108.0 & 93 & 3.85 & 2.320 & 18.61 & 1 & 1 & 4 & 1\\
+\hline
+Hornet 4 Drive1 & 21.4 & 6 & 258.0 & 110 & 3.08 & 3.215 & 19.44 & 1 & 0 & 3 & 1\\
+\hline
+Hornet Sportabout1 & 18.7 & 8 & 360.0 & 175 & 3.15 & 3.440 & 17.02 & 0 & 0 & 3 & 2\\
+\hline
+Valiant1 & 18.1 & 6 & 225.0 & 105 & 2.76 & 3.460 & 20.22 & 1 & 0 & 3 & 1\\
+\hline
+Duster 3601 & 14.3 & 8 & 360.0 & 245 & 3.21 & 3.570 & 15.84 & 0 & 0 & 3 & 4\\
+\hline
+Merc 240D1 & 24.4 & 4 & 146.7 & 62 & 3.69 & 3.190 & 20.00 & 1 & 0 & 4 & 2\\
+\hline
+Merc 2301 & 22.8 & 4 & 140.8 & 95 & 3.92 & 3.150 & 22.90 & 1 & 0 & 4 & 2\\
+\hline
+Merc 2801 & 19.2 & 6 & 167.6 & 123 & 3.92 & 3.440 & 18.30 & 1 & 0 & 4 & 4\\
+\hline
+Merc 280C1 & 17.8 & 6 & 167.6 & 123 & 3.92 & 3.440 & 18.90 & 1 & 0 & 4 & 4\\
+\hline
+Merc 450SE1 & 16.4 & 8 & 275.8 & 180 & 3.07 & 4.070 & 17.40 & 0 & 0 & 3 & 3\\
+\hline
+Merc 450SL1 & 17.3 & 8 & 275.8 & 180 & 3.07 & 3.730 & 17.60 & 0 & 0 & 3 & 3\\
+\hline
+Merc 450SLC1 & 15.2 & 8 & 275.8 & 180 & 3.07 & 3.780 & 18.00 & 0 & 0 & 3 & 3\\
+\hline
+Cadillac Fleetwood1 & 10.4 & 8 & 472.0 & 205 & 2.93 & 5.250 & 17.98 & 0 & 0 & 3 & 4\\
+\hline
+Lincoln Continental1 & 10.4 & 8 & 460.0 & 215 & 3.00 & 5.424 & 17.82 & 0 & 0 & 3 & 4\\
+\hline
+Chrysler Imperial1 & 14.7 & 8 & 440.0 & 230 & 3.23 & 5.345 & 17.42 & 0 & 0 & 3 & 4\\
+\hline
+Fiat 1281 & 32.4 & 4 & 78.7 & 66 & 4.08 & 2.200 & 19.47 & 1 & 1 & 4 & 1\\
+\hline
+Honda Civic1 & 30.4 & 4 & 75.7 & 52 & 4.93 & 1.615 & 18.52 & 1 & 1 & 4 & 2\\
+\hline
+Toyota Corolla1 & 33.9 & 4 & 71.1 & 65 & 4.22 & 1.835 & 19.90 & 1 & 1 & 4 & 1\\
+\hline
+Toyota Corona1 & 21.5 & 4 & 120.1 & 97 & 3.70 & 2.465 & 20.01 & 1 & 0 & 3 & 1\\
+\hline
+Dodge Challenger1 & 15.5 & 8 & 318.0 & 150 & 2.76 & 3.520 & 16.87 & 0 & 0 & 3 & 2\\
+\hline
+AMC Javelin1 & 15.2 & 8 & 304.0 & 150 & 3.15 & 3.435 & 17.30 & 0 & 0 & 3 & 2\\
+\hline
+Camaro Z281 & 13.3 & 8 & 350.0 & 245 & 3.73 & 3.840 & 15.41 & 0 & 0 & 3 & 4\\
+\hline
+Pontiac Firebird1 & 19.2 & 8 & 400.0 & 175 & 3.08 & 3.845 & 17.05 & 0 & 0 & 3 & 2\\
+\hline
+Fiat X1-91 & 27.3 & 4 & 79.0 & 66 & 4.08 & 1.935 & 18.90 & 1 & 1 & 4 & 1\\
+\hline
+Porsche 914-21 & 26.0 & 4 & 120.3 & 91 & 4.43 & 2.140 & 16.70 & 0 & 1 & 5 & 2\\
+\hline
+Lotus Europa1 & 30.4 & 4 & 95.1 & 113 & 3.77 & 1.513 & 16.90 & 1 & 1 & 5 & 2\\
+\hline
+Ford Pantera L1 & 15.8 & 8 & 351.0 & 264 & 4.22 & 3.170 & 14.50 & 0 & 1 & 5 & 4\\
+\hline
+Ferrari Dino1 & 19.7 & 6 & 145.0 & 175 & 3.62 & 2.770 & 15.50 & 0 & 1 & 5 & 6\\
+\hline
+Maserati Bora1 & 15.0 & 8 & 301.0 & 335 & 3.54 & 3.570 & 14.60 & 0 & 1 & 5 & 8\\
+\hline
+Volvo 142E1 & 21.4 & 4 & 121.0 & 109 & 4.11 & 2.780 & 18.60 & 1 & 1 & 4 & 2\\
+\hline
+
+\end{longtable}
+
+By default, tables are aligned center on the page, but they can also be
+aligned left or right. Note that alignment does not apply to full width
+tables. Table~\ref{tbl-alignleft} uses the
+\texttt{position\ =\ "left"\ argument} to align left. Oddly, aligning
+right in the same way doesn't work as expected. In theory you can
+``float right'' rather than position right, but this can produce errors.
+It's unlikely you'll need to right align a table though.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{kbl}\NormalTok{(dt, }
+    \AttributeTok{caption =} \StringTok{"Align your table (not the text, the whole table), \textquotesingle{}left\textquotesingle{} or \textquotesingle{}center\textquotesingle{} (the default) with the position argument."}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{position =} \StringTok{"left"}\NormalTok{, }\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"hold\_position"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tbl-alignleft}}
+
+\centering{
+
+\captionsetup{labelsep=none}
+
+[!h]
+
+\caption{\label{tab:tbl-alignleft}Align your table (not the text, the whole table), 'left' or 'center' (the default) with the position argument.}
+\begin{tabular}[t]{l|r|r|r|r|r|r}
+\hline
+  & mpg & cyl & disp & hp & drat & wt\\
+\hline
+Mazda RX4 & 21.0 & 6 & 160 & 110 & 3.90 & 2.620\\
+\hline
+Mazda RX4 Wag & 21.0 & 6 & 160 & 110 & 3.90 & 2.875\\
+\hline
+Datsun 710 & 22.8 & 4 & 108 & 93 & 3.85 & 2.320\\
+\hline
+Hornet 4 Drive & 21.4 & 6 & 258 & 110 & 3.08 & 3.215\\
+\hline
+Hornet Sportabout & 18.7 & 8 & 360 & 175 & 3.15 & 3.440\\
+\hline
+\end{tabular}
+
+}
+
+\end{table}%
+
+You can make style adjustments to the whole table (e.g., font fact,
+background color, bold/italic) or to specific rows and columns.
+Table~\ref{tbl-col-specs} includes three \texttt{column\_spec} functions
+to modify properties in columns 2, 6, and 9.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mtcars[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{8}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{8}\NormalTok{] }\SpecialCharTok{\%\textgreater{}\%}
+\FunctionTok{kbl}\NormalTok{(}\AttributeTok{booktabs =}\NormalTok{ T,}
+    \AttributeTok{caption =} \StringTok{"This table uses column specifications to make many visual modifications to individual rows. The final line shows how the same function can modify just one cell in a column in a similar way."}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_paper}\NormalTok{(}\AttributeTok{full\_width =}\NormalTok{ F) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{column\_spec}\NormalTok{(}\DecValTok{2}\NormalTok{, }\AttributeTok{color =} \FunctionTok{spec\_color}\NormalTok{(mtcars}\SpecialCharTok{$}\NormalTok{mpg[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{8}\NormalTok{]),}
+             \AttributeTok{link =} \StringTok{"https://haozhu233.github.io/kableExtra"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{column\_spec}\NormalTok{(}\DecValTok{6}\NormalTok{, }\AttributeTok{color =} \StringTok{"white"}\NormalTok{,}
+             \AttributeTok{background =} \FunctionTok{spec\_color}\NormalTok{(mtcars}\SpecialCharTok{$}\NormalTok{drat[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{8}\NormalTok{], }\AttributeTok{end =} \FloatTok{0.7}\NormalTok{),}
+             \AttributeTok{popover =} \FunctionTok{paste}\NormalTok{(}\StringTok{"am:"}\NormalTok{, mtcars}\SpecialCharTok{$}\NormalTok{am[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{8}\NormalTok{])) }\SpecialCharTok{\%\textgreater{}\%}
+\CommentTok{\#  The c(rep(XX,7), XX) bit here is basically saying}
+\CommentTok{\#  in this column (9) treat the first 7 columns one way and then the rest (the last)}
+\CommentTok{\#  this other way. e.g., strikeout should be FALSE for the 1st seven rows but TRUE}
+\CommentTok{\#  for the rest, color should be BLACK for 1{-}7 but RED for the rest}
+  \FunctionTok{column\_spec}\NormalTok{(}\DecValTok{9}\NormalTok{, }\AttributeTok{strikeout =} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(F, }\DecValTok{7}\NormalTok{), T), }\AttributeTok{bold =} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(F, }\DecValTok{7}\NormalTok{), T),}
+             \AttributeTok{color =} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\DecValTok{7}\NormalTok{), }\StringTok{"red"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tbl-col-specs}}
+
+\centering{
+
+\captionsetup{labelsep=none}
+
+\centering
+\caption{\label{tab:tbl-col-specs}This table uses column specifications to make many visual modifications to individual rows. The final line shows how the same function can modify just one cell in a column in a similar way.}
+\centering
+\begin{tabular}[t]{l>{}rrrr>{}rrr>{}r}
+\toprule
+  & mpg & cyl & disp & hp & drat & wt & qsec & vs\\
+\midrule
+Mazda RX4 & \href{https://haozhu233.github.io/kableExtra}{\textcolor[HTML]{34B679}{21.0}} & 6 & 160.0 & 110 & \cellcolor[HTML]{43BF71}{\textcolor{white}{3.90}} & 2.620 & 16.46 & \textcolor{black}{0}\\
+Mazda RX4 Wag & \href{https://haozhu233.github.io/kableExtra}{\textcolor[HTML]{34B679}{21.0}} & 6 & 160.0 & 110 & \cellcolor[HTML]{43BF71}{\textcolor{white}{3.90}} & 2.875 & 17.02 & \textcolor{black}{0}\\
+Datsun 710 & \href{https://haozhu233.github.io/kableExtra}{\textcolor[HTML]{95D840}{22.8}} & 4 & 108.0 & 93 & \cellcolor[HTML]{37B878}{\textcolor{white}{3.85}} & 2.320 & 18.61 & \textcolor{black}{1}\\
+Hornet 4 Drive & \href{https://haozhu233.github.io/kableExtra}{\textcolor[HTML]{44BF70}{21.4}} & 6 & 258.0 & 110 & \cellcolor[HTML]{414387}{\textcolor{white}{3.08}} & 3.215 & 19.44 & \textcolor{black}{1}\\
+Hornet Sportabout & \href{https://haozhu233.github.io/kableExtra}{\textcolor[HTML]{26818E}{18.7}} & 8 & 360.0 & 175 & \cellcolor[HTML]{3C4F8A}{\textcolor{white}{3.15}} & 3.440 & 17.02 & \textcolor{black}{0}\\
+\addlinespace
+Valiant & \href{https://haozhu233.github.io/kableExtra}{\textcolor[HTML]{2C728E}{18.1}} & 6 & 225.0 & 105 & \cellcolor[HTML]{440154}{\textcolor{white}{2.76}} & 3.460 & 20.22 & \textcolor{black}{1}\\
+Duster 360 & \href{https://haozhu233.github.io/kableExtra}{\textcolor[HTML]{440154}{14.3}} & 8 & 360.0 & 245 & \cellcolor[HTML]{375A8C}{\textcolor{white}{3.21}} & 3.570 & 15.84 & \textcolor{black}{0}\\
+Merc 240D & \href{https://haozhu233.github.io/kableExtra}{\textcolor[HTML]{FDE725}{24.4}} & 4 & 146.7 & 62 & \cellcolor[HTML]{1FA187}{\textcolor{white}{3.69}} & 3.190 & 20.00 & \textcolor{red}{\sout{\textbf{1}}}\\
+\bottomrule
+\end{tabular}
+
+}
+
+\end{table}%
+
+Table~\ref{tbl-row-specs} includes two \texttt{row\_spec} functions to
+modify properties in rows 1 and rows 3-5.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{kbl}\NormalTok{(dt, }\AttributeTok{booktabs =}\NormalTok{ T,}
+    \AttributeTok{caption =} \StringTok{"You can specify styling for rows in the same way."}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\AttributeTok{full\_width =}\NormalTok{ F) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{column\_spec}\NormalTok{(}\DecValTok{7}\NormalTok{, }\AttributeTok{border\_left =}\NormalTok{ T, }\AttributeTok{bold =}\NormalTok{ T) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{row\_spec}\NormalTok{(}\DecValTok{1}\NormalTok{, }\AttributeTok{strikeout =}\NormalTok{ T) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{row\_spec}\NormalTok{(}\DecValTok{3}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, }\AttributeTok{bold =}\NormalTok{ T, }\AttributeTok{color =} \StringTok{"white"}\NormalTok{, }\AttributeTok{background =} \StringTok{"black"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tbl-row-specs}}
+
+\centering{
+
+\captionsetup{labelsep=none}
+
+\centering
+\caption{\label{tab:tbl-row-specs}You can specify styling for rows in the same way.}
+\centering
+\begin{tabular}[t]{lrrrrr|>{}r}
+\toprule
+  & mpg & cyl & disp & hp & drat & wt\\
+\midrule
+\sout{Mazda RX4} & \sout{21.0} & \sout{6} & \sout{160} & \sout{110} & \sout{3.90} & \sout{\textbf{2.620}}\\
+Mazda RX4 Wag & 21.0 & 6 & 160 & 110 & 3.90 & \textbf{2.875}\\
+\cellcolor{black}{\textcolor{white}{\textbf{Datsun 710}}} & \cellcolor{black}{\textcolor{white}{\textbf{22.8}}} & \cellcolor{black}{\textcolor{white}{\textbf{4}}} & \cellcolor{black}{\textcolor{white}{\textbf{108}}} & \cellcolor{black}{\textcolor{white}{\textbf{93}}} & \cellcolor{black}{\textcolor{white}{\textbf{3.85}}} & \cellcolor{black}{\textcolor{white}{\textbf{\textbf{2.320}}}}\\
+\cellcolor{black}{\textcolor{white}{\textbf{Hornet 4 Drive}}} & \cellcolor{black}{\textcolor{white}{\textbf{21.4}}} & \cellcolor{black}{\textcolor{white}{\textbf{6}}} & \cellcolor{black}{\textcolor{white}{\textbf{258}}} & \cellcolor{black}{\textcolor{white}{\textbf{110}}} & \cellcolor{black}{\textcolor{white}{\textbf{3.08}}} & \cellcolor{black}{\textcolor{white}{\textbf{\textbf{3.215}}}}\\
+\cellcolor{black}{\textcolor{white}{\textbf{Hornet Sportabout}}} & \cellcolor{black}{\textcolor{white}{\textbf{18.7}}} & \cellcolor{black}{\textcolor{white}{\textbf{8}}} & \cellcolor{black}{\textcolor{white}{\textbf{360}}} & \cellcolor{black}{\textcolor{white}{\textbf{175}}} & \cellcolor{black}{\textcolor{white}{\textbf{3.15}}} & \cellcolor{black}{\textcolor{white}{\textbf{\textbf{3.440}}}}\\
+\bottomrule
+\end{tabular}
+
+}
+
+\end{table}%
+
+You can ``group'' rows and columns, basically equivalent to merging
+cells in a spreadsheet. This is commonly needed for multi-level headers
+or organizing non-rectangular data (like a lot of model output).
+Table~\ref{tbl-grouping-addheader} uses the
+\texttt{add\_header\_above()} function to do so.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{kbl}\NormalTok{(dt, }
+    \AttributeTok{caption =} \StringTok{"Create grouped columns by adding a header."}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\StringTok{"hold\_position"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \CommentTok{\# The syntax within the list is "name of group header = [number of columns to be grouped under it]. Make sure the total number of columns to group equal the actual number of columns in the table}
+  \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{" "} \OtherTok{=} \DecValTok{1}\NormalTok{, }\StringTok{"Group 1"} \OtherTok{=} \DecValTok{2}\NormalTok{, }\StringTok{"Group 2"} \OtherTok{=} \DecValTok{2}\NormalTok{, }\StringTok{"Group 3"} \OtherTok{=} \DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tbl-grouping-addheader}}
+
+\centering{
+
+\captionsetup{labelsep=none}
+
+[!h]
+\centering
+\caption{\label{tab:tbl-grouping-addheader}Create grouped columns by adding a header.}
+\centering
+\begin{tabular}[t]{l|r|r|r|r|r|r}
+\hline
+\multicolumn{1}{c|}{ } & \multicolumn{2}{c|}{Group 1} & \multicolumn{2}{c|}{Group 2} & \multicolumn{2}{c}{Group 3} \\
+\cline{2-3} \cline{4-5} \cline{6-7}
+  & mpg & cyl & disp & hp & drat & wt\\
+\hline
+\cellcolor{gray!10}{Mazda RX4} & \cellcolor{gray!10}{21.0} & \cellcolor{gray!10}{6} & \cellcolor{gray!10}{160} & \cellcolor{gray!10}{110} & \cellcolor{gray!10}{3.90} & \cellcolor{gray!10}{2.620}\\
+\hline
+Mazda RX4 Wag & 21.0 & 6 & 160 & 110 & 3.90 & 2.875\\
+\hline
+\cellcolor{gray!10}{Datsun 710} & \cellcolor{gray!10}{22.8} & \cellcolor{gray!10}{4} & \cellcolor{gray!10}{108} & \cellcolor{gray!10}{93} & \cellcolor{gray!10}{3.85} & \cellcolor{gray!10}{2.320}\\
+\hline
+Hornet 4 Drive & 21.4 & 6 & 258 & 110 & 3.08 & 3.215\\
+\hline
+\cellcolor{gray!10}{Hornet Sportabout} & \cellcolor{gray!10}{18.7} & \cellcolor{gray!10}{8} & \cellcolor{gray!10}{360} & \cellcolor{gray!10}{175} & \cellcolor{gray!10}{3.15} & \cellcolor{gray!10}{3.440}\\
+\hline
+\end{tabular}
+
+}
+
+\end{table}%
+
+You can group more than once and format these header rows individually.
+Use the total number of rows to specify how many columns to group, not
+the number of rows in the grouped row below it
+(Table~\ref{tbl-grouping-multiple}).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{kbl}\NormalTok{(dt, }
+    \AttributeTok{caption =} \StringTok{"Group multiple times and format these header rows individually."}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\StringTok{"hold\_position"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \CommentTok{\# If you don\textquotesingle{}t specify how many columns to group for that group name, it assumes =1}
+  \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{, }\StringTok{"Group 1"} \OtherTok{=} \DecValTok{2}\NormalTok{, }\StringTok{"Group 2"} \OtherTok{=} \DecValTok{2}\NormalTok{, }\StringTok{"Group 3"} \OtherTok{=} \DecValTok{2}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{, }\StringTok{"Group 4"} \OtherTok{=} \DecValTok{4}\NormalTok{, }\StringTok{"Group 5"} \OtherTok{=} \DecValTok{2}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{, }\StringTok{"Group 6"} \OtherTok{=} \DecValTok{6}\NormalTok{), }\AttributeTok{bold =}\NormalTok{ T, }\AttributeTok{italic =}\NormalTok{ T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tbl-grouping-multiple}}
+
+\centering{
+
+\captionsetup{labelsep=none}
+
+[!h]
+\centering
+\caption{\label{tab:tbl-grouping-multiple}Group multiple times and format these header rows individually.}
+\centering
+\begin{tabular}[t]{l|r|r|r|r|r|r}
+\hline
+\multicolumn{1}{c|}{\em{\textbf{ }}} & \multicolumn{6}{c}{\em{\textbf{Group 6}}} \\
+\cline{2-7}
+\multicolumn{1}{c|}{ } & \multicolumn{4}{c|}{Group 4} & \multicolumn{2}{c}{Group 5} \\
+\cline{2-5} \cline{6-7}
+\multicolumn{1}{c|}{ } & \multicolumn{2}{c|}{Group 1} & \multicolumn{2}{c|}{Group 2} & \multicolumn{2}{c}{Group 3} \\
+\cline{2-3} \cline{4-5} \cline{6-7}
+  & mpg & cyl & disp & hp & drat & wt\\
+\hline
+\cellcolor{gray!10}{Mazda RX4} & \cellcolor{gray!10}{21.0} & \cellcolor{gray!10}{6} & \cellcolor{gray!10}{160} & \cellcolor{gray!10}{110} & \cellcolor{gray!10}{3.90} & \cellcolor{gray!10}{2.620}\\
+\hline
+Mazda RX4 Wag & 21.0 & 6 & 160 & 110 & 3.90 & 2.875\\
+\hline
+\cellcolor{gray!10}{Datsun 710} & \cellcolor{gray!10}{22.8} & \cellcolor{gray!10}{4} & \cellcolor{gray!10}{108} & \cellcolor{gray!10}{93} & \cellcolor{gray!10}{3.85} & \cellcolor{gray!10}{2.320}\\
+\hline
+Hornet 4 Drive & 21.4 & 6 & 258 & 110 & 3.08 & 3.215\\
+\hline
+\cellcolor{gray!10}{Hornet Sportabout} & \cellcolor{gray!10}{18.7} & \cellcolor{gray!10}{8} & \cellcolor{gray!10}{360} & \cellcolor{gray!10}{175} & \cellcolor{gray!10}{3.15} & \cellcolor{gray!10}{3.440}\\
+\hline
+\end{tabular}
+
+}
+
+\end{table}%
+
+Grouping rows is a little different. Table~\ref{tbl-grouping-packrows}
+uses the \texttt{pack\_rows()} function to effectively add ``header
+rows'' throughout the table.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{kbl}\NormalTok{(mtcars[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{], }
+    \AttributeTok{caption =} \StringTok{"Group rows using packing."}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\StringTok{"hold\_position"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \CommentTok{\# syntax here is ("group label", [int of first row to include in group][int of last row to include])}
+  \FunctionTok{pack\_rows}\NormalTok{(}\StringTok{"Group 1"}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{7}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pack\_rows}\NormalTok{(}\StringTok{"Group 2"}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\NormalTok{collapse\_rows\_dt }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{C1 =} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\DecValTok{10}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"b"}\NormalTok{, }\DecValTok{5}\NormalTok{)),}
+                               \AttributeTok{C2 =} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{7}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"d"}\NormalTok{, }\DecValTok{3}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{2}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"d"}\NormalTok{, }\DecValTok{3}\NormalTok{)),}
+                               \AttributeTok{C3 =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{15}\NormalTok{,}
+                               \AttributeTok{C4 =} \FunctionTok{sample}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\DecValTok{15}\NormalTok{, }\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tbl-grouping-packrows}}
+
+\centering{
+
+\captionsetup{labelsep=none}
+
+[!h]
+\centering
+\caption{\label{tab:tbl-grouping-packrows}Group rows using packing.}
+\centering
+\begin{tabular}[t]{l|r|r|r|r|r|r}
+\hline
+  & mpg & cyl & disp & hp & drat & wt\\
+\hline
+\cellcolor{gray!10}{Mazda RX4} & \cellcolor{gray!10}{21.0} & \cellcolor{gray!10}{6} & \cellcolor{gray!10}{160.0} & \cellcolor{gray!10}{110} & \cellcolor{gray!10}{3.90} & \cellcolor{gray!10}{2.620}\\
+\hline
+Mazda RX4 Wag & 21.0 & 6 & 160.0 & 110 & 3.90 & 2.875\\
+\hline
+\cellcolor{gray!10}{Datsun 710} & \cellcolor{gray!10}{22.8} & \cellcolor{gray!10}{4} & \cellcolor{gray!10}{108.0} & \cellcolor{gray!10}{93} & \cellcolor{gray!10}{3.85} & \cellcolor{gray!10}{2.320}\\
+\hline
+\multicolumn{7}{l}{\textbf{Group 1}}\\
+\hline
+\hspace{1em}Hornet 4 Drive & 21.4 & 6 & 258.0 & 110 & 3.08 & 3.215\\
+\hline
+\hspace{1em}\cellcolor{gray!10}{Hornet Sportabout} & \cellcolor{gray!10}{18.7} & \cellcolor{gray!10}{8} & \cellcolor{gray!10}{360.0} & \cellcolor{gray!10}{175} & \cellcolor{gray!10}{3.15} & \cellcolor{gray!10}{3.440}\\
+\hline
+\hspace{1em}Valiant & 18.1 & 6 & 225.0 & 105 & 2.76 & 3.460\\
+\hline
+\hspace{1em}\cellcolor{gray!10}{Duster 360} & \cellcolor{gray!10}{14.3} & \cellcolor{gray!10}{8} & \cellcolor{gray!10}{360.0} & \cellcolor{gray!10}{245} & \cellcolor{gray!10}{3.21} & \cellcolor{gray!10}{3.570}\\
+\hline
+\multicolumn{7}{l}{\textbf{Group 2}}\\
+\hline
+\hspace{1em}Merc 240D & 24.4 & 4 & 146.7 & 62 & 3.69 & 3.190\\
+\hline
+\hspace{1em}\cellcolor{gray!10}{Merc 230} & \cellcolor{gray!10}{22.8} & \cellcolor{gray!10}{4} & \cellcolor{gray!10}{140.8} & \cellcolor{gray!10}{95} & \cellcolor{gray!10}{3.92} & \cellcolor{gray!10}{3.150}\\
+\hline
+\hspace{1em}Merc 280 & 19.2 & 6 & 167.6 & 123 & 3.92 & 3.440\\
+\hline
+\end{tabular}
+
+}
+
+\end{table}%
+
+Alternatively, use \texttt{collapse\_rows()} in
+Table~\ref{tbl-grouping-collapse} for more of a ``merge cells'' effect.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{collapse\_rows\_dt }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{C1 =} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\DecValTok{10}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"b"}\NormalTok{, }\DecValTok{5}\NormalTok{)),}
+                               \AttributeTok{C2 =} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{7}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"d"}\NormalTok{, }\DecValTok{3}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{2}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"d"}\NormalTok{, }\DecValTok{3}\NormalTok{)),}
+                               \AttributeTok{C3 =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{15}\NormalTok{,}
+                               \AttributeTok{C4 =} \FunctionTok{sample}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\DecValTok{15}\NormalTok{, }\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{))}
+
+\CommentTok{\# You will only see the "collapse" happen when you knit}
+\CommentTok{\# not when you run the chunk}
+\FunctionTok{kbl}\NormalTok{(collapse\_rows\_dt, }\AttributeTok{booktabs =}\NormalTok{ T, }\AttributeTok{align =} \StringTok{"c"}\NormalTok{,}
+    \AttributeTok{caption =} \StringTok{"Collapse rows for more of a \textquotesingle{}merge cells\textquotesingle{} effect."}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{column\_spec}\NormalTok{(}\DecValTok{1}\NormalTok{, }\AttributeTok{bold=}\NormalTok{T) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{collapse\_rows}\NormalTok{(}\AttributeTok{columns =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{,}
+                \AttributeTok{latex\_hline =} \StringTok{"major"}\NormalTok{,}
+                \AttributeTok{row\_group\_label\_position =} \StringTok{"first"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tbl-grouping-collapse}}
+
+\centering{
+
+\captionsetup{labelsep=none}
+
+\caption{\label{tab:tbl-grouping-collapse}Collapse rows for more of a 'merge cells' effect.}
+\centering
+\begin{tabular}[t]{>{}cccc}
+\toprule
+C1 & C2 & C3 & C4\\
+\midrule
+\textbf{a} & c & 1 & 0\\
+
+ &  & 2 & 1\\
+
+ &  & 3 & 0\\
+
+ &  & 4 & 0\\
+
+ &  & 5 & 0\\
+
+ &  & 6 & 0\\
+
+ &  & 7 & 1\\
+
+ & d & 8 & 1\\
+
+ &  & 9 & 1\\
+
+ &  & 10 & 1\\
+\cmidrule{1-4}
+\textbf{b} & c & 11 & 0\\
+
+ &  & 12 & 1\\
+
+ & d & 13 & 0\\
+
+ &  & 14 & 1\\
+
+ &  & 15 & 1\\
+\bottomrule
+\end{tabular}
+
+}
+
+\end{table}%
+
+Finally, you can add notes or footnotes below your table with the
+\texttt{footnote()} function. Table~\ref{tbl-footnotes} includes the
+`general' argument for an unlabeled note and `number', `alphabet', and
+`symbol' for footnotes with ordered labels.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{kbl}\NormalTok{(dt, }\AttributeTok{align =} \StringTok{"c"}\NormalTok{,}
+    \AttributeTok{caption =} \StringTok{"Add unordered (general) and ordered footnotes."}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{full\_width =}\NormalTok{ F) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{footnote}\NormalTok{(}\AttributeTok{general =} \StringTok{"Here is a general comments of the table. "}\NormalTok{,}
+           \AttributeTok{number =} \FunctionTok{c}\NormalTok{(}\StringTok{"Footnote 1; "}\NormalTok{, }\StringTok{"Footnote 2; "}\NormalTok{),}
+           \AttributeTok{alphabet =} \FunctionTok{c}\NormalTok{(}\StringTok{"Footnote A; "}\NormalTok{, }\StringTok{"Footnote B; "}\NormalTok{),}
+           \AttributeTok{symbol =} \FunctionTok{c}\NormalTok{(}\StringTok{"Footnote Symbol 1; "}\NormalTok{, }\StringTok{"Footnote Symbol 2"}\NormalTok{)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tbl-footnotes}}
+
+\centering{
+
+\captionsetup{labelsep=none}
+
+\centering
+\caption{\label{tab:tbl-footnotes}Add unordered (general) and ordered footnotes.}
+\centering
+\begin{tabular}[t]{l|c|c|c|c|c|c}
+\hline
+  & mpg & cyl & disp & hp & drat & wt\\
+\hline
+Mazda RX4 & 21.0 & 6 & 160 & 110 & 3.90 & 2.620\\
+\hline
+Mazda RX4 Wag & 21.0 & 6 & 160 & 110 & 3.90 & 2.875\\
+\hline
+Datsun 710 & 22.8 & 4 & 108 & 93 & 3.85 & 2.320\\
+\hline
+Hornet 4 Drive & 21.4 & 6 & 258 & 110 & 3.08 & 3.215\\
+\hline
+Hornet Sportabout & 18.7 & 8 & 360 & 175 & 3.15 & 3.440\\
+\hline
+\multicolumn{7}{l}{\rule{0pt}{1em}\textit{Note: }}\\
+\multicolumn{7}{l}{\rule{0pt}{1em}Here is a general comments of the table. }\\
+\multicolumn{7}{l}{\rule{0pt}{1em}\textsuperscript{1} Footnote 1; }\\
+\multicolumn{7}{l}{\rule{0pt}{1em}\textsuperscript{2} Footnote 2; }\\
+\multicolumn{7}{l}{\rule{0pt}{1em}\textsuperscript{a} Footnote A; }\\
+\multicolumn{7}{l}{\rule{0pt}{1em}\textsuperscript{b} Footnote B; }\\
+\multicolumn{7}{l}{\rule{0pt}{1em}\textsuperscript{*} Footnote Symbol 1; }\\
+\multicolumn{7}{l}{\rule{0pt}{1em}\textsuperscript{\dag} Footnote Symbol 2}\\
+\end{tabular}
+
+}
+
+\end{table}%
+
+There is \textbf{so much more} you can do with kables! I am personally a
+huge fan of kables and the kableExtra package because it works
+beautifully with papaja, but you can also explore other packages for
+making beautiful tables:
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://davidgohel.github.io/flextable/}{flextable}
+\item
+  \href{https://gt.rstudio.com/}{gt table}
+\item
+  \href{http://xtable.r-forge.r-project.org/}{xtable}
+\item
+  \href{https://cran.r-project.org/web/packages/stargazer/index.html}{stargazer}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    This one is designed to simplify tables for regression output
+  \end{itemize}
+\end{itemize}
+
+\subsection{Table: flextable}\label{table-flextable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(flextable)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Attaching package: 'flextable'
+\end{verbatim}
+
+\begin{verbatim}
+The following objects are masked from 'package:kableExtra':
+
+    as_image, footnote
+\end{verbatim}
+
+\begin{verbatim}
+The following object is masked from 'package:purrr':
+
+    compose
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tibble}\NormalTok{(}\AttributeTok{Letters =} \FunctionTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{, }\StringTok{"B"}\NormalTok{, }\StringTok{"C"}\NormalTok{), }
+       \AttributeTok{Numbers =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{flextable}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{theme\_apa}\NormalTok{() }
+\end{Highlighting}
+\end{Shaded}
+
+\global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}
+
+\global\setlength{\Oldtabcolsep}{\tabcolsep}
+
+\setlength{\tabcolsep}{2pt}
+
+\renewcommand*{\arraystretch}{1.5}
+
+
+
+\providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
+
+\begin{longtable}[l]{|p{0.75in}|p{0.75in}}
+
+\caption{\label{tbl-mytable}My Table}
+
+\tabularnewline
+
+\ascline{0.75pt}{000000}{1-2}
+
+\multicolumn{1}{>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{22}\selectfont{\global\setmainfont{Times New Roman}{Letters}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{22}\selectfont{\global\setmainfont{Times New Roman}{Numbers}}}} \\
+
+\ascline{0.75pt}{000000}{1-2}\endfirsthead 
+
+\ascline{0.75pt}{000000}{1-2}
+
+\multicolumn{1}{>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{22}\selectfont{\global\setmainfont{Times New Roman}{Letters}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{22}\selectfont{\global\setmainfont{Times New Roman}{Numbers}}}} \\
+
+\ascline{0.75pt}{000000}{1-2}\endhead
+
+
+
+\multicolumn{1}{>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{22}\selectfont{\global\setmainfont{Times New Roman}{A}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{22}\selectfont{\global\setmainfont{Times New Roman}{1}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{22}\selectfont{\global\setmainfont{Times New Roman}{B}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{22}\selectfont{\global\setmainfont{Times New Roman}{2}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{22}\selectfont{\global\setmainfont{Times New Roman}{C}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{22}\selectfont{\global\setmainfont{Times New Roman}{3}}}} \\
+
+\ascline{0.75pt}{000000}{1-2}
+
+
+\end{longtable}
+
+\arrayrulecolor[HTML]{000000}
+
+\global\setlength{\arrayrulewidth}{\Oldarrayrulewidth}
+
+\global\setlength{\tabcolsep}{\Oldtabcolsep}
+
+\renewcommand*{\arraystretch}{1}
+
+\subsection{Table: papaja and
+apa\_table()}\label{table-papaja-and-apa_table}
+
+Alternatively, \textbf{in .rmd files}, we can use ``wrapper'' functions
+that add in a collection of tweaks for us, like the
+\texttt{apa\_table()} function in \texttt{papaja}, which will knit the
+table in APA formatting.
+
+\subsection{Table: stargazer}\label{table-stargazer}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# build up two regression models}
+\NormalTok{mod\_1 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Sepal.Length }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Sepal.Width, }\AttributeTok{data =}\NormalTok{ iris)}
+
+\NormalTok{mod\_2 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Sepal.Length }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Sepal.Width }\SpecialCharTok{+}\NormalTok{ Species, }\AttributeTok{data =}\NormalTok{ iris)}
+
+\CommentTok{\# export a table with the results of these two regression models}
+\FunctionTok{stargazer}\NormalTok{(mod\_1, mod\_2,}\AttributeTok{type =} \StringTok{"text"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+================================================================
+                                Dependent variable:             
+                    --------------------------------------------
+                                    Sepal.Length                
+                            (1)                   (2)           
+----------------------------------------------------------------
+Sepal.Width               -0.223                0.804***        
+                          (0.155)               (0.106)         
+                                                                
+Speciesversicolor                               1.459***        
+                                                (0.112)         
+                                                                
+Speciesvirginica                                1.947***        
+                                                (0.100)         
+                                                                
+Constant                 6.526***               2.251***        
+                          (0.479)               (0.370)         
+                                                                
+----------------------------------------------------------------
+Observations                150                   150           
+R2                         0.014                 0.726          
+Adjusted R2                0.007                 0.720          
+Residual Std. Error  0.825 (df = 148)       0.438 (df = 146)    
+F Statistic         2.074 (df = 1; 148) 128.888*** (df = 3; 146)
+================================================================
+Note:                                *p<0.1; **p<0.05; ***p<0.01
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# you can customize the table by renaming variables, adding title, omitting some statistic, adding confidence interval etc.}
+\FunctionTok{stargazer}\NormalTok{(mod\_1, mod\_2,}
+           \CommentTok{\# add title to the table}
+           \AttributeTok{title =} \StringTok{"Regression model results"}\NormalTok{,}
+           \CommentTok{\# rename dependent variable}
+           \AttributeTok{dep.var.labels =} \StringTok{"The length of sepal"}\NormalTok{,}
+           \CommentTok{\# rename independent variable}
+           \AttributeTok{covariate.labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"The width of sepal"}\NormalTok{, }\StringTok{"Versicolor"}\NormalTok{, }\StringTok{"Virginica"}\NormalTok{),}
+           \CommentTok{\# "n" refers to the number of observations, "f" refers to the F stastic}
+           \AttributeTok{omit.stat =} \FunctionTok{c}\NormalTok{(}\StringTok{"n"}\NormalTok{,}\StringTok{"f"}\NormalTok{),}
+           \CommentTok{\# add confidence interval and set the level to 0.95}
+           \AttributeTok{ci =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{ci.level =} \FloatTok{0.95}\NormalTok{,}
+           \CommentTok{\# keep only two digits}
+           \AttributeTok{digits =} \DecValTok{2}\NormalTok{,}
+           \CommentTok{\#display in plain text (rather than LaTeX)}
+           \AttributeTok{type =} \StringTok{"text"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Regression model results
+===================================================
+                          Dependent variable:      
+                    -------------------------------
+                          The length of sepal      
+                          (1)             (2)      
+---------------------------------------------------
+The width of sepal       -0.22          0.80***    
+                     (-0.53, 0.08)   (0.60, 1.01)  
+                                                   
+Versicolor                              1.46***    
+                                     (1.24, 1.68)  
+                                                   
+Virginica                               1.95***    
+                                     (1.75, 2.14)  
+                                                   
+Constant                6.53***         2.25***    
+                     (5.59, 7.46)    (1.53, 2.98)  
+                                                   
+---------------------------------------------------
+R2                       0.01            0.73      
+Adjusted R2              0.01            0.72      
+Residual Std. Error 0.83 (df = 148) 0.44 (df = 146)
+===================================================
+Note:                   *p<0.1; **p<0.05; ***p<0.01
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{stargazer}\NormalTok{(mod\_1, mod\_2,}
+          \CommentTok{\# add title to the table}
+          \AttributeTok{title =} \StringTok{"Regression model results"}\NormalTok{,}
+          \CommentTok{\# View documentation to see journal styles available}
+          \CommentTok{\#style = "asr",}
+          \CommentTok{\# rename dependent variable}
+          \AttributeTok{dep.var.labels =} \StringTok{"The length of sepal"}\NormalTok{,}
+          \CommentTok{\# rename independent variable}
+          \AttributeTok{covariate.labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"The width of sepal"}\NormalTok{, }\StringTok{"Versicolor"}\NormalTok{, }\StringTok{"Virginica"}\NormalTok{),}
+          \CommentTok{\# "n" refers to the number of observations, "f" refers to the F stastic}
+          \AttributeTok{omit.stat =} \FunctionTok{c}\NormalTok{(}\StringTok{"n"}\NormalTok{,}\StringTok{"f"}\NormalTok{),}
+          \CommentTok{\# add confidence interval and set the level to 0.95}
+          \AttributeTok{ci =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{ci.level =} \FloatTok{0.95}\NormalTok{,}
+          \CommentTok{\# keep only two digits}
+          \AttributeTok{digits =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy
+Institute. E-mail: marek.hlavac at gmail.com \% Date and time: Fri, Feb
+14, 2025 - 14:24:17
+
+\begin{table}[!htbp] \centering 
+  \caption{Regression model results} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lcc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{2}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-3} 
+\\[-1.8ex] & \multicolumn{2}{c}{The length of sepal} \\ 
+\\[-1.8ex] & (1) & (2)\\ 
+\hline \\[-1.8ex] 
+ The width of sepal & $-$0.22 & 0.80$^{***}$ \\ 
+  & ($-$0.53, 0.08) & (0.60, 1.01) \\ 
+  & & \\ 
+ Versicolor &  & 1.46$^{***}$ \\ 
+  &  & (1.24, 1.68) \\ 
+  & & \\ 
+ Virginica &  & 1.95$^{***}$ \\ 
+  &  & (1.75, 2.14) \\ 
+  & & \\ 
+ Constant & 6.53$^{***}$ & 2.25$^{***}$ \\ 
+  & (5.59, 7.46) & (1.53, 2.98) \\ 
+  & & \\ 
+\hline \\[-1.8ex] 
+R$^{2}$ & 0.01 & 0.73 \\ 
+Adjusted R$^{2}$ & 0.01 & 0.72 \\ 
+Residual Std. Error & 0.83 (df = 148) & 0.44 (df = 146) \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{2}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# save the output in html format}
+\FunctionTok{stargazer}\NormalTok{(mod\_1, }\AttributeTok{type =} \StringTok{"html"}\NormalTok{, }\AttributeTok{out =} \StringTok{"models.htm"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+<table style="text-align:center"><tr><td colspan="2" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left"></td><td><em>Dependent variable:</em></td></tr>
+<tr><td></td><td colspan="1" style="border-bottom: 1px solid black"></td></tr>
+<tr><td style="text-align:left"></td><td>Sepal.Length</td></tr>
+<tr><td colspan="2" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">Sepal.Width</td><td>-0.223</td></tr>
+<tr><td style="text-align:left"></td><td>(0.155)</td></tr>
+<tr><td style="text-align:left"></td><td></td></tr>
+<tr><td style="text-align:left">Constant</td><td>6.526<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(0.479)</td></tr>
+<tr><td style="text-align:left"></td><td></td></tr>
+<tr><td colspan="2" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">Observations</td><td>150</td></tr>
+<tr><td style="text-align:left">R<sup>2</sup></td><td>0.014</td></tr>
+<tr><td style="text-align:left">Adjusted R<sup>2</sup></td><td>0.007</td></tr>
+<tr><td style="text-align:left">Residual Std. Error</td><td>0.825 (df = 148)</td></tr>
+<tr><td style="text-align:left">F Statistic</td><td>2.074 (df = 1; 148)</td></tr>
+<tr><td colspan="2" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left"><em>Note:</em></td><td style="text-align:right"><sup>*</sup>p<0.1; <sup>**</sup>p<0.05; <sup>***</sup>p<0.01</td></tr>
+</table>
+\end{verbatim}
+
+
+
+\end{document}
