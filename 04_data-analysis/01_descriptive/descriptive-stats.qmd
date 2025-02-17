@@ -148,7 +148,9 @@ There's a problem with the summary statistics above. Missing values for some sco
 ```
 
 
-Present the summarized survey scores in a more readable format using a flextable and the `theme_apa()` function:
+Present the summarized survey scores in a more readable format using a flextable and the `theme_apa()`[^2] function:
+
+[^2]: Just slapping `theme_apa()` onto a table won't get you you credit for a "publication quality table," but you can do additional modifications on this table (or tables later in the project) to make something actually publication ready and demonstrate that objective. 
 
 ```{r}
 #| label: tbl-flextable-scores
