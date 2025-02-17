@@ -1,0 +1,374 @@
+---
+title: "Demo: Descriptive Statistics"
+format: 
+  pdf: default
+  html: default
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+# Load necessary libraries
+
+library(tidyverse)
+library(scales) # squishing scales (and other outlier handling)
+library(psych) # common analyses and visualizations in psychology
+library(stats) # basic statistics
+library(lme4) # mixed models
+library(patchwork) # "stitch" together multiple plots
+library(kableExtra) # nice tables (and migraines)
+library(rempsyc) # imperfect APA tables
+library(flextable) # yet another APA table option
+
+# Other libraries we'll use later
+
+#library(broom) # tidy model output
+#library(papaja) # general APA friendly stuff, but old and not always quarto-friendly
+
+```
+
+```{r}
+#| label: analysis-preferences
+#| include: false
+
+# Seed for random number generation
+set.seed(42)
+
+# Set global chunk options
+knitr::opts_chunk$set(
+  cache.extra = knitr::rand_seed,
+  fig.height = 6,
+	fig.width = 7,
+	message = FALSE,
+	warning = FALSE,
+	comment = ""
+  )
+```
+
+
+# Descriptive statistics
+
+Descriptive statistics are used to summarize and describe data. Most commonly this includes measures of center (mean, median, mode) and spread (standard deviation, range), as well as visualizations of both.
+
+In psychology and other quantitative social sciences, it's rare to have a journal article that is purely descriptive, but it's rarer to have one that doesn't include any descriptive statistics at all.
+Before you can do any inferential statistics, you need to know what your data looks like to decide what tests are appropriate. If you are working with human subjects, your reader will typically want to know some basic summary statistics about your sample of participants.
+
+Here, in Part 1 of the statistics demo, we'll cover the basics of descriptive statistics using the `starwars` dataset from the `dplyr` package.
+
+```{r}
+#| label: load-sw-df
+
+# Use built-in dataset 'starwars' for analysis
+sw.desc <- starwars %>% 
+  select(height, mass) %>% 
+  drop_na() # or include the `na.rm=T` argument in your measures functions
+
+# Create a long version to use for dplyr and ggplot stuff later
+sw.desc.long <- sw.desc %>% 
+  pivot_longer(c(height, mass), names_to = "measure") 
+```
+
+
+The quickest way to see summary statistics for a numeric variable is the `summary()` function:
+
+```{r}
+#| label: summary-function
+
+summary(sw.desc$height)
+summary(sw.desc$mass)
+```
+
+Or if you need to keep things a little more organized, create a summarized dataframe:
+
+```{r }
+#| label: summarize-df
+
+sw.desc.long %>% 
+  group_by(measure) %>% 
+  summarize(mean = mean(value),
+         median = median(value),
+         sd = sd(value),
+         min = min(value),
+         max = max(value),
+         range = max-min,
+         range = diff(range(value))
+  ) #%>% kable()
+```
+
+For a (nearly) APA publication-ready table, use the `rempsyc` package (@tbl-rempsyc-table):
+
+```{r}
+#| label: tbl-rempsyc-table
+#| tbl-cap: "Summary statistics with rempsyc"
+
+# Produce the table as an APA formatted table with rempsyc
+
+sw.desc.long %>% 
+  group_by(measure) %>% 
+  summarize(mean = mean(value),
+         median = median(value),
+         sd = sd(value),
+         min = min(value),
+         max = max(value),
+         range = max-min,
+         range = diff(range(value))
+  ) %>% nice_table()
+
+```
+
+Another option for formatting tables for APA is to turn the table into a flextable object and then use the `theme_apa()` function from the `flextable` package[^1] (@tbl-flextable-apa):
+
+```{r}
+#| label: tbl-flextable-apa
+#| tbl-cap: "Summary statistics with flextable"
+
+# Produce the table as an APA formatted table with flextable
+sw.desc.long %>% 
+  group_by(measure) %>% 
+  summarize(mean = mean(value),
+         median = median(value),
+         sd = sd(value),
+         min = min(value),
+         max = max(value),
+         range = max-min,
+         range = diff(range(value))
+  ) %>% 
+  flextable::flextable() %>% 
+  flextable::theme_apa()
+
+```
+
+
+[^1]: Different from the `papaja::theme_apa()` function! If you have papaja loaded for some other purpose (like the $p$-value convenience functions), you'll need to use `flextable::theme_apa()`.
+
+## Distributions
+
+### Calculate measures of center
+
+You can also calculate everything piece by piece.
+
+"Measures of center" are different ways of talking about averages. Usually we think about "mean" as synonymous with "average", so calling these measures of center instead can be more precise. 
+
+Calculate mean and median with `mean()` and `median()`. There is no built-in mode function, but if you need one you can either write your own function or use the `modeest` library.
+
+```{r}
+#| label: measures-of-center
+
+mean_height <- mean(sw.desc$height)
+median_height <- median(sw.desc$height)
+
+mean_mass <- mean(sw.desc$mass)
+median_mass <- median(sw.desc$mass)
+```
+
+  - The mean height is `r round(mean_height, 3)` cm and median height is `r median_height` cm.
+  - The mean mass is `r round(mean_mass, 3)` kg and median mass is `r median_mass` kg.
+
+
+
+### Calculate measures of spread
+
+Measures of spread describe the distribution of continuous data around the center. Calculate standard deviation with `sd()`. Calculate range by getting a list of the minimum and maximum with `range()` and then using `diff()` to find the difference between the two.
+
+```{r}
+#| label: measures-of-spread
+
+sd_height <- sd(sw.desc$height) # standard deviation
+range_height <- diff(range(sw.desc$height))
+
+sd_mass <- sd(sw.desc$mass) # standard deviation
+range_mass <- diff(range(sw.desc$mass))
+```
+
+  - The standard deviation of height is `r round(sd_height, 3)` cm and the range is `r round(range_height, 3)` cm.
+  - The standard deviation of mass is `r round(sd_mass, 3)` kg and the range is `r round(range_mass, 3)` kg.
+  
+Other common measures of spread include variance, quantiles, and interquartile range (@tbl-spread-measures).
+
+```{r}
+#| label: tbl-spread-measures
+#| warning: false
+#| tbl-cap: More measures of spread
+
+sw.desc.long %>% 
+  group_by(measure) %>% 
+  summarize(variance = var(value),
+            median1 = median(value),
+            median2 = quantile(value, probs=0.5),
+            quartile = quantile(value, probs = c(.25, .75)),
+            iqr1 = IQR(value)
+  ) %>% kbl()
+
+```
+
+
+### Visualize center and spread
+
+Distribution plots visualize center and spread, for example histograms (@fig-histogram), density plots (@fig-density), boxplots (@fig-boxplot), and violin plots (@fig-violin).
+
+
+```{r}
+#| label: fig-histogram
+#| fig-cap: "Histogram of height and mass distributions"
+
+ggplot(sw.desc.long) +
+  geom_histogram(aes(value), binwidth=15) + facet_wrap(vars(measure), ncol=1)
+
+```
+
+```{r}
+#| label: fig-density
+#| fig-cap: "Density of height and mass distributions"
+
+ggplot(sw.desc.long) +
+  geom_density(aes(value, color=measure))
+```
+
+
+```{r}
+#| label: fig-boxplot
+#| fig-cap: "Boxplot of height and mass distributions"
+
+ggplot(sw.desc.long) +
+  geom_boxplot(aes(value, fill=measure)) +
+  scale_x_continuous(limits=c(0,300), oob=squish) 
+# you need the `scales` package for the oob argument to work as expected
+# in this case the scale will "squish" values outside the limits
+# to the nearest limit, so Jabba's huge mass will look like 300
+```
+
+
+```{r}
+#| label: fig-violin
+#| fig-cap: "Violin plot of height and mass distributions"
+
+ggplot(sw.desc.long) +
+  geom_violin(aes(x=measure, y=value, fill=measure)) +
+  scale_y_continuous(limits=c(0,300), oob=squish) 
+# you need the `scales` package for the oob argument to work as expected
+# in this case the scale will "squish" values outside the limits
+# to the nearest limit, so Jabba's huge mass will look like 300
+```
+
+## Correlation
+
+Correlation is a measure of the strength and direction of a linear relationship between two variables. It's not strictly speaking "descriptive," but it's not necessarily inferential either. 
+Whether you treat a correlation as descriptive or inferential depends on your research question and the context of your analysis, but the way you'll calculate and visualize it is the same either way. 
+In Part 2 we'll see contexts where correlation is used as a hypothesis test.
+
+The `cor()` function creates a correlation matrix:
+
+```{r}
+#| label: cormatrix
+
+mass_height_corr <- cor(sw.desc) # using a matrix-like object (e.g., df)
+mass_height_corr2 <- cor(sw.desc[,1], sw.desc[,2]) # or vectors (e.g., df columns)
+
+mass_height_corr
+mass_height_corr2
+
+```
+
+The correlation of height and mass is `r round(mass_height_corr2, 3)`.
+
+If you intend to use a correlation as a (quasi)hypothesis test, you'll need the `corr.test()` function in the `psych` package to give you $p$-values,
+
+```{r}
+#| label: corr-tests
+
+mass_height_corr3 <- corr.test(sw.desc)
+mass_height_corr4 <- corr.test(sw.desc[,1], sw.desc[,2])
+
+mass_height_corr3
+mass_height_corr4 
+```
+
+The default corr method is Pearson, but you can change this. For example, Spearman rank correlation is useful for small samples:
+
+```{r}
+#| label: corr-spearman
+
+
+mass_height_corr_Spearman <- corr.test(sw.desc, method = "spearman")
+
+```
+
+`View()` the object to see what the output contains and then extract elements like p-value:
+
+```{r}
+#| label: pull-corr-vals
+
+
+mass_height_corr3$p
+mass_height_corr3$p.adj
+mass_height_corr4$p
+mass_height_corr_Spearman$r[1,2]
+mass_height_corr_Spearman$r["height","mass"]
+  
+```
+
+This method of identifying and referencing elements can be used for any object in R. This can be particularly useful when you're working with complex objects like models or tests that have many different outputs. Extracting elements in this way allows you to easily reference them in markdown text. 
+
+When you reference object elements in R Markdown (e.g., the $r$- or $p$-values), you may need to use double square brackets. Try pasting the code below into the console with double brackets (like it's written) then again with just single brackets (i.e., ...#ci2["r"]). If the function returns anything other than a simple value, the double bracket tells R to just pull out the part of the object that is actually a value. 
+
+  - Pearson $\rho$ = `r round(mass_height_corr3$ci2[["r"]], 3)` ($p$ = `r round(mass_height_corr3$ci2[["p"]], 3)`)
+  - Spearman ranked $\rho$ = `r round(mass_height_corr_Spearman$ci2[["r"]], 3)` ($p$ = `r round(mass_height_corr_Spearman$ci2[["p"]], 3)`)
+
+
+### Visualize correlation
+
+Visualizing correlation is functionally the same as visualizing linear regression (though to truly visualize correlation you'd need to normalize the axes). @fig-correlation combines a scatter plot with a regression line (using `geom_smooth()`):
+
+```{r}
+#| label: fig-correlation
+#| fig-cap: "Plot of correlation/regression between height and mass."
+
+
+ggplot(sw.desc) +
+  geom_point(aes(height,mass)) +
+  geom_smooth(aes(height,mass), method="lm") + 
+  coord_cartesian(ylim = c(0,300))
+```
+
+You can also visualize the correlation matrix with functions from other packages, including `corPlot()` from the `psych` package (@fig-psych-corPlot), `corrplot()` from the `corrplot` package (@fig-corrplot), and `ggcorrplot()` from the `ggcorrplot` package (@fig-ggcorrplot).
+
+
+```{r}
+#| label: fig-psych-corPlot
+#| fig-cap: "Correlation matrix with `psych` package"
+
+corPlot(sw.desc) 
+```
+
+
+```{r}
+#| label: fig-corrplot
+#| fig-cap: "Correlation matrix with `corrplot` package"
+
+# Prefacing the function with the package name will run that function without loading
+# the whole package, but the package does need to be installed on your machine
+# This is the only time in this whole document we're going to use anything from 
+# the corrplot package, so why load the whole thing?
+corrplot::corrplot(mass_height_corr)
+```
+
+
+```{r}
+#| label: fig-ggcorrplot
+#| fig-cap: "Correlation matrix with `ggcorrplot` package"
+
+# Preface with package name again, same reason
+ggcorrplot::ggcorrplot(mass_height_corr)
+```
+
+None of these are thrilling with just two variables, but they can be very useful when you're using a correlation matrix across many variables. 
+
+```{r}
+#| label: fig-more-interesting-matrices
+#| fig-cap: "Correlation matrices for complex data, like the Harman (A) and Gorsuch (B) datasets in the psych package."
+
+ggcorrplot::ggcorrplot(Harman23.cor$cov, title="Harman data") + 
+  ggcorrplot::ggcorrplot(Gorsuch, title="Gorsuch data") +
+  plot_annotation(tag_levels = "A")
+```

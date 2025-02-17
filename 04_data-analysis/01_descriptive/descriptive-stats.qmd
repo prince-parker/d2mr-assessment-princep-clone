@@ -1,0 +1,339 @@
+---
+title: "Descriptive Statistics"
+---
+
+
+# Objective
+
+The objective of this assignment is to practice using R to calculate and interpret descriptive statistics. Unlike in previous assignments, you will not use a built-in dataset. Instead, you will use data from a published, open-access dataset capturing relationships between math anxiety and self-perception:
+
+*Mackinnon, S. P., McCaughey, N., & Hill, T. G. (2024, July 25). The Association of Self-Efficacy, Anxiety Sensitivity, and Self-Critical Perfectionism with Statistics and Math Anxiety. https://doi.org/10.17605/OSF.IO/NZHQ6* 
+
+You can access the full dataset and codebook [here](https://osf.io/nzhq6/). The data you will need is included in the .csv file within this project's directory.
+
+
+
+# Setup
+
+## Loading libraries and set seed
+
+```{r}
+#| label: setup
+
+library(tidyverse)
+set.seed(1234)
+```
+
+## Read in the data
+
+Run this chunk to read in the dataset and view the first few rows:
+
+```{r}
+#| label: load-goal-tibble
+
+math.anxiety <- read_csv("math-anxiety.csv") 
+
+
+# View first 6 rows
+head(math.anxiety)
+
+```
+
+Examine the structure of the df. Take note of data types and review factor levels.
+
+```{r}
+#| label: examine-structure
+
+# Examine the structure of the df
+
+
+```
+
+
+
+## Data Preparation
+
+Not all variables are currently the data type we'd like them to be. Based on what you see when you look at the structure of the df and using the data's [codebook](https://osf.io/zh5ab), which columns are not currently in the correct data type? What changes do you need to make?
+
+<!-- answer below -->
+<!-- Hint: There are a lot of columns, and the vast majority are numeric. start by looking through the codebook to figure out what *shouldn't* be numeric and go from there. -->
+
+
+
+
+In the chunk below, perform simple data cleaning to retype the columns as needed.
+
+```{r}
+#| label: data-type-cleaning
+
+# Change the data type of columns as needed
+
+
+```
+
+
+In an effort to simplify things at least a little, let's drop the columns that are item responses, keeping participant info and composite survey scores. Use the codebook to identify which columns are item responses, then modify the dataframe to drop those columns. We're assigning this to a new object, `math.anx`, to keep the original data intact.
+
+```{r}
+#| label: drop-item-responses
+
+# There are (at least) two ways to approach this, either:
+# 1. Notice that all the item responses follow a naming pattern, then use select helpers to drop them
+# 2. Use the codebook to identify the columns that are *not* item responses and keep them
+
+# Assign your new long df to math.anx
+
+
+```
+
+# Descriptive Statistics
+
+## Center and Spread
+
+We can see basic summary statistics from the wide data (`math.anx`):
+
+```{r}
+#| label: summary-stats
+
+# Use the appropriate function to see basic summary statistics for the wide data
+
+
+
+```
+
+
+But that's kind of a mess, and it doesn't let us use the summary statistics for any purpose beyond just looking at them. We can use the long version to calculate summary statistics for each survey score.
+
+The dataset is not currently in a tidy format, at least not for our purposes. The survey scores are spread across multiple columns. If we want to use a survey score as a grouping variable or calculate summary statistics, we need to reshape the data so that each survey score is in a single column.
+
+Now pivot the data so that the survey scores are in a single column. You'll want to retain the participant information in the long format as well.
+
+```{r}
+#| label: pivot-longer
+
+                   
+# Create a list of the survey score variables
+
+
+# Use pivot_longer to reshape the data so that the survey scores are in a single column
+
+                 
+```
+
+With the data in a tidy format, we can both calculate summary statistics and visualize the data more easily. Let's start with summarizing mean, median, sd, min/max, and range:
+
+
+```{r}
+#| label: summarize-survey-scores
+
+# Use the long data to calculate summary statistics for each survey score
+
+
+
+```
+
+There's a problem with the summary statistics above. Missing values for some scores for some participants mean that the summary calculations are also missing. In some cases that may be what we want, but in this case we have enough data that we can just ignore missing values.
+
+```{r}
+#| label: summarize-survey-scores-na
+
+# Repeat the summarize above, but this time ignore missing values
+
+# Save the resulting dataframe to a new object, math.anx.scores
+
+
+
+```
+
+
+Present the summarized survey scores in a more readable format using a flextable and the `theme_apa()` function
+
+```{r}
+#| label: tbl-flextable-scores
+#| tbl-cap: "Summary Statistics for Survey Scores"
+
+#library(flextable)
+
+```
+
+
+We can also visualize the data to get a better sense of the distribution of scores. Let's start with a histogram of the math anxiety scores.
+
+```{r}
+#| label: fig-histogram-math-anxiety
+#| fig-cap: "Distribution of Math Anxiety Scores"
+
+# Create a histogram of the math anxiety scores
+
+
+
+```
+
+Now generate a violin plot of all the survey scores to see differences in distributions across surveys.
+
+```{r}
+#| label: fig-violin-survey-scores
+#| fig-cap: "Distributions of Survey Scores"
+
+# Create a violin plot of all survey scores
+
+```
+
+Optionally, modify the violin plot to make it more interpretable. In addition to changing visuals and text, consider whether you might want to add or drop any elements. (Hint: not all likert scales are made equal.)
+
+```{r}
+#| label: fig-violin-survey-scores-modified
+#| fig-cap: "Modified Distributions of Survey Scores"
+
+# Create a modified violin plot of all survey scores
+
+```
+
+
+These distributions have visualized the raw data. Create a visualization that uses the summarized data to send an interpretable message. This would be a good time to try out `geom_errorbar()` if you haven't yet. Modify the visuals and text as much as you like to create a readable figure.
+
+```{r}
+#| label: fig-YOUR-FIGURE-LABEL
+#| fig-cap: "YOUR FIGURE TITLE"
+
+# Create a plot using the summary stats dataframe
+
+
+```
+
+
+
+Review the participant demographic variables available in the dataset. Choose one to use for grouped summary statistics. Using both the variable you chose and the `survey` variable, repeat the process above to create 1) a table of summary statistics, 2) a violin plot (or other distribution visualization), and 3) a figure using the summarized data for a different survey score. When summarizing measures of center and spread, add at least one additional measure beyond mean, median, sd, min/max, and range. (See the class demo for ideas.)
+
+<!-- Create (at least) 3 chunks below to complete the above tasks. Be sure to label informatively and add table/figure caption options when appropriate.-->
+
+
+Briefly describe what you see in the figures and tables you created. What do the summary statistics tell you about the data? What do the visualizations tell you about the data? What patterns do you see? Are there any other variables you think would be interesting to look at? Do the descriptives give you any ideas for interesting research questions to ask of these data?
+
+In your answer below, use Quarto markdown references to the tables and figures you created. You can refer to the `d2mr-apaquarto` repository for examples of how to do this.
+
+<!-- answer below -->
+
+
+## Correlation
+
+Now that we have a better sense of the distribution of the survey scores, let's look at the relationships between them. We can start by calculating the correlation matrix for the survey scores.
+
+```{r}
+#| label: correlation-matrix
+
+# Create a matrix-like object of only survey scores (use the wide data)
+
+
+
+# Calculate the correlation matrix for the survey scores using `cor()`
+
+
+
+```
+What a mess! Put this into an APA-style table using flextable and `flextable::theme_apa()`.
+
+```{r}
+#| label: tbl-correlation-matrix-apa
+#| tbl-cap: "Correlation Matrix using flextable"
+
+# Create a flextable object from the correlation matrix
+
+  # apply the APA theme
+
+
+```
+
+
+I guess that's an improvement, but still not great. If you want, try out the `apaTables` package to see if it can make a more readable correlation matrix.
+
+```{r}
+#| label: tbl-correlation-matrix-apaTables
+#| tbl-cap: "Correlation Matrix using apaTables"
+
+# Create a correlation matrix using the apaTables package
+
+
+```
+
+
+
+
+Visualize the correlation matrix using a heatmap using the `corrplot` package.
+
+```{r}
+#| label: fig-correlation-heatmap
+#| fig-cap: "Correlation Matrix Heatmap"
+
+# Create a correlation matrix heatmap
+
+
+
+```
+
+
+Briefly describe what you see in the correlation matrix. Do you see any general trends? Anything potentially interesting?
+
+<!-- answer below -->
+
+Select two survey scores to explore further. Create a scatterplot of the two survey scores and add a linear regression line to the plot to show the association between the two variables. (Think about what shape your data will need to be in to create a plot with each survey on a different axis and each point representing a participant.)
+
+```{r}
+#| label: fig-scatterplot
+#| fig-cap: "Scatterplot of Two Survey Scores"
+
+# Create a scatterplot of two survey scores
+
+
+
+```
+
+Briefly describe what you see in the scatterplot. What does the linear regression line tell you about the relationship between the two variables? What other variables might you want to explore in this way? Use Quarto referencing to refer to the figure you created.
+
+<!-- answer below -->
+
+Select at least one demographic variable to explore in relation to the survey scores. Build on the plot you created above to include the demographic variable as a grouping variable. You can use grouping aesthetics, faceting, or both.
+
+```{r}
+#| label: fig-scatterplot-grouped
+#| fig-cap: "Scatterplot of Two Survey Scores, Grouped by a Demographic Variable"
+## ^^ change the caption to something sensible based on what you're doing
+
+# Create a scatterplot of two survey scores, grouped by a demographic variable
+
+
+
+             
+             
+```
+
+
+
+As before, describe what you see in the scatterplot. Does the demographic variable you chose seem to be related to one or both survey scores? To the association between them? If you see any kind of relationships, what might they mean?
+
+<!-- answer below -->
+
+
+# Optional Analysis
+
+If you have the time or interest, consider exploring and describing these data. Examine both distributions of single variables and relationships between variables. Present your findings in publication-ready tables and/or figures, and interpret the results in clear language, as though writing narrative for a journal article.
+
+Be sure to use chunks with informative labels and to include any necessary code to complete your analysis.
+
+
+
+
+
+# Submission
+
+To submit:
+
+1. Add & modify the `assessment.md` in this mini-project's directory:
+    1. Check off all objectives you believe you have demonstrated
+    2. Indicate which objectives you are meeting for the first time (if any)
+    3. Complete any relevant open-ended items
+2. Push your changes to your centralized assignment repository on GitHub. 
+3. Confirm that Dr. Dowling and your section TA are added as collaborators to your repository.
+4. Submit your work in your next open mini-project assignment by including the following information in the text box:
+    1. The title of the assignment: "Descriptive Statistics"
+    2. A link to the **directory** for this assignment in your centralized assignment repo
