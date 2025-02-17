@@ -1,5 +1,7 @@
 ---
 title: "Descriptive Statistics"
+format:
+    html: default
 ---
 
 
@@ -11,7 +13,7 @@ The objective of this assignment is to practice using R to calculate and interpr
 
 You can access the full dataset and codebook [here](https://osf.io/nzhq6/). The data you will need is included in the .csv file within this project's directory.
 
-
+Before you begin diving into the data summary, you should take some time to familiarize yourself with the dataset, including the different categories of variables and how they can be interpreted.
 
 # Setup
 
@@ -146,7 +148,7 @@ There's a problem with the summary statistics above. Missing values for some sco
 ```
 
 
-Present the summarized survey scores in a more readable format using a flextable and the `theme_apa()` function
+Present the summarized survey scores in a more readable format using a flextable and the `theme_apa()` function:
 
 ```{r}
 #| label: tbl-flextable-scores
@@ -231,6 +233,7 @@ Now that we have a better sense of the distribution of the survey scores, let's 
 
 
 ```
+
 What a mess! Put this into an APA-style table using flextable and `flextable::theme_apa()`.
 
 ```{r}
@@ -276,6 +279,8 @@ Briefly describe what you see in the correlation matrix. Do you see any general 
 
 <!-- answer below -->
 
+
+
 Select two survey scores to explore further. Create a scatterplot of the two survey scores and add a linear regression line to the plot to show the association between the two variables. (Think about what shape your data will need to be in to create a plot with each survey on a different axis and each point representing a participant.)
 
 ```{r}
@@ -291,6 +296,8 @@ Select two survey scores to explore further. Create a scatterplot of the two sur
 Briefly describe what you see in the scatterplot. What does the linear regression line tell you about the relationship between the two variables? What other variables might you want to explore in this way? Use Quarto referencing to refer to the figure you created.
 
 <!-- answer below -->
+
+
 
 Select at least one demographic variable to explore in relation to the survey scores. Build on the plot you created above to include the demographic variable as a grouping variable. You can use grouping aesthetics, faceting, or both.
 
@@ -314,12 +321,12 @@ As before, describe what you see in the scatterplot. Does the demographic variab
 <!-- answer below -->
 
 
+
 # Optional Analysis
 
 If you have the time or interest, consider exploring and describing these data. Examine both distributions of single variables and relationships between variables. Present your findings in publication-ready tables and/or figures, and interpret the results in clear language, as though writing narrative for a journal article.
 
 Be sure to use chunks with informative labels and to include any necessary code to complete your analysis.
-
 
 
 
