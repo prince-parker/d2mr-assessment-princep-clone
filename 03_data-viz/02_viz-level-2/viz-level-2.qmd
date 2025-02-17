@@ -51,7 +51,7 @@ Choose from one of three options to read in and inspect the starwars data.
 
 
 ## Option 2: Load the partially wrangled starwars dataset
-#sw.wrangled <- read_csv("sw-wrangled-partial.csv") # You may need to change this relative path
+sw.wrangled <- read_csv("sw-wrangled.csv")
 
 
 ## Option 3: Load the wrangled starwars dataset
@@ -80,14 +80,21 @@ QUESTIONS:
 
 <!-- answer below -->
 
+1. The wrangled dataset excludes some characters
+2. The wrangled dataset adds height in cm
+3. Characters without heigh in inches in the original are excluded from the wrangled dataset
+
 2. What is the most appropriate data type for each variable in the `sw.wrangled` dataset? Are there any variables that should be treated as factors? If so, what are levels and are they ordered or unordered?
 
 <!-- answer below -->
+
+Most of these variables are characters with mass, height_cm, and  height_inches as numeric. To recreate the starwars, plot gender should be a factor. Currently the levels (m and f) are not ordered in the dataset.
 
 3. Examine the `terrible-starwars.png` plot and consider its relationship to the `sw.wrangled` dataset. What structures of the dataset are mapped onto the plot? What parts of the plot are not data-dependent in the dataset? Are there any data-dependent elements of the plot that do not directly map from the dataset?
 
 <!-- answer below -->
 
+Gender, mass, and height are mapped onto the plot. The presence of the regression line, grid lines, background color, fonts, and the key presentation.
 
 ## Data preparation
 
@@ -106,7 +113,7 @@ You will need to change the data types for some variables. You may also want to 
 ## to the original if needed
 
 
-# sw.viz <- sw.wrangled %>%
+sw.viz <- sw.wrangled 
   # Optionally, rename variables for clarity
 
 
@@ -133,19 +140,28 @@ Before you begin, consider the following questions:
 
 <!-- answer below -->
 
+I need to save Female, Male, and other as factors before piping. I also need to assign N/A variables in the gender column to the Other scatterplot.
+
 2. What geoms and aesthetics are used in this plot? Does layer order matter, and if so, how?
 
 <!-- answer below -->
+
+Factor is one aesthetic used in the plot. Geompoint and geomsmooth are also used.
 
 3. What additional information is required to produce this plot? What layers or aesthetics would you need to add to the plot to include this information?
 
 <!-- answer below -->
 
+I will also need to use a facet layer.
+
 4. With as much specificity as possible, describe the appearance of the plot. What is the overall structure of the plot? What elements are included that are not data-dependent? What colors, shapes, and sizes are used? What's going on with the text and font? The axes? The grid? The legend? Anything else?
 
+This is a faceted scatter plot that presents character height (x) by mass (y) with regression lines for each plot.
 
+table(sw.wrangled$gender)
+in
 
-
+sw.wrangled <- sw_wrangled
 
 ```{r}
 
@@ -158,8 +174,35 @@ Before you begin, consider the following questions:
 # If you wrote the same code I did, you will probably get a warning and/or message (not an error)
 # If you do, note whether you want to ignore it or address it
 
-# sw.viz %>% ...
+#sw.viz %>% ...
 
+
+sw.wrangled$gender <- factor(sw.wrangled$gender,
+                           levels = c("f", "m", "NA"), 
+                           labels = c("Female", "Male", "NA"))
+                             
+                             
+# Create the faceted scatterplot
+ggplot(sw.wrangled, aes(x = height_cm, y = mass, color = gender)) +  # Replace x and y with your variable names
+  geom_point() +  # Use points for the scatter plot
+  geom_smooth(method = "lm") +
+  facet_wrap(~ gender, ncol = 3) +
+  scale_color_manual(values = c(f = "red", m = "gray", na = "yellow")) +
+  labs(title = "Height and weight across gender presentation", subtitle = "A cautionary tale in misleading free axis scales & bad design choices",
+       color = "Gender Presentation",
+       x = "Height in cm",  
+       y = "Mass (kg)") +
+  theme(
+    panel.grid.major.x = element_line(color = "white", linetype = "dashed"),
+    panel.grid.major.y = element_line(color = "gray", linetype = "dashed"),
+    legend.position = "bottom",  # Move legend to the bottom
+    legend.text = element_text(family = "serif", size = 12),  # Change font to serif, size 12
+    legend.title = element_text(family = "serif", size = 14)) +
+scale_x_continuous(
+    breaks = seq(60, 270, 30),  # Common breaks for all facets
+    limits = c(60, 270))
+
+                             
 ```
 
 
@@ -171,9 +214,14 @@ Before you begin, consider the following questions:
 
 <!-- answer below -->
 
+I encountered several issues. I could not figure the theme/ color of the original plot. I tried to manually insert colors and it did not look very similar. I also attempted to use the ggsci function scale_color_futurama and the background did not change as expected. I was able to change the color of the lines but I am not sure how this did not work out in the end. I also could not change the color of the box around the title of each plot. I was able to create a key with all three variable but amongst the coding catastrophe this was also lost.
+
 2. Were there any elements you were not able to reproduce? What additional information or skills would you need to complete the plot? What did you try, and why don't you think it worked?
 
 <!-- answer below -->
+
+I attempted to use ggsci, facet_grid_sc (to change the y scale), sw.wrangled$gender[is.na(sw.wrangled$gender)] <- "Other" to try to assign the na values in the dataset for plotting. I am sure there are more but I lost count.
+
 
 # Optional plotting
 
