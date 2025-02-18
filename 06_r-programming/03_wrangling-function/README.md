@@ -9,7 +9,7 @@ Primary skills/categories targeted:
 
 ## Description
 
-In this project, you will define a function for data wrangling. Your final product should be an .R script that defines your function, then compares the output with that of the original function. "Wrangling" is loosely defined here. It should be a function that serves a useful and plausible purpose for data preparation.
+In this project, you will define a function for data wrangling. "Wrangling" is loosely defined here. It should be a function that serves a useful and plausible purpose for data preparation.
 
 You may choose to create a .qmd notebook to complete this project, but I wouldn’t recommend it. Typically functions are defined in scripts, not notebooks. If you want to use a .qmd, I suggest actually defining the function in an .R script, then sourcing the script and calling the function in the .qmd.
 
