@@ -52,7 +52,11 @@ QUESTIONS:
 
 <!-- answer below -->
 
+mpg, cyl, disp, hp, drat, wt, qsec, wt, gear, carb
+
 2. Of those you believe should be considered numeric, are they all also *continuous* variables? Are there any *non-continuous* numeric variables?
+
+Yes they are. The non-continuous variables are vs (engine) and am (transmission).
 
 <!-- answer below -->
 
@@ -60,9 +64,13 @@ QUESTIONS:
 
 <!-- answer below -->
 
+vs and am
+
 4. Of those you believe should be considered factors, are they ordered or unordered? 
 
 <!-- answer below -->
+
+They are unordered
 
 ## Data preparation
 
@@ -83,11 +91,14 @@ You will need to change the data types for some variables. You may also want to 
 #mtcars.viz <- mtcars %>%
   # Optionally, rename variables for clarity
 
+mtcars.viz <- mtcars
 
   # Change data types as needed
   # Optionally, rename factor levels for clarity as needed
 
+mtcars.viz[, c(1, 2, 3, 4, 5, 6, 7, 10, 11)] <- lapply(mtcars.viz[, c(1, 2, 3, 4, 5, 6, 7, 10, 11)], as.numeric)
 
+mtcars.viz <- mtcars.viz %>% rename("Engine" = vs, "Transmission" = am)
 
 ```
 
@@ -106,7 +117,9 @@ Recreate this histogram of car weight:
 
 #| label: plot1-histogram
 
-
+ggplot(mtcars.viz, aes(x = wt)) + 
+  geom_histogram(binwidth = 0.5, fill = "gray") + 
+  labs(title = "Histogram of Weight", x = "Weight", y = "Count")
 
 
 ```
@@ -123,6 +136,12 @@ Recreate this bar plot of the number of cylinders:
 
 
 
+ggplot(mtcars, aes(x = factor(cyl, levels = c(8, 6, 4)))) + 
+  geom_bar(fill = "gray") +
+  scale_x_discrete(limits = c("8", "4", "6")) +  
+  labs(title = "Bar Plot of Cylinder Counts", x = "fct_infreq(n_cylinders)", y = "Count")
+  
+
 
 ```
 
@@ -136,6 +155,9 @@ Recreate this scatter plot of car weight vs. miles per gallon:
 
 #| label: plot3-scatterplot
 
+ggplot(mtcars.viz, aes(x = wt, y = mpg)) +
+  geom_point(shape = 17) +
+  labs(title = "Scatterplot of Weight by MPG ", x = "Weight", y = "miles_per_gallon")
 
 
 ```
@@ -154,13 +176,21 @@ What transformation, if any, do you need to make to the data before piping it in
 
 <!-- answer below -->
 
+I need to create a factor that I can refer to in the ggplot code to identify 8, 6, and 4 and the x axis factors.
+
 What geoms and aesthetics are used in this plot? Does layer order matter, and if so, how?
 
 <!-- answer below -->
 
+This plot needs the ordinary x and y aesthetics and a cylinder factor that will outline levels based on a previously created factor. I dont believe layer order matters.
+
 What additional information is required to produce this plot? What layers or aesthetics would you need to add to the plot to include this information?
 
 <!-- answer below -->
+
+1. scale_fill_manual to assign colors to each box
+2. labs for axis titles
+3. scale_x_discrete to order the assigned factors from left to right
 
 
 
@@ -168,6 +198,16 @@ What additional information is required to produce this plot? What layers or aes
 
 #| label: plot4-boxplot
 
+
+# Create a factor variable for cyl with the desired order (important for limits)
+mtcars.viz$cyl_factor <- factor(mtcars.viz$cyl, levels = c(8, 6, 4))
+
+# Create the boxplot
+ggplot(mtcars.viz, aes(x = cyl_factor, y = mpg, fill = cyl_factor)) +
+  geom_boxplot() +
+  scale_x_discrete(limits = c("8", "4", "6")) +
+  scale_fill_manual(values = c("purple", "blue", "yellow")) +  
+  labs(x = "Cylinders", y = "Miles per Gallon", fill = "Cylinders")
 
 
 ```
@@ -183,9 +223,13 @@ What transformation, if any, do you need to make to the data before piping it in
 
 <!-- answer below -->
 
+I need to set a limit for low and high value mpg for each part of the faceted scatterplot.
+
 What geoms and aesthetics are used in this plot? Does layer order matter, and if so, how?
 
 <!-- answer below -->
+
+I know I will need to use smooth for the regression lines.
 
 What additional information is required to produce this plot? What layers or aesthetics would you need to add to the plot to include this information?
 
@@ -196,6 +240,18 @@ What additional information is required to produce this plot? What layers or aes
 
 #| label: plot5-faceted-scatterplot
 
+data <- mtcars
+
+data$mpg_category <- ifelse(data$mpg > median(data$mpg), "High", "Low")
+data$mpg_category <- factor(data$mpg_category, levels = c("Low", "High"))
+
+ggplot(data, aes(x = wt, y = disp)) +
+  geom_point() + 
+    geom_smooth() +
+  facet_wrap(~ mpg_category) +
+  labs(title = "Weight vs. Displacement by MPG Category",
+       x = "Weight",
+       y = "Displacement")
 
 
 ```
@@ -211,9 +267,13 @@ What transformation, if any, do you need to make to the data before piping it in
 
 <!-- answer below -->
 
+I need to create some factor for both frequency and class. I also need to specify weight class qualifications
+
 What geoms and aesthetics are used in this plot? Does layer order matter, and if so, how?
 
 <!-- answer below -->
+
+I will need to use color and add the legend.
 
 What additional information is required to produce this plot? What layers or aesthetics would you need to add to the plot to include this information?
 
@@ -223,7 +283,35 @@ What additional information is required to produce this plot? What layers or aes
 
 #| label: plot6-stacked-barplot
 
+data <- mtcars
 
+# Create weight classes using quantiles (or your preferred method)
+data$weight_class <- cut(data$wt,
+                         breaks = quantile(data$wt, probs = c(0, 0.25, 0.5, 0.75, 1)), # Example: quantiles
+                         labels = c("Class 1", "Class 2", "Class 3", "Class 4"),
+                         include.lowest = TRUE)
+
+# Convert am to factor with labels
+data$am <- factor(data$am, labels = c("Automatic", "Manual"))
+
+# Order the weight classes by total frequency (most frequent to least frequent)
+class_order <- data %>%
+  group_by(weight_class) %>%
+  count() %>%
+  arrange(desc(n)) %>%
+  pull(weight_class)
+
+data$weight_class <- factor(data$weight_class, levels = class_order)
+
+# Create the stacked barplot
+ggplot(data, aes(x = weight_class, fill = am)) +  # x = weight class, fill = transmission
+  geom_bar(position = "stack") +  # Stacked bars
+  labs(title = "Distribution of transmission types by weight class",
+       x = "Weight class ordered by total frequency",
+       y = "Frequency",
+       fill = "Transmission type") +
+  theme_bw() +
+  coord_flip()  # Flip coordinates for horizontal bars
 
 ```
 

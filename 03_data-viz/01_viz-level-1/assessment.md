@@ -337,7 +337,7 @@ Below each learning objective is a list of general expectations for meeting that
     1. Includes all necessary metadata, output options, and formatting options necessary to render an APA styled document (or other specified style if appropriate for the project)
 
         -   [ ] Objective attempt
-        -   [ ] Unique objective attempt
+        -   [x] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
