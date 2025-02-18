@@ -137,7 +137,7 @@ Recreate this bar plot of the number of cylinders:
 
 
 ggplot(mtcars, aes(x = factor(cyl, levels = c(8, 6, 4)))) + 
-  geom_bar(fill = "gray") +
+  geom_bar(fill = "darkgray") +
   scale_x_discrete(limits = c("8", "4", "6")) +  
   labs(title = "Bar Plot of Cylinder Counts", x = "fct_infreq(n_cylinders)", y = "Count")
   
@@ -229,7 +229,7 @@ What geoms and aesthetics are used in this plot? Does layer order matter, and if
 
 <!-- answer below -->
 
-I know I will need to use smooth for the regression lines.
+I know I will need to use smooth for the regression lines, and a facet wrap. Of course a labs layer as well.
 
 What additional information is required to produce this plot? What layers or aesthetics would you need to add to the plot to include this information?
 
@@ -243,13 +243,14 @@ What additional information is required to produce this plot? What layers or aes
 data <- mtcars
 
 data$mpg_category <- ifelse(data$mpg > median(data$mpg), "High", "Low")
-data$mpg_category <- factor(data$mpg_category, levels = c("Low", "High"))
+data$mpg_category <- factor(data$mpg_category, levels = c("High", "Low"))
 
 ggplot(data, aes(x = wt, y = disp)) +
-  geom_point() + 
-    geom_smooth() +
+  geom_point(color = "purple") + 
+    geom_smooth(method = "lm", linetype = "dashed") +
   facet_wrap(~ mpg_category) +
   labs(title = "Weight vs. Displacement by MPG Category",
+       subtitle = "A very important analysis",
        x = "Weight",
        y = "Displacement")
 
@@ -285,16 +286,16 @@ What additional information is required to produce this plot? What layers or aes
 
 data <- mtcars
 
-# Create weight classes using quantiles (or your preferred method)
-data$weight_class <- cut(data$wt,
-                         breaks = quantile(data$wt, probs = c(0, 0.25, 0.5, 0.75, 1)), # Example: quantiles
-                         labels = c("Class 1", "Class 2", "Class 3", "Class 4"),
-                         include.lowest = TRUE)
+# Create weight classes
+data$weight_class <- cut(data$wt, 
+                        breaks = c(0, 2, 3, 4, Inf),  # Example: custom breaks
+                        labels = c("Class 1", "Class 2", "Class 3", "Class 4"),
+                        include.lowest = TRUE)
 
 # Convert am to factor with labels
-data$am <- factor(data$am, labels = c("Automatic", "Manual"))
+data$am <- factor(data$am, levels = c(0, 1), labels = c("Automatic", "Manual"))
 
-# Order the weight classes by total frequency (most frequent to least frequent)
+# Order weight classes by frequency
 class_order <- data %>%
   group_by(weight_class) %>%
   count() %>%
@@ -304,14 +305,14 @@ class_order <- data %>%
 data$weight_class <- factor(data$weight_class, levels = class_order)
 
 # Create the stacked barplot
-ggplot(data, aes(x = weight_class, fill = am)) +  # x = weight class, fill = transmission
-  geom_bar(position = "stack") +  # Stacked bars
-  labs(title = "Distribution of transmission types by weight class",
-       x = "Weight class ordered by total frequency",
-       y = "Frequency",
-       fill = "Transmission type") +
-  theme_bw() +
-  coord_flip()  # Flip coordinates for horizontal bars
+ggplot(data, aes(x = weight_class, fill = am)) +
+  geom_bar(position = "stack") +
+  labs(title = "Distribution of Transmission Types by Weight Class",
+           x = "Weight Class (Ordered by Frequency)",
+           y = "Frequency",
+           fill = "Transmission Type") +
+      theme_bw() +
+      coord_flip()
 
 ```
 
@@ -320,6 +321,8 @@ ggplot(data, aes(x = weight_class, fill = am)) +  # x = weight class, fill = tra
 1. Which plots were you able to fully recreate successfully? Did you encounter any challenges along the way?
 
 <!-- answer below -->
+
+I was able to recreate all of the plots, but had some challenges with creating weight classes in the last stacked bar plot and with making the colors match in the boxplot and bar graphs.
 
 2. Which plots were you only partially able to recreate? What challenges did you encounter that limited your ability to fully recreate the plot? What additional information or skills would you need to complete the plot?
 
