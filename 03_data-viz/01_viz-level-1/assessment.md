@@ -11,17 +11,17 @@
 
 ## Basic information
 
-Name:
+Name: Prince Parker
 
-CNetID:
+CNetID: princep@uchicago.edu
 
-Section:
+Section: 1
 
-Mini-project title:
+Mini-project title: Data Viz Level 1
 
 Submission date:
 
-Project GitHub subdirectory URL:
+Project GitHub subdirectory URL: https://github.com/prince-parker/d2mr-assessment-princep-clone/tree/main/01_data-cleaning/03_group-unclean
 
 URL or instructions to access additional materials, if needed:
 
@@ -104,7 +104,7 @@ Below each learning objective is a list of general expectations for meeting that
     1. Uses all three types of operators
     2. Uses multiple operators in data transformation pipelines and/or inline R code
 
-        -   [ ] Objective attempt
+        -   [x] Objective attempt
         -   [ ] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
@@ -148,7 +148,7 @@ Below each learning objective is a list of general expectations for meeting that
     2. Uses at least 1 `tidyr` function in a data transformation pipeline
     3. Combines `dplyr` and `tidyr` functions in a data transformation pipeline
 
-        -   [ ] Objective attempt
+        -   [x] Objective attempt
         -   [ ] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
@@ -337,7 +337,7 @@ Below each learning objective is a list of general expectations for meeting that
     1. Includes all necessary metadata, output options, and formatting options necessary to render an APA styled document (or other specified style if appropriate for the project)
 
         -   [ ] Objective attempt
-        -   [x] Unique objective attempt
+        -   [ ] Unique objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
