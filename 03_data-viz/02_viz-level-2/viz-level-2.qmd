@@ -177,9 +177,8 @@ sw.wrangled <- sw_wrangled
 #sw.viz %>% ...
 
 
-sw.wrangled$gender <- factor(sw.wrangled$gender,
-                           levels = c("f", "m", "NA"), 
-                           labels = c("Female", "Male", "NA"))
+sw.wrangled$gender <- factor(sw.wrangled$gender)
+                           
                              
                              
 # Create the faceted scatterplot
