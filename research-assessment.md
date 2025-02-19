@@ -116,7 +116,7 @@ Refer to the website for general tips on meeting these objectives and an FAQ.
 3.  integrate a GitHub repo with an R studio project, including .gitignore file
 
     1.  All scripts run and all notebooks render if the repo is cloned to another location
-    2.  .gitingore comprehensively excludes unnecessary, private, and very large files and is be commeted appropriately
+    2.  .gitingore comprehensively excludes unnecessary, private, and very large files and are commented appropriately
 
         -   [ ] Objective attempt
         -   [ ] Objective met
@@ -233,8 +233,11 @@ Refer to the website for general tips on meeting these objectives and an FAQ.
         
 15. Use facets to create parallel plots
 
-    1. Uses facets in at least 2 ways (e.g., using both `facet_wrap()` and `facet_grid()`), modifying the number of rows and columns, using free vs fixed scales, etc.)
+    1. EITHER:
+      1. Uses both `facet_wrap()` and `facet_grid()` in two different plots *or*
+      2. Uses facets with at least one plot using at least two optional arguments (e.g., modifying the number of rows and columns, using free vs fixed scales, etc.)
     2. Combines facets with other dynamic grouping aesthetics
+      1. If data only includes 1 sensible grouping variable, it may be used for both the faceting and groupin aes.  
 
         -   [ ] Objective attempt
         -   [ ] Objective met
@@ -244,7 +247,7 @@ Refer to the website for general tips on meeting these objectives and an FAQ.
 
     1. Plots have informative titles, axis labels, and legends
     2. Fonts are stylized professionally and legibly (e.g., adjusted size/angle/justification)
-    3. Variables display in plain English (e.g., "Age (years)" not "child_age_yrs"
+    3. Variables and labels display in plain English (e.g., "Age (years)" not "child_age_yrs"
     4. Uses at least 1 static aesthetic (e.g., color, shape, size) that improves visual clarity without mapping to data
 
         -   [ ] Objective attempt
@@ -341,12 +344,13 @@ Refer to the website for general tips on meeting these objectives and an FAQ.
     3. Captions are informative, complete, and render correctly
     4. All tables and figures are referenced in the narrative text (e.g., Figure 1)
     5. References render without error and link to the correct table/figure in pdf/html output
+    - NOTE: Ideally your table(s) should be produced in APA7 style, but this is not a strict requirement. At a minimum, they should render as formatted tables (not raw output), have readable and correctly formatted text (e.g., column headers should be capitalized and in plain english, not literal variable names), and the table must be dynamically referenced in the text.
 
         -   [ ] Objective attempt
         -   [ ] Objective met
         -   Grader comments:
 
-25. Execute descriptive analyses and/or hypothesis testing in code chunks
+25. Execute descriptive and inferential analyses in code chunks
 
     1. At least 1 code chunk executes a descriptive analysis (e.g., `summary()`, `table()`)
     2. At least 1 code chunk executes a hypothesis test (e.g., `t.test()`, `chisq.test()`)
