@@ -1,0 +1,90 @@
+---
+title: "mtcars regression and chi-square analyses with plots"
+author: "Prince Parker"
+format: html
+---
+
+#Setup chunk
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(error = TRUE, warning = TRUE, message = TRUE)
+```
+
+###Code structure
+1. Load packages and view dataset
+2. Run linear regression model of weight and mpg
+3. Plot regression model
+4. Run Chi-Square Analysis of Transmission Type and Engine
+
+#Load necessary packages
+```{r}
+
+#Load packages#
+
+library(tidyverse)
+library(ggplot2)
+library(readr)
+
+
+```
+
+#Read in mt cars csv and display the first 5 lines#
+```{r}
+#Read in mt cars csv
+
+data("mtcars")
+
+#Display the first 5 lines
+head(mtcars)
+
+```
+The scatterplot below shows the relationship between **weight (wt) and miles per gallon (mpg)** for the cars in the `mtcars` dataset. The fitted **linear regression model** suggests that for every additional **1000 lbs** of weight, **MPG decreases by approximately `r round(coef(lm(mpg ~ wt, data = mtcars))[2], 2)`**.
+
+The regression equation is:
+
+> **MPG = `r round(coef(lm(mpg ~ wt, data = mtcars))[1], 2)` + `r round(coef(lm(mpg ~ wt, data = mtcars))[2], 2)` * Weight`**
+
+The R-squared value, indicating how well weight explains MPG variation, is **`r round(summary(lm(mpg ~ wt, data = mtcars))$r.squared, 3)`**.
+
+## **Regression Analysis: MPG vs. Weight**
+```{r}
+# Run simple linear regression
+model <- lm(mpg ~ wt, data = mtcars)
+
+# Print summary of the regression model
+summary(model)
+```
+
+#Regression scatterplot
+```{r}
+#Plot mtcars scatterplot with regression line
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point(color = "red", shape = "triangle", size = 3) +  # Scatter plot
+  geom_smooth(method = "lm", color = "green", se = TRUE) +  # Regression line with confidence interval
+  labs(title = "Regression of MPG on Weight", x = "Weight (1000 lbs)", y = "Miles per Gallon") +
+  theme_minimal()
+```
+
+We conducted a **Chi-Square test** to examine the relationship between **Transmission** and **Engine type**. The results indicate a **Chi-Square statistic of `r round(chisq_test$statistic, 2)`**, with a **p-value of `r signif(chisq_test$p.value, 3)`**.
+
+Based on a significance level of **0.05**, we **`r ifelse(chisq_test$p.value < 0.05, "reject", "fail to reject")`** the null hypothesis. This suggests that there **`r ifelse(chisq_test$p.value < 0.05, "is", "is no")`** significant association between transmission type and engine type.
+
+#Conduct Chi-Squared Test
+```{r}
+
+# Create a contingency table
+table_mtcars <- table(mtcars.viz$Transmission, mtcars.viz$Engine)
+
+# View results
+print(chisq.test(table_mtcars))
+
+```
+```{r}
+summary(table_mtcars)
+```
+
+<!-- No association between Transmission and Engine type (p>.05) -->
+- Weight predicts car miles per gallon
+- There was no association between transmission type and engine
+
+
+
