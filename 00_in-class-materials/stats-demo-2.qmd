@@ -11,14 +11,19 @@ format:
 
 # Load necessary libraries
 
-library(tidyverse)
+library(tidyverse) # data wrangling and visualization
+
+# Some of these libraries have overlapping functions
+# You may need to reorder to get the one you want to be the default
+# Alternatively, you can use the `::` syntax to specify which package you want to use
+library(kableExtra) # nice tables (and migraines)
+library(rempsyc) # imperfect APA tables
 library(scales) # squishing scales (and other outlier handling)
 library(psych) # common analyses and visualizations in psychology
 library(stats) # basic statistics
 library(lme4) # mixed models
 library(patchwork) # "stitch" together multiple plots
-library(kableExtra) # nice tables (and migraines)
-library(rempsyc) # imperfect APA tables
+
 
 library(broom) # tidy model output
 library(papaja) # general APA friendly stuff, but old and not always quarto-friendly
@@ -104,7 +109,8 @@ Is the mean of this sample different than the true mean?
 #| label: ttest-mu
 
 # Perform a 1-sample t-test on the mass variable with a specified mean
-# Here the specified mean is simply the mean of the sample (which is the whole population)
+# Here the specified mean is simply the mean of the sample 
+# (which is the whole population)
 t.test(sw.desc$mass, mu=mean(sw.desc$mass))
 ```
 
@@ -121,12 +127,13 @@ slice_sample(sw.desc, n=15) %>%
   t.test(sw.desc$mass,mu=mean(sw.desc$mass))
 ```
 
-In nearly all cases (depending on your random seed) this will result in rejecting the null hypothesis. Essentially this is showing that there are some values (that of one Mr. The-Hutt, with a mass of `r round(arrange(sw.desc, -mass)$mass[[1]], 3)`) of mass that is such an outlier it makes the mean of the full sample not actually representative of the "average". (This is a case where median might be a better measure measure of center than mean, and a great example of why it's important to always look at descriptive statistics before inferential stats.) If we get rid of the extreme outlier and use that as the "true" mean, things might look different.
+In nearly all cases (depending on your random seed) this will result in rejecting the null hypothesis. Essentially this is showing that there are some values of mass (namely that of one Mr. The-Hutt, with a mass of `r round(arrange(sw.desc, -mass)$mass[[1]], 3)` kg) that is such an outlier it makes the mean of the full sample not actually representative of the "average". (This is a case where median might be a better measure measure of center than mean, and a great example of why it's important to always look at descriptive statistics before inferential stats.) If we get rid of the extreme outlier and use that as the "true" mean, things might look different.
 
 ```{r }
 #| label: no-jabba-mean
 
-# Create a new dataset without Jabba the Hutt (anything with mass more then 500% of the median)
+# Create a new dataset without Jabba the Hutt (anything with mass more 
+# than 500% of the median)
 sw.desc.nojabba <- sw.desc %>% 
   filter(!(mass > 5*median(mass))) 
 ```
@@ -166,7 +173,8 @@ Is the mass of male[^3] characters different from female characters?
 ```{r }
 #| label: ttest2-overall
 
-# Perform a 2-sample t-test on the mass variable, comparing male & female groups
+# Perform a 2-sample t-test on the mass variable
+# comparing male & female groups
 ## overall, sig.
 ttest2_overall <- t.test(
        filter(sw.desc2, sex == "male")$mass,
@@ -179,7 +187,7 @@ ttest2_overall
 
 ```
 
-For all characters, yes. We can reject the null hypothesis that the means are the same ($t$ = `r round(ttest2_overall$statistic, 3)`, $p$ < `r round(ttest2_overall$p.value, 3)`).
+For all characters, yes. We can reject the null hypothesis that the means are the same ($t$ = `r round(ttest2_overall$statistic, 3)`, $p$ `r apa_p(ttest2_overall$p.value, add_equals = T)`).
 
 What if we just look at the humans?
 
@@ -193,20 +201,22 @@ ttest2_humans <- t.test(
 )
 ttest2_humans
 
-# Because all humans in the dataset are recorded as 1 of exactly 2 options (male or female)
+# Because all humans in the dataset are recorded as 1 of exactly 2 options 
+# (male or female)
 # we can use a formula syntax instead of specifying the vectors directly
 # This only works if the factor variable has exactly 2 levels!
 
 # First we create a new dataframe with only humans, to ensure only 2 levels
 humans_only <- filter(sw.desc2, species == "Human")
 
-# Then use the syntax `dependent_variable ~ independent_variable` to specify the formula
+# Then use the syntax `dependent_variable ~ independent_variable` 
+# to specify the formula
 ttest2_humans_alt <- t.test(
-  sw.desc2$mass ~ sw.desc2$sex
+  humans_only$mass ~ humans_only$sex
 )
 ```
 
-For humans, no. We cannot reject the null hypothesis that the means are the same ($t$ = `r round(ttest2_humans$statistic, 3)`, $p$ < `r round(ttest2_humans$p.value, 3)`).
+For humans, no. We cannot reject the null hypothesis that the means are the same ($t$ = `r round(ttest2_humans$statistic, 3)`, $p$ = `r round(ttest2_humans$p.value, 3)`).
 
 #### 2-sample; 1-tailed
 
@@ -222,7 +232,8 @@ Outside the Star Wars Cinematic Universe, we know that the mean mass of male hum
 #| label: ttest2-humans-1tail
 
 # Perform a 1-tailed 2-sample t-test on the mass variable, comparing male and female humans
-# with the null hypothesis that the *difference* in means is less than or equal to 0
+# with the null hypothesis that the *difference* in means is 
+# less than or equal to 0
 ttest2_humans_1tail <- t.test(
   # the order of the groups is important here!
   filter(sw.desc2, sex == "male", species == "Human")$mass,
@@ -235,7 +246,7 @@ ttest2_humans_1tail
 
 ```
 
-Now we do see a significant effect. We can reject the null hypothesis that the mean mass of females is greater than or equal to that of males are the same ($t$ = `r round(ttest2_humans_greater$statistic, 3)`, $p$ < `r round(ttest2_humans_greater$p.value, 3)`).
+Now we do see a significant effect. We can reject the null hypothesis that the mean mass of females is greater than or equal to that of males are the same ($t$ = `r round(ttest2_humans_1tail$statistic, 3)`, $p$ < `r round(ttest2_humans_1tail$p.value, 3)`).
 
 Notice the importance of ordering in the `t.test()` function. In this 2-tailed 2-sample $t$-test, we want to know test whether it's possible (the null -- the thing we *don't* expect) that the mean mass of females (group 2) is greater than or equal to the mean mass of males, so we put the group we *do* expect to be greater first. Try switching the order of the groups in each of the `t.test()` functions above and see how the results change.
 
@@ -318,14 +329,25 @@ sw.hyp <- starwars %>%
                               hair_color %in% c("blond", "blonde") ~ "blond",
                               hair_color == "none" ~ "none",
                               TRUE ~ "dark"),
-         skin6cat = case_when(skin_color %in% c("brown", "brown mottle", "dark", "tan") ~ "tan/dark",
-                              skin_color %in% c("blue", "green", "green-tan", "mottled green") ~ "cool hue",
-                              skin_color %in% c("silver", "gold", "metal") ~ "metallic",
-                              skin_color %in% c("fair", "light", "white") ~ "fair/light",
-                              skin_color %in% c("yellow", "red", "orange") ~ "warm hue",
+         skin6cat = case_when(skin_color %in% 
+                                  c("brown", "brown mottle", "dark", "tan") 
+                              ~ "tan/dark",
+                              skin_color %in% 
+                                  ("blue", "green", "green-tan", "mottled green") 
+                              ~ "cool hue",
+                              skin_color %in% 
+                                  c("silver", "gold", "metal") 
+                              ~ "metallic",
+                              skin_color %in% 
+                                  c("fair", "light", "white") 
+                              ~ "fair/light",
+                              skin_color %in% 
+                                  c("yellow", "red", "orange") 
+                              ~ "warm hue",
                               TRUE ~ "other"
                               ),
-         species3cat = ifelse(species %in% c("Human", "Droid"), species, "Other")
+         species3cat = ifelse(species %in% c("Human", "Droid"), 
+                              species, "Other")
   ) %>%
   # let's also drop jabba
   filter(name != "Jabba Desilijic Tiure")
@@ -366,7 +388,8 @@ In the Star Wars dataset, we can use a 2-way ANOVA to look for associations betw
 ```{r }
 #| label: anova-2way-hair
 
-# Perform a 2-way ANOVA comparing the dependent variable (height) across sex and hair color
+# Perform a 2-way ANOVA comparing the dependent variable (height) 
+# across sex and hair color
 anova_sex3_hair4 <- aov(height ~ sex3cat + hair4cat, data=sw.hyp)
 summary(anova_sex3_hair4)
 
@@ -380,7 +403,8 @@ As another example, let's look and sex and gender together. It's a weird combo, 
 ```{r }
 #| label: anova-2way-gender
 
-# Perform a 2-way ANOVA comparing the dependent variable (height) across sex and gender
+# Perform a 2-way ANOVA comparing the dependent variable (height) across 
+# sex and gender
 anova_sex3_gender <- aov(height ~ sex3cat + gender, data=sw.hyp)
 summary(anova_sex3_gender)
 
@@ -575,8 +599,10 @@ Using the `mtcars` dataset, (how) do horsepower and displacement predict fuel ef
 
 # The formula syntax for regressions (and nearly all modelling in R) is:
 # 1 outcome variable on the left of a tilde ~
-# all individual predictor variables (including controls) separated by plus signs + to the right of the tilde ~
-# after individual vars, any interaction effects are included by using an asterisk * between the vars
+# all individual predictor variables (including controls) separated by 
+# plus signs + to the right of the tilde ~
+# after individual vars, any interaction effects are included by using 
+# an asterisk * between the vars
 # [outcome var] ~ [predictor var 1] + [predictor var 2] + ... + [predictor var 1]*[predictor var 2]
 
 cars_hp <- lm(data = mtcars, mpg ~ hp)
@@ -627,7 +653,8 @@ If you only have one continuous independent variable (the others are categorical
 #| label: fig-viz-mult-reg-one-cont
 #| fig-cap: MPG by HP, across engine and transmission type
 
-# scatterplot and regression line of MPG, HP, engine type, and transmission type
+# scatterplot and regression line of MPG, HP, engine type, 
+# and transmission type
 mtcars %>% 
   mutate(factor.am = factor(am),
          factor.vs = factor(vs)) %>% 
@@ -708,7 +735,8 @@ You can visualize logistic regression with point and smooth geoms just like "reg
 
 ggplot(mt2, aes(x = hp, y = highMPG)) +
   geom_point() +
-  geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE) +
+  geom_smooth(method = "glm", method.args = list(family = "binomial"), 
+              se = FALSE) +
   labs(y = "MPG Category likelihood")
 ```
 
@@ -724,7 +752,8 @@ Alternatively, you could modify the y-axis labels to more clearly communicate wh
 
 ggplot(mt2, aes(x = hp, y = highMPG)) +
   geom_point() +
-  geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE) +
+  geom_smooth(method = "glm", method.args = list(family = "binomial"), 
+              se = FALSE) +
   scale_y_continuous(breaks = c(0,1), labels = c("Low MPG", "High MPG")) +
   labs(y = "MPG Category likelihood")
 ```
