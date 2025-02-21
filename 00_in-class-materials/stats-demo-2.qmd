@@ -333,7 +333,7 @@ sw.hyp <- starwars %>%
                                   c("brown", "brown mottle", "dark", "tan") 
                               ~ "tan/dark",
                               skin_color %in% 
-                                  ("blue", "green", "green-tan", "mottled green") 
+                                  c("blue", "green", "green-tan", "mottled green") 
                               ~ "cool hue",
                               skin_color %in% 
                                   c("silver", "gold", "metal") 
