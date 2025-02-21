@@ -1,0 +1,570 @@
+---
+title: Hypothesis Testing - INSTRUCTOR ONLY
+format: 
+  #pdf: default
+  html: default
+---
+
+## Objective
+
+This assignment provides hands-on practice implementing common inferential statistical analyses using R. You will use data from an open-access dataset examining relationships between math anxiety and self-perception:
+
+*Mackinnon, S. P., McCaughey, N., & Hill, T. G. (2024, July 25). The Association of Self-Efficacy, Anxiety Sensitivity, and Self-Critical Perfectionism with Statistics and Math Anxiety. https://doi.org/10.17605/OSF.IO/NZHQ6* 
+
+You can access the full dataset and codebook [here](https://osf.io/nzhq6/). The data you will need is included in the .csv file within this project's directory.
+
+**Note:** When prompted to interpret results, consider taking the opportunity to practice:
+
+- Explaining statistical concepts in plain language
+- Presenting results in a format typical of a psychology journal article
+  - The "APA statements" provided in each chapter of [A Practical Extension of Introductory Statistics in Psychology using R](https://rpsystats.com/) offer models for how to write up results in narrative text
+- Using inline code to reference specific results in your interpretation
+
+### A word of advice...
+
+This project is LONG! There are many guided prompts to follow as well as opportunities for self-directed analysis. 
+
+**You do not need to complete the whole thing.** Focus on what it interesting and/or useful to you. Feel free to just complete the guided portions and skip the self-directed portions, pick and choose which analyses you want to tackle, or skip elements that you don't find useful. Remember that you are earning points for what you demonstrate, not losing points for what you don't demonstrate.
+
+I recommend keeping the `stats-demo-2.qmd` file (in the in-class materials folder) open to reference as you work. The guided sections of this project largely parallel the demo, so you can use the demo as a reference for how to structure your code and interpret your results.
+
+
+## Setup
+
+```{r}
+#| label: setup
+#| message: false
+
+# Load required libraries
+library(tidyverse)
+library(papaja) # for apa_p() if desired
+library(stats)     # basic statistics
+library(flextable)  # nice tables
+library(broom)      # tidy model output
+
+# Set random seed
+set.seed(1234)
+
+```
+
+## Data Preparation 
+
+*Note: The data preparation section is the same as in the descriptive statistics project. If you have already completed that project, you can use the same code.*
+
+Read in and examine the data.
+
+```{r}
+#| label: read-in-data
+
+# Read in the dataset
+math.anxiety <- read_csv("math-anxiety.csv")
+
+# View first 6 rows
+head(math.anxiety)
+
+# Examine the structure of the dataset
+str(math.anxiety)
+
+```
+
+Not all variables are currently the data type we'd like them to be. Based on what you see when you look at the structure of the df and using the data's [codebook](https://osf.io/zh5ab), which columns are not currently in the correct data type? What changes do you need to make?
+
+<!-- answer below -->
+<!-- Hint: There are a lot of columns, and the vast majority are numeric. start by looking through the codebook to figure out what *shouldn't* be numeric and go from there. -->
+
+
+
+
+
+Perform simple data cleaning to retype the columns as needed.
+
+```{r}
+#| label: data-type-cleaning
+
+# Change the data type of columns as needed
+
+
+```
+
+
+In an effort to simplify things at least a little, let's drop the columns that are item responses, keeping participant info and composite survey scores. Use the codebook to identify which columns are item responses, then modify the dataframe to drop those columns. We're assigning this to a new object, `math.anx`, to keep the original data intact.
+
+```{r}
+#| label: drop-item-responses
+
+# There are (at least) two ways to approach this, either:
+# 1. Notice that all the item responses follow a naming pattern, then use select helpers to drop them
+# 2. Use the codebook to identify the columns that are *not* item responses and keep them
+
+
+```
+
+In this project we will focus on math anxiety, which is measured by a composite score of several items. Remove any observations with missing data in the math anxiety variable. If you choose to analyze other variables, you may need to remove missing data from those variables as well.
+
+```{r}
+#| label: remove-missing-math-anx
+
+# Remove missing data from math anxiety variable
+
+
+```
+
+
+Finally, decide whether there are any factor variables you would like to recode for easier interpretation or "flatten" levels across. This is optional, but can create more options to try out analyses later. Refer to the dataset's documentation for information on how the authors handled these variables.
+
+```{r}
+#| label: recode-factors-optional
+
+# Optionally, recode factor levels for easier interpretation
+
+```
+
+
+## Hypothesis Testing
+
+### Student's t-tests
+
+#### 1-sample t-test
+
+Conduct a *one-sample $t$-test* to determine if the mean math anxiety score is significantly different from a presumed average (the midpoint of the Likert scale used for these items).
+
+```{r}
+#| label: ttest-one-sample
+
+# One-sample t-test of math anxiety
+
+```
+
+Interpret your results. What can you conclude about mean math anxiety of the sample relative to the Likert-scale midpoint?
+
+<!-- answer below -->
+
+
+
+#### 2-sample t-test
+
+Conduct a 2-sample $t$-test to compare math anxiety score by program enrollment (undergraduate vs. graduate).
+
+```{r}
+#| label: ttest-two-sample
+
+# Two-sample t-test of math anxiety by program type
+
+
+```
+
+Interpret your results. What can you conclude about differences in math anxiety between undergraduate and graduate students?
+
+<!-- answer below -->
+
+
+
+
+#### 1-tailed t-test
+
+The dataset includes two variables indicating students' familiarity with university-level statistics, whether they are currently enrolled in a statistics course and whether they have previously taken a statistics course at the university level.
+
+In your opinion, which of these variables (neither, either, or both) would be most justified to compare with a 1-tailed $t$-test to predict math anxiety? If you believe that one or both are justified, which direction would you expect the relationship to go?
+
+<!-- answer below -->
+
+
+
+Based on your reasoning, conduct the appropriate $t$-test for each variable. 
+
+```{r}
+#| label: recode-stats-levels
+
+# Optionally, recode the levels of the two variables for easier interpretation
+# refer to codebook for level labels
+
+```
+
+
+```{r}
+#| label: ttest-stats-current
+
+# Conduct a t-test (1 or 2 tailed) to compare math anxiety by current enrollment in a stats class
+
+
+```
+
+```{r}
+#| label: ttest-stats-previous
+
+# Conduct a t-test (1 or 2 tailed) to compare math anxiety by previous completion of a stats class
+
+
+
+```
+
+Interpret your results. What can you conclude about differences in math anxiety between groups of students with different levels of statistics experience? Do the results align with your expectations? Do you think you made the right decision about whether/when to run 1-tailed tests?
+
+<!-- answer below -->
+
+
+
+
+
+
+### One-way ANOVA 
+
+For demographic variables with more than 2 levels, we can use an ANOVA to test for differences in math anxiety across groups.
+
+One such variable in this dataset is `ethnicity.r`, which has 6 levels:
+
+1. Asian
+2. Black
+3. Hispanic/Latinx
+4. Middle Eastern
+5. Mixed/Other
+6. White
+
+Optionally, before conducting a 1-way ANOVA, check the assumptions of homogeneity of variance and normality. You can do this using visualizations or statistical tests. If you want to use tests, the `car` and `stats` packages have useful functions for this.
+
+```{r}
+#| label: anova-assumptions
+
+
+```
+
+ANOVA is fairly robust against violations of both normality and homogeneity of variance, so we'll proceed with ANOVA testing. However, if you found that either or both assumptions were violated, you could (optionally) run non-parametric alternative test. (Add a chunk below the ANOVA if you would like to try.)
+
+Before running the ANOVA, consider the theoretical motivation for the test. What do you expect to find? Why?
+
+<!-- answer below -->
+
+
+
+Run the ANOVA and examine the results.
+
+```{r}
+#| label: anova-ethnicity
+
+# One-way ANOVA examining math anxiety differences across ethnicities
+
+
+# View the ANOVA table
+
+
+# Run Tukey post-hoc tests
+
+
+```
+
+Interpret the results of the ANOVA. What can you conclude about differences in math anxiety across reported ethnicity groups? If there are significant differences, what do you think might be driving them? If there are not, what might be some reasons for the lack of differences?
+
+<!-- answer below -->
+
+
+
+
+
+Select one (or more) of the other demographic variables with more than 2 levels and conduct a similar 1-way ANOVA to test for differences in math anxiety across groups. For your analysis:
+
+1. State your null and alternative hypotheses
+2. Predict the outcome of the test and explain why you expect this result
+3. Optionally, check assumptions of homogeneity of variance and normality
+4. Run the ANOVA and interpret the results
+
+<!-- Begin self-directed 1-way ANOVA -->
+
+
+
+
+<!-- End self-directed 1-way ANOVA -->
+
+### Two-way ANOVA
+
+Two-way ANOVA can be used to examine the interaction between two categorical variables on a continuous outcome. 
+
+For this dataset, we will examine the interaction between `program.type` (undergraduate vs. graduate) and `faculty` (i.e., division; arts, science, other) on math anxiety. Though we usually think about 1-way ANOVA as useful for variables with more than 2 levels, 2-way ANOVA can be useful for examining interactions between two variables with 2 (or more) levels each, like `program.type`.
+
+Before running the ANOVA, consider the theoretical motivation for the test. What do you expect to find? Why? Do any analyses you have run so far inform your expectations?
+
+<!-- answer below -->
+
+
+
+
+Run the 2-way ANOVA and examine the results.
+
+```{r}
+#| label: anova-2way
+
+# Two-way ANOVA examining math anxiety differences across program type and faculty
+
+
+
+```
+
+Interpret the results of the 2-way ANOVA. What can you conclude about the interaction between program type and faculty on math anxiety? Do the results align with your expectations?
+
+<!-- answer below -->
+
+
+
+
+Select two demographic factor variables to examine in a 2-way ANOVA. (You can use one of the two variables from the previous example if you like.)
+
+For your analysis:
+
+1. State your null and alternative hypotheses
+2. Predict the outcome of the test and explain why you expect this result
+3. Optionally, check assumptions of homogeneity of variance and normality of each variable
+4. Run the ANOVA and interpret the results
+
+<!-- Begin self-directed 2-way ANOVA -->
+
+
+
+
+<!-- End self-directed 2-way ANOVA -->
+
+
+
+
+### Comparison of Means Visualizations
+
+All of the analyses so far have compared means across multiple groups. Each test works differently and is suited for different research questions and data, but visualizing these relationships is similar in all these cases.
+
+To visualize t-tests, ANOVAs, and other tests of means, you can use boxplots, violin plots, or bar plots. (I recommend against using bar plots for anything where the data cannot extend all the way to $y=0$, as this can be misleading.)
+
+If you like, visualize one or more of the comparisons you have made so far. Use code chunks to create your visualizations and include a brief description of what you see in the plot.
+
+
+
+
+
+
+### Chi-square Test
+
+Chi-square tests can be used to examine the relationship between two categorical variables. The null hypothesis for a chi-square test is that the two variables are independent, with no non-random association between them.
+
+The dataset does not include any categorical outcome variables, but we can create one by binning math anxiety scores into high, medium, and low categories.
+
+There are many ways to bin continuous variables. The option outlined in the chunk below uses a crude method of splitting the range of math anxiety scores into three equal parts. You can use a different method if you like.
+
+```{r}
+#| label: create-math-anx-categories
+
+# Create a categorical variable for math anxiety
+# Find the 1/3 and 2/3 points of the possible range of math anxiety scores
+
+
+# Create a new variable called `math.anx_cat` with 3 levels of math anxiety using the 1/3 and 2/3 points
+
+
+
+```
+
+
+Now that we have a categorical variable, we can use a chi-square test to examine the relationship between math anxiety category and categorical demographic variables. Run a chi-square test to examine the relationship between level of math anxiety and university division (`faculty`).
+
+As always, first consider the theoretical motivation for the test. What do you expect to find? Why? Do any analyses you have run so far inform your expectations?
+
+<!-- answer below -->
+
+
+
+
+```{r}
+#| label: contingency-faculty
+
+# Create a contingency table of math anxiety category and faculty
+
+
+```
+
+
+```{r}
+#| label: chisq-faculty
+
+# Chi-square test of independence
+
+
+```
+
+
+Interpret the results of the chi-square test. What can you conclude about the relationship between math anxiety category and university division? Do the results align with your expectations? 
+
+<!-- answer below -->
+
+
+
+
+
+Optionally, you can conduct post-hoc tests to determine the nature of the association between math anxiety category and university division. One way to do this is to create a visualization of the contingency table (the `ggmosaic` package is great for this). You can also conduct post-hoc tests (try the `chisq.posthoc.test` function from the package with the same name).
+
+```{r}
+#| label: fig-chi2-optional-posthoc
+
+# Optionally, run posthoc visualizations or tests
+
+```
+
+Select two categorical variables to examine in a 2-way ANOVA. You may want to create a new categorical outcome variable like you did for `math.anx_cat`. You can also test for an association between two predictor variables that are already categorical. If you do the latter, explain what purpose an analysis of association serves.
+
+For your analysis:
+
+1. State your null and alternative hypotheses
+2. Predict the outcome of the test and explain why you expect this result
+3. Create a contingency table of the two variables
+4. Run the chi-square test and interpret the results
+
+<!-- Begin self-directed chi2 -->
+
+
+
+
+<!-- End self-directed chi2 -->
+
+### Linear Regression
+
+Model the relationship between self-efficacy and math anxiety with univariate linear regression.
+
+Before running the analysis, consider the theoretical motivation for the test. What do you expect to find? Why? Do any analyses you have run so far inform your expectations?
+
+```{r}
+#| label: regression-math-anx
+
+# Simple linear regression
+
+
+```
+
+Visualize the regression line on a scatterplot of self-efficacy and math anxiety. You may want to adjust some visual elements to make the plot more informative (or just aesthetically pleasing).
+
+```{r}
+#| label: fig-regression-math-anx
+
+# Scatterplot of self-efficacy and math anxiety with regression line
+
+
+```
+
+
+
+Interpret the results of the linear regression. What can you conclude about the relationship between self-efficacy and math anxiety? 
+
+<!-- answer below -->
+
+
+
+Create a multiple regression model to predict math anxiety from self-efficacy and anxiety sensitivity.
+
+Before running the analysis, consider the theoretical motivation for the test. What do you expect to find? Why? What purpose does adding anxiety sensitivity to the model serve and how might your results differ?
+
+```{r}
+#| label: regression-math-anx-multiple
+
+# Multiple regression
+
+
+```
+
+Visualize the multiple regression model by plotting the predicted values against the observed values of math anxiety, and using a non-axis aesthetic to represent anxiety sensitivity.
+
+```{r}
+#| label: fig-regression-math-anx-multiple
+
+# Scatterplot of math anxiety with predicted values from multiple regression
+ggplot(math.anx, aes(x = self.efficacy, y = math.anx, color = asi)) +
+  geom_point(alpha = .5) +
+  geom_smooth(method = "lm") +
+  labs(title = "Relationship between Self-Efficacy and Math Anxiety",
+       x = "Self-Efficacy",
+       y = "Math Anxiety")
+
+```
+
+
+How does the addition of anxiety sensitivity to the model change the interpretation?
+
+<!-- answer below -->
+
+
+
+Create a third model that includes an interaction term between self-efficacy and anxiety sensitivity.
+
+```{r}
+#| label: regression-math-anx-interaction
+
+# Multiple regression with interaction
+interaction.lm <- lm(math.anx ~ self.efficacy * asi, 
+                 data = math.anx)
+summary(interaction.lm)
+
+```
+
+Visualize the interaction by plotting the predicted values against the observed values of math anxiety, and using a non-axis aesthetic to represent self-efficacy.
+
+How does the addition of the interaction term to the model change the interpretation?
+
+<!-- answer below -->
+
+
+
+
+Compare your three models using the `anova()` function. Consider which models you expect to be better fits and order your models accordingly.
+
+```{r}
+#| label: anova-regression
+
+# Compare models
+anova(simple.lm, multiple.lm, interaction.lm)
+
+```
+Which model is the best fit for the data? What does this tell you about the relationship between self-efficacy, anxiety sensitivity, and math anxiety?
+
+<!-- answer below -->
+
+
+Consider the other continuous variables in the dataset and select two or more to model with linear regression. Create at least two models, run and visualize each, then compare them using the `anova()` function.
+
+
+<!-- Begin self-directed regression -->
+
+
+
+
+<!-- End self-directed regression -->
+
+
+
+
+# Optional Analysis
+
+If you have the time or interest, continue analyzing these data. Present your findings in publication-ready tables and/or figures, and interpret the results in clear language, as though writing narrative for a journal article.
+
+You can use this as a chance to try out more advanced analyses as well, like logistic regression, generalized linear mixed models (GLMM), hierarchical linear modeling (HLM), or structural equation modeling (SEM).
+
+You can also try out different visualization packages or create more complex visualizations. A few packages I'd recommend are `vcd`, `ggmosaic`, `ggsankey`, and `ggstatsplot`.
+
+Be sure to use chunks with informative labels and to include any necessary code to complete your analysis.
+
+
+
+
+
+# Submission
+
+To submit:
+
+1. Add & modify the `assessment.md` in this mini-project's directory:
+    1. Check off all objectives you believe you have demonstrated
+    2. Indicate which objectives you are meeting for the first time (if any)
+    3. Complete any relevant open-ended items
+2. Push your changes to your centralized assignment repository on GitHub. 
+3. Confirm that Dr. Dowling and your section TA are added as collaborators to your repository.
+4. Submit your work in your next open mini-project assignment by including the following information in the text box:
+    1. The title of the assignment: "Hypthesis Testing"
+    2. A link to the **directory** for this assignment in your centralized assignment repo
+
+
+
+
+
+
+
+
