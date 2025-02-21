@@ -469,12 +469,7 @@ Visualize the multiple regression model by plotting the predicted values against
 #| label: fig-regression-math-anx-multiple
 
 # Scatterplot of math anxiety with predicted values from multiple regression
-ggplot(math.anx, aes(x = self.efficacy, y = math.anx, color = asi)) +
-  geom_point(alpha = .5) +
-  geom_smooth(method = "lm") +
-  labs(title = "Relationship between Self-Efficacy and Math Anxiety",
-       x = "Self-Efficacy",
-       y = "Math Anxiety")
+
 
 ```
 
@@ -491,9 +486,7 @@ Create a third model that includes an interaction term between self-efficacy and
 #| label: regression-math-anx-interaction
 
 # Multiple regression with interaction
-interaction.lm <- lm(math.anx ~ self.efficacy * asi, 
-                 data = math.anx)
-summary(interaction.lm)
+
 
 ```
 
@@ -512,7 +505,6 @@ Compare your three models using the `anova()` function. Consider which models yo
 #| label: anova-regression
 
 # Compare models
-anova(simple.lm, multiple.lm, interaction.lm)
 
 ```
 Which model is the best fit for the data? What does this tell you about the relationship between self-efficacy, anxiety sensitivity, and math anxiety?
