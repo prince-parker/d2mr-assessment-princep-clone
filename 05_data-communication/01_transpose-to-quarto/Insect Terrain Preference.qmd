@@ -1,0 +1,149 @@
+---
+title: "Terrain Preference in Pill Bugs and Sow Bugs"
+author:
+  - name: Prince Parker
+    corresponding: true
+    uchicagoid: princep
+    email: princep@uchicago.edu
+    affiliations:
+      - name: University of Chicago, Morehouse College
+        department: Social Sciences Division, Psychology Department
+        address: 830 Westview Dr
+        city: Atlanta
+        region: GA
+abstract: |
+  Pill and sow bugs are thoroughly investigated and research species of terrestrial isopods with similar physical features and behaviors. In the present study, these species were observed for terrain preference and behavioral patterns. Both species were observed in small chambers split in half between dry and wet substrates, smooth and rough substrates, dark and light substrates, as well as cold and warm substrates. It was found that pill and sow bugs preferred the wet substrate rather than the dry substrate (X2=13.46, p > .01, V=.17), the rough substrate rather than the smooth substrate (X2=0.4, p < .05, V=.02), the dark substrate rather than the light substrate (X2= 21.7, p >.01, V = 0.21), and the cold substrate rather than the warm substrate (X2= 8.8, p > .01, V = 0.16).
+keywords: [pill bug, sow bug, terrain, terrain preference, climate change]
+author-note:
+  disclosures:
+    conflict of interest: The author has no conflict of interest to declare.
+bibliography: mybibfile.bib
+format:
+  apaquarto-docx: default
+  apaquarto-html: default
+  apaquarto-pdf: default
+  apaquarto-typst: default
+execute:
+  warning: false  # Suppress warnings in all chunks
+  message: false  # Suppress messages in all chunks
+---
+
+
+# Load packages
+install.packages("ggplot2")
+library(ggplot2)
+library(tidyverse)
+
+```
+
+# Introduction
+Terrestrial Isopods like pill bugs (Armadillidium vulgare) and sow bugs (Porcellio laevis) have been studied for a range of different behaviors in response to various stimuli from predation to climate change. The diverse instinctual actions taken by terrestrial isopods like scavenging and having a wide range of invertebrate and vertebrate predators makes species like the pill bug and sow bug the prime subject of many animal behavior research studies. Gaining further behavioral research on terrestrial isopods adds to current scientific knowledge as well as pure and applied research while observing and identifying behaviors relevant in the field of human psychology. 
+Animal behavior studies of predation have had lasting implications in the field of psychology as it pertains to anxiety and stress. In the 2020 study, “Learning from the environment: How predation changes the behavior of terrestrial Isopoda”, researchers investigated differences in antipredatory behaviors between wild and captive isopods to gain understanding of how nature and nurture, and their interactions, may influence behavior (Gatti et al, 2020). In this study, researchers used stimuli with simulated the fall from a bird's beak and the grip of a lizard's jaw to observe the differences in reaction time, tonic immobility, and volvation frequency. Although volvation frequency was highly species-specific, it was found that tonic immobility and delay in response to each stimulus was higher in wild isopods than captive isopods. The results of this study highlight the behavioral differences between different species of isopods and the prevalence of environmental pressures in behavioral outcomes. As seen in the effects of PTSD in humans, wild isopods tended to be more cautious when faced with predator stimuli, most likely because of prior experience with life-threatening situations with predators.
+
+In a study with similar implications regarding predatory stress, “Do predator cues influence turn alternation behavior in terrestrial isopods Porcellio laevis Latreille and Armadillidium vulgare Latreille?”, researchers observed how decision-making is influenced by the possible presence of predators (Hegarty et al, 2014)). In this study, it is outlined that in nature alternating turns (left then right or right then left) appears to be a strategy to effectively move through a complex or unknown environment, “optimizing foraging success for higher quality food items” (Tuck and Hassel, 2004). To investigate whether predator cues influenced the ways isopods navigate the environment, isopods were observed for maze performance with short term and long-lasting olfactory cues from predatory ants. Groups of isopods were placed into a maze and exposed to either direct or indirect short term olfactory cues or direct or indirect long-term olfactory cues while researchers observed changes in turn alternation and navigation mechanisms. It was found that isopods did not increase turn alternation while exposed to short-term cues, however both species exhibited increased turn alternation when exposed to long-term indirect predator cues. The results from this study highlight the importance and presence of an evolutionary defense mechanism used to navigate one’s environment with the threat of predation.
+Physical environment and climate change are other natural stressors used to investigate the behaviors of isopods. In the research study, “Isopod physiological and behavioral responses to drier conditions: An experiment with four species in the context of global warming”, researchers used woodlice, a known bioindicator of global warming, to investigate the sensitivity of four different species of isopods (A. Vulgare, P. Scaber, O. asellus, and P. muscorum) to the effects of relative air humidity at 90% and 50% (Dransart, 2019). It was found that the survival rate across species and genders decreased as the relative humidity (RH) decreased. Additionally, the dry conditions of 50% RH also led to a great decrease in weight change when compared to species housed in 90% RH. Although A. vulgare and O. asellus were found to be most sensitive to negative environmental change and P. scaber and P. muscorum were the least affected, all species suffered negative physiological effects with drier conditions. The results of this study allow researchers to draw predictions on the behavioral impacts of global warming, inferring that as the air becomes drier, isopods will begin to seek refuge and safe environments and spend less time foraging in harsh and changing conditions.
+The environmental implications of climate change have become increasingly prevalent in the last 2 decades as scientists investigate how life on Earth may change due to environmental neglect. In the research study, “Predicting the effect of climate change on aggregation behaviour in four species of terrestrial isopods”, researchers assess the effects of humidity on the clumping together of isopod species to retain moisture (Hassall, 2009). To investigate the effects of humidity and temperature on aggregation behavior, researchers separated 4 species into groups and observed their behavior in containers with different levels of humidity. It was found that all but one of the 4 species observed exhibited increased aggregation behavior when placed in higher temperatures. Additionally, all but one species of the observed isopods exhibited increased aggregation behavior when exposed to decreased humidity. In both experiments, the species which was not affected as much as the others was A. vulgare. Researchers point to this species’ fitness to survive in hotter temperatures with drier air, highlighting this species’ evolutionary advantage.
+Another research study titled, “Influence of oxygen levels on the predatory behavior of the isopod Saduria entomon”, researchers investigated how oxygen levels impact predatory behavior of crustaceans (Johanssen, 1999). To determine if oxygen levels influenced the amount of predatory behavior, researchers observed interactions between this species of isopod and its natural prey, the amphipods Manoporeia affinis and Pontoporeia femorata. This experimental design aimed to study how decreased oxygen levels derivative of climate change impact the behavior and physiological health of isopods. It was found that as oxygen levels decreased, so did the amount of predatory behavior among Saduria entomon. The most significant decrease in predatory behavior was found at 33% oxygen saturation with nearly complete immobility in the isopods at 8% oxygen saturation. It was found that isopod predatory behavior decreased as a result of low oxygen levels due to the physical deterioration of predator species, rather than the vulnerability of the prey species.
+In the present study, researchers investigated which sorts of substrates pill and sow bugs preferred over time. Like the research studies discussed so far, the implications of this study lie in the field of climate change and global warming research, magnifying behavioral changes in isopods to different environmental conditions. Several substrate combinations were paired for preference testing among pill and sow bugs: wet versus dry, rough versus smooth, dark versus light, and warm versus cold. The substrate combinations chosen for this study reflect the environment of various natural settings with juxtaposing conditions being paired with another. Researchers surmised that both pill and sow bugs would prefer wet, smooth, dark, and cold substrates because these conditions best align with the rich soil these isopods naturally inhabit. 
+
+## Methods
+To investigate terrain preference among pill and sow bugs, four substrate combinations were identified: wet versus dry substrate (moist paper and container), rough versus smooth substrate (container and sand), dark versus light substrate (white and dark paper), and warm versus cold substrate (ice pack and sandbag). Each substrate combination was put into small containers and 4 4 pill or sow bugs were placed on both substrates (total of 8). The two species were never in the same container at the same time. Finally, the number of animals on each side of the container was recorded every 30 seconds for 15 minutes (Figures 5-8). Chi-squared tests for independence were calculated for each of the 4 substrate combinations to determine whether statistical significance existed between pill and sow bugs in their terrain preference.
+
+### Results
+The wet versus dry preference analysis determined there was a significant difference in the type of substrate pill and sow bugs preferred, (X2=13.46, p > .01, V=.17) (Figure 1). Using Cramer’s V, it was found that the preference of the wet substrate over the dry substrate had a small statistical effect.
+
+```{r}
+
+# Create contingency Table
+wet_dry_table <- matrix(c(140, 100, 178, 62), nrow = 2, byrow = TRUE,
+                        dimnames = list("Bug Type" = c("Sow Bugs", "Pill Bugs"),
+                                        "Terrain Type" = c("Wet", "Dry")))
+print(wet_dry_table)
+```
+
+```{r}
+
+#Run chi-squared test for independence
+wet_dry_chi <- chisq.test(wet_dry_table)
+
+print(wet_dry_chi)
+```
+
+```{r fig.cap="Figure 1: Terrain Preferences for Bugs (Wet v. Dry)."}
+
+# Load necessary library
+library(ggplot2)
+library(tidyr)
+
+# Create the data as a wide format data frame
+wet_dry_df <- data.frame(
+  Bug_Type = c('Sow Bugs', 'Pill Bugs'),
+  Wet = c(140, 178),
+  Dry = c(100, 62)
+)
+
+# Reshape the data from wide to long format
+wd_long <- pivot_longer(wet_dry_df, cols = c(Wet, Dry), 
+                          names_to = "Terrain_Type", values_to = "Count")
+
+# Create the bar plot
+ggplot(wd_long, aes(x = Terrain_Type, y = Count, fill = Bug_Type)) +
+  geom_bar(stat = "identity", position = "dodge") +  # Use "dodge" for side-by-side bars
+  xlab("Terrain Type") +
+  ylab("Count") +
+  ggtitle("Count of Bugs by Terrain Type") +
+  theme_minimal()
+
+```
+
+When the same chi-squared analysis was employed to assess the preference of smooth or rough substrate, it was determined that there was no significant difference between pill and sow bug terrain preference, (X2=0.6109, p > .05,).
+
+```{r}
+#Create contingency table
+smooth_rough_table <- matrix(c(64, 176, 70, 170), nrow = 2, byrow = TRUE,
+                         dimnames = list("Bug Type" = c("Sow Bugs", "Pill Bugs"),
+                                         "Terrain Type" = c("Smooth", "Rough")))
+print(smooth_rough_table)
+```
+
+```{r}
+smooth_rough_chi <- chisq.test(smooth_rough_table)
+
+print(smooth_rough_chi)
+```
+
+```{r fig.cap="Figure 2: Terrain Preferences for Bugs."}
+
+# Load necessary library
+library(ggplot2)
+library(tidyr)
+
+# Create the data as a wide format data frame
+rough_smooth_df <- data.frame(
+  Bug_Type = c('Sow Bugs', 'Pill Bugs'),
+  Smooth = c(64, 70),
+  Rough = c(176, 170)
+)
+
+# Reshape the data from wide to long format
+sr_long <- pivot_longer(rough_smooth_df, cols = c(Smooth, Rough), 
+                          names_to = "Terrain_Type", values_to = "Count")
+
+# Create the bar plot
+ggplot(sr_long, aes(x = Terrain_Type, y = Count, fill = Bug_Type)) +
+  geom_bar(stat = "identity", position = "dodge") +  # Use "dodge" for side-by-side bars
+  xlab("Terrain Type") +
+  ylab("Count") +
+  ggtitle("Count of Bugs by Terrain Type") +
+  theme_minimal()
+
+```
+The dark and light substrate analysis showed that pill and sow bugs preferred to spend time in dark substrates than light ones, (X2= 21.7, p >.01, V = 0.21) (Figure 3). It was found that a small statistical effect existed in the analysis of dark and light substrate preference.
+
+In the final cold and warm substrate preference analysis, it was determined there was a significant difference between cold and warm substrate preference, (X2= 8.8, p > .01, V = 0.16) (Figure 4). Using Cramer’s V, a small statistical effect was found in both pill and sow bug preference of cold substrates over warm substrates.
+
+#### Discussion
+With temperatures gradually rising with each year, it has become prevalent that research into the consequences of global warming take place. The various environmental changes that come with temperature increases have negative outcomes for animal life, as evidenced in the research studies “Influence of oxygen levels on the predatory behavior of the isopod Saduria entomon” and “Predicting the effect of climate change on aggregation behaviour in four species of terrestrial isopods”. 
+The present study aimed to assess how pill and sow bugs prefer to live while exposing conditions that are nonpreferable and akin to conditions growing due to climate change. The researcher’s hypothesis was mostly correct with wet, cold, and dark substrates being preferred over dry, warm, and light substrates. However, the null hypothesis was accepted and the researcher’s hypothesis was found to be incorrect for the smooth versus rough substrate preference analysis as both pill and sow bugs preferred the rough substrate.
+The main limitation of this study was the time for which the isopods were observed. As this was a one-day study, further statistical analysis and results could be drawn with more trials over several days. Future experiments could further magnify the behavioral consequences of isopods through temperature analysis. Isopod preference in different biomes such as the desert, tundra, and swamplands could expand the findings from this study.
+
