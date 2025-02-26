@@ -475,4 +475,7 @@ TAs may recommend engagement points provisionally, but the instructor will make 
 
 Additional comments: 
 
+Mian: Good job. I want to mention that for each mini project you work on, there will be a README.md file where you can find what are the designed assessed and unassessed objectives, in case you did not notice that. For example, this mini project is designed for Assessed: 5, 6, 8, 9, 10, 11, 12 and Unassessed: 1, 2, 5, 9, 14. Hope this helps with managing to hit the objectives more efficiently.
+
+
 
