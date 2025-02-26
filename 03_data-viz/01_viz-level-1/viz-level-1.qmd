@@ -156,7 +156,7 @@ Recreate this scatter plot of car weight vs. miles per gallon:
 #| label: plot3-scatterplot
 
 ggplot(mtcars.viz, aes(x = wt, y = mpg)) +
-  geom_point(shape = 17) +
+  geom_point(shape = "triangle") +
   labs(title = "Scatterplot of Weight by MPG ", x = "Weight", y = "miles_per_gallon")
 
 
