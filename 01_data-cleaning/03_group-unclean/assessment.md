@@ -56,7 +56,7 @@ Below each learning objective is a list of general expectations for meeting that
         -   [ ] Objective attempt
         -   [x] Unique objective attempt
         -   [ ] Objective met
-        -   Grader comments: 
+        -   Grader comments: For this one to be achieved, we expect a repository built by yourself and you created folders. For example, check out [07_git-github/01_skeleton-repo](07_git-github/01_skeleton-repo).
 
 2.  Maintain an informative and up-to-date README.md
 
@@ -76,7 +76,7 @@ Below each learning objective is a list of general expectations for meeting that
         -   [ ] Objective attempt
         -   [x] Unique objective attempt
         -   [ ] Objective met
-        -   Grader comments:
+        -   Grader comments: See the same reason in objective 1; a `.gitignore` file is also expected.
 
 4.  Effectively use version control
 
@@ -107,7 +107,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [x] Objective attempt
         -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 7.  Parse and define functions and arguments
@@ -128,7 +128,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [ ] Objective attempt
         -   [x] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 ### Tidyverse
@@ -151,7 +151,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [x] Objective attempt
         -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 11. Use `stringr` functions to work with string variables
@@ -461,11 +461,11 @@ Thoughtful reflections may earn engagement points.
 
 ## Grader feedback
 
--   Grader:
--   Date:
--   Points toward unique objectives (up to 20):
--   Additional points (up to 20):
--   TA provisional engagement points (up to 10):
+-   Grader: Mian
+-   Date: Feb 19, 2025
+-   Points toward unique objectives (up to 20): 1
+-   Additional points (up to 20): 3 = 2 objective met + 1 unassessed. It's not very clear which unassessed objectives are attempted in this project/it does not align well with the designed unassessed objectives, though.
+-   TA provisional engagement points (up to 10): 5
 -   Final approved engagement points (up to 10):
 -   Total points (up to 50):
 
