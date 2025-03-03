@@ -29,10 +29,10 @@ This document tracks your progress meeting 20 unique objectives across all mini-
 
 ## Data visualization with ggplot2
 
-13. [ ] Produce 1- and 2-variable plots with `geom_*` layers
-14. [ ] Use dynamic aesthetics to group data
-15. [ ] Use facets to create parallel plots
-16. [ ] Create publication-quality plots using `theme` and `labs` layers
+13. [x] Produce 1- and 2-variable plots with `geom_*` layers
+14. [x] Use dynamic aesthetics to group data
+15. [x] Use facets to create parallel plots
+16. [x] Create publication-quality plots using `theme` and `labs` layers
 
 ## Data analysis
 
@@ -47,7 +47,7 @@ This document tracks your progress meeting 20 unique objectives across all mini-
 
 ## Notebooks and code chunks
 
-22. [ ] Create and effectively use code chunks following best practices
+22. [x] Create and effectively use code chunks following best practices
 23. [ ] Use code chunks to set up a quarto document
 24. [ ] Render publication-quality tables, figures, and images from code chunks
 25. [ ] Execute descriptive analyses and/or hypothesis testing in code chunks
