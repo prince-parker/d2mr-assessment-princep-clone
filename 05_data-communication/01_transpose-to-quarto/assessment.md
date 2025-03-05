@@ -54,7 +54,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [ ] Objective attempt
         -   [x] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments: 
 
 2.  Maintain an informative and up-to-date README.md
@@ -64,8 +64,8 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [ ] Objective attempt
         -   [x] Unique objective attempt
-        -   [ ] Objective met
-        -   Grader comments:
+        -   [x] Objective met
+        -   Grader comments: Improvement could be made here. I understand this is for practice, but do add more details to your README.md file when you work on a real project, include information especially about where the new user should start with among multiple files.
 
 3.  Integrate a GitHub repo with an R studio project, including .gitignore file
 
@@ -74,7 +74,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [ ] Objective attempt
         -   [x] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 4.  Effectively use version control
@@ -82,9 +82,9 @@ Below each learning objective is a list of general expectations for meeting that
     1.  Used frequent, informative commit messages
     2.  Relies on document revisions rather than manually created new versions
 
-        -   [x] Objective attempt
-        -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [ ] Objective attempt
+        -   [x] Unique objective attempt
+        -   [x] Objective met
         -   Grader comments:
 
 ### R programming
@@ -97,7 +97,7 @@ Below each learning objective is a list of general expectations for meeting that
         -   [ ] Objective attempt
         -   [x] Unique objective attempt
         -   [ ] Objective met
-        -   Grader comments:
+        -   Grader comments: In file `Insect Terrain Preference.qmd`, the name of .bib file is not specified correctly. You should change it into `bibliography: TransposeMini3.bib` since that's the bib file name.
 
 6.  Use arithmetic, comparison, and logical operators
 
@@ -182,7 +182,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [x] Objective attempt
         -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 14. Use dynamic aesthetics to group data
@@ -191,7 +191,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [x] Objective attempt
         -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 15. Use facets to create parallel plots
@@ -213,7 +213,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [x] Objective attempt
         -   [ ] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 ### Data analysis
@@ -237,7 +237,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [ ] Objective attempt
         -   [x] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 19. Present and interpret statistics in manuscript narrative
@@ -263,7 +263,7 @@ Below each learning objective is a list of general expectations for meeting that
         -   [ ] Objective attempt
         -   [x] Unique objective attempt
         -   [ ] Objective met
-        -   Grader comments:
+        -   Grader comments: While you added in-text citations by hand, e.g. "Gatti et al, 2020", it does not seem to include any in-text citations with BibTex syntax. Feel free to correct me if it does!
 
 21. Render an APA7 references page from a .bib file
 
@@ -275,8 +275,8 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [ ] Objective attempt
         -   [x] Unique objective attempt
-        -   [ ] Objective met
-        -   Grader comments:
+        -   [x] Objective met
+        -   Grader comments: Note that the script includes a wrong name of the bib file as specified in my comment for the objective 5.
 
 ### Notebooks and code chunks
 
@@ -287,10 +287,10 @@ Below each learning objective is a list of general expectations for meeting that
     3.  Follows the "1-chunk-1-thing" rule
     4.  Chunks are distributed throughout the manuscript, sensibly placed near the text they support
 
-        -   [ ] Objective attempt
-        -   [x] Unique objective attempt
+        -   [x] Objective attempt
+        -   [ ] Unique objective attempt
         -   [ ] Objective met
-        -   Grader comments: 
+        -   Grader comments: Many chunks do not include the chunk label.
         
 23. Use code chunks to set up a quarto document
 
@@ -327,7 +327,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [ ] Objective attempt
         -   [x] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 ### R Markdown and quarto
@@ -338,7 +338,7 @@ Below each learning objective is a list of general expectations for meeting that
 
         -   [ ] Objective attempt
         -   [x] Unique objective attempt
-        -   [ ] Objective met
+        -   [x] Objective met
         -   Grader comments:
 
 27. Use quarto R Markdown to compose an academic manuscript
@@ -362,7 +362,7 @@ Below each learning objective is a list of general expectations for meeting that
         -   [ ] Objective attempt
         -   [x] Unique objective attempt
         -   [ ] Objective met
-        -   Grader comments:
+        -   Grader comments: It does not include any inline R in the format of ``r your_variable_name``. 
 
 29. Run inline R functions to render dynamic data-dependent text
 
@@ -462,9 +462,9 @@ Thoughtful reflections may earn engagement points.
 
 -   Grader:
 -   Date:
--   Points toward unique objectives (up to 20):
--   Additional points (up to 20):
--   TA provisional engagement points (up to 10):
+-   Points toward unique objectives (up to 20): 7
+-   Additional points (up to 20): 3 objectives met
+-   TA provisional engagement points (up to 10): 6
 -   Final approved engagement points (up to 10):
 -   Total points (up to 50):
 
@@ -474,4 +474,4 @@ TAs may recommend engagement points provisionally, but the instructor will make 
 
 Additional comments: 
 
-
+Mian: Good job. Please read my comments carefully and feel free to reach out for any issues/resubmit to hit more objectives.
