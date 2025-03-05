@@ -465,8 +465,8 @@ Thoughtful reflections may earn engagement points.
 -   Points toward unique objectives (up to 20): 0
 -   Additional points (up to 20): 8 objectives + 1 unassessed objective (I'm leaving this point to you, but do double check the list of unassessed objectives that Natalie has laied out in the assessment file and see if you did any of them in your work - I'm sure you did some of them!)
 -   TA provisional engagement points (up to 10): 6
--   Final approved engagement points (up to 10):
--   Total points (up to 50):
+-   Final approved engagement points (up to 10): 0 (maxed out!)
+-   Total points (up to 50): 8
 
 Engagement points are awarded for going above and beyond the expectations of the project and are not guaranteed on any given submission. Demonstrating the assessed learning objectives earns you points in those categories, but engagement points are awarded for exceptional effort, creativity, or skill.
 
