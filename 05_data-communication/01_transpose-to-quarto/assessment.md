@@ -21,7 +21,7 @@ Mini-project title: Transpose to Quarto
 
 Submission date: 3/5/2025
 
-Project GitHub subdirectory URL: https://github.com/prince-parker/Insect_Files
+Project GitHub subdirectory URL: https://github.com/prince-parker/d2mr-assessment-princep-clone/tree/main/05_data-communication/01_transpose-to-quarto
 
 URL or instructions to access additional materials, if needed:
 
